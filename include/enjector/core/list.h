@@ -17,8 +17,9 @@
 */
 
 #pragma once
+
 #include <stdbool.h>
-#include <vcruntime.h>
+#include <stddef.h>
 
 typedef struct list_item_t {
     void* value;
@@ -38,19 +39,19 @@ list*		_list_create(const char* filename, unsigned int line);
 #define		list_create() _list_create(__FILE__, __LINE__);
 void		list_add(list* l, void* value);
 void		list_add_with_type(list* l, const char* type, void* value);
-list_item*	list_get_item(list* l, const unsigned int index);	// TODO: list_get_item_at
-void*		list_get_value(list* l, const unsigned index);
-list_item** list_enumerable(list* l);
+list_item*	list_get_item(const list* l, const unsigned int index);	// TODO: list_get_item_at
+void*		list_get_value(const list* l, const unsigned index);
+list_item** list_enumerable(const list* l);
 void		list_remove_item(list* l, list_item* item);
 void		list_remove_item_at(list* l, unsigned int index);
 void		list_dispose_item_at(list* l, unsigned int index);
 void        list_dispose_item_by_value(list* l, void* value);
 bool        list_remove_item_by_value(list* l, void* value);
-int			list_count(list* l);
+int			list_count(const list* l);
 void		list_clear(list* l);
 void		list_free(list* l);
-void		list_take_right(list* source, const size_t count, list* target);
-void		list_take(list* source, const size_t count, list* target);
+void		list_take_right(const list* source, const size_t count, list* target);
+void		list_take(const list* source, const size_t count, list* target);
 
 #define list(type, name) \
     list* name = list_create();\

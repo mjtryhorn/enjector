@@ -16,6 +16,7 @@
 * limitations under the License.
 */
 
+#include <enjector/core/limits.h>
 #include <enjector/core/list.h>
 #include <enjector/core/xmemory.h>
 
@@ -23,15 +24,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <memory.h>
-
-#define DEFAULT_STREAM_CAPACITY 10
 
 list* _list_create(const char* filename, unsigned int line) {
     list* l = _xmemory_malloc(sizeof(list), filename, line);
-    l->data = (list_item**)_xmemory_malloc(sizeof(list_item*) * DEFAULT_STREAM_CAPACITY, filename, line);
+    l->data = (list_item**)_xmemory_malloc(sizeof(list_item*) * LIST_DEFAULT_STREAM_CAPACITY, filename, line);
     l->length = 0;
-    l->stream_capacity = DEFAULT_STREAM_CAPACITY;
+    l->stream_capacity = LIST_DEFAULT_STREAM_CAPACITY;
 
     l->alloc_filename = xmemory_strdup(filename);
     l->alloc_line = line;
@@ -54,7 +52,7 @@ void list_add_with_type(list* l, const char* type, void* value) {
 
     if(space_left < 0) {
         // Resize
-        l->stream_capacity += 1 + DEFAULT_STREAM_CAPACITY;
+        l->stream_capacity += 1 + LIST_DEFAULT_STREAM_CAPACITY;
         list_item** resized_buffer = (list_item**)_xmemory_malloc(sizeof(list_item*) * l->stream_capacity, l->alloc_filename, l->alloc_line);
         memmove(resized_buffer, l->data, sizeof(list_item*) * l->length);
         xmemory_free(l->data);
@@ -69,7 +67,7 @@ void list_add_with_type(list* l, const char* type, void* value) {
     l->length++;
 }
 
-void list_add(list* l, void* value) {
+void list_add( list* l, void* value) {
     list_add_with_type(l, NULL, value);
 }
 
@@ -81,7 +79,7 @@ void list_item_free(list_item* item) {
     xmemory_free(item);
 }
 
-list_item** list_enumerable(list* l) {
+list_item** list_enumerable(const list* l) {
     assert(l);
 
     return l->data;
@@ -247,14 +245,14 @@ void list_dispose_item_at(list* l, unsigned int index) {
     l->length--;
 }
 
-list_item* list_get_item(list* l, const unsigned int index) {
+list_item* list_get_item(const list* l, const unsigned int index) {
     assert(l);
     assert(index < l->length);
 
     return l->data[index];
 }
 
-void* list_get_value(list* l, const unsigned index) {
+void* list_get_value(const list* l, const unsigned index) {
     list_item* item = list_get_item(l, index);
 
     if(item == NULL) {
@@ -264,7 +262,7 @@ void* list_get_value(list* l, const unsigned index) {
     return item->value;
 }
 
-int list_count(list* l) {
+int list_count(const list* l) {
     assert(l);
 
     return l->length;
@@ -295,7 +293,7 @@ void list_free(list* l) {
     xmemory_free(l);
 }
 
-void list_take(list* source, const size_t count, list* target) {
+void list_take(const list* source, const size_t count, list* target) {
     list_item** items = list_enumerable(source);
     const size_t items_count = count <= list_count(source) ? count : list_count(source);
 
@@ -305,7 +303,7 @@ void list_take(list* source, const size_t count, list* target) {
     }
 }
 
-void list_take_right(list* source, const size_t count, list* target) {
+void list_take_right(const list* source, const size_t count, list* target) {
     list_item** items = list_enumerable(source);
     const size_t total_items_count = list_count(source);
     const size_t items_count = count <= list_count(source) ? count : list_count(source);
