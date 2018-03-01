@@ -22,17 +22,20 @@
 #include "clock_stopwatch_tests.h"
 #include "clock_timer_tests.h"
 #include "promise_tests.h"
+#include "list_tests.h"
 
 test_suite tests[] = {
     { "test_tests", test_tests },
+
+#ifdef _DEBUG
+    { "xmemory_tests", xmemory_tests },
+#endif
+
     { "clock_tests", clock_tests },
     { "clock_stopwatch_tests", clock_stopwatch_tests },
     { "clock_timer_tests", clock_timer_tests },
     { "promise_tests", promise_tests },
-
-#ifdef _DEBUG
-    { "xmemory_tests", xmemory_tests},
-#endif
+    { "list_tests", list_tests },
 
     TEST_SUITE_END
 };
