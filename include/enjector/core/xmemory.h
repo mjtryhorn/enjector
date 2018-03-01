@@ -36,6 +36,7 @@ typedef struct memory_allocation_t {
 
 void*		_xmemory_malloc(unsigned long size, const char* filename, unsigned int line);
 #define		xmemory_malloc(size) _xmemory_malloc(size, __FILE__, __LINE__)
+#define		xmemory_new(type) (type*) _xmemory_malloc(sizeof(type), __FILE__, __LINE__)
 
 char*       _xmemory_strdup(const char* str, const char* filename, unsigned int line);
 #define		xmemory_strdup(str) _xmemory_strdup(str, __FILE__, __LINE__)

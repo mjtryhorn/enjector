@@ -159,10 +159,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\enjector\core\async.h" />
     <ClInclude Include="..\include\enjector\core\clock.h" />
     <ClInclude Include="..\include\enjector\core\clock_stopwatch.h" />
     <ClInclude Include="..\include\enjector\core\clock_timer.h" />
     <ClInclude Include="..\include\enjector\core\limits.h" />
+    <ClInclude Include="..\include\enjector\core\list.h" />
     <ClInclude Include="..\include\enjector\core\promise.h" />
     <ClInclude Include="..\include\enjector\core\sleep.h" />
     <ClInclude Include="..\include\enjector\core\test.h" />
@@ -172,6 +174,7 @@
     <ClCompile Include="clock_stopwatch.c" />
     <ClCompile Include="clock_timer.c" />
     <ClCompile Include="clock_win32.c" />
+    <ClCompile Include="list.c" />
     <ClCompile Include="promise.c" />
     <ClCompile Include="sleep_unix.c" />
     <ClCompile Include="sleep_win32.c" />
