@@ -172,6 +172,7 @@
     <ClCompile Include="clock_timer_tests.c" />
     <ClCompile Include="list_tests.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="map_tests.c" />
     <ClCompile Include="promise_tests.c" />
     <ClCompile Include="test_tests.c" />
     <ClCompile Include="xmemory_tests.c" />
@@ -181,6 +182,7 @@
     <ClInclude Include="clock_tests.h" />
     <ClInclude Include="clock_timer_tests.h" />
     <ClInclude Include="list_tests.h" />
+    <ClInclude Include="map_tests.h" />
     <ClInclude Include="promise_tests.h" />
     <ClInclude Include="test_tests.h" />
     <ClInclude Include="xmemory_tests.h" />

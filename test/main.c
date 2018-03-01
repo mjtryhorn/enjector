@@ -21,8 +21,9 @@
 #include "clock_tests.h"
 #include "clock_stopwatch_tests.h"
 #include "clock_timer_tests.h"
-#include "promise_tests.h"
 #include "list_tests.h"
+#include "map_tests.h"
+#include "promise_tests.h"
 
 test_suite tests[] = {
     { "test_tests", test_tests },
@@ -34,8 +35,9 @@ test_suite tests[] = {
     { "clock_tests", clock_tests },
     { "clock_stopwatch_tests", clock_stopwatch_tests },
     { "clock_timer_tests", clock_timer_tests },
-    { "promise_tests", promise_tests },
     { "list_tests", list_tests },
+    { "map_tests", map_tests },
+    { "promise_tests", promise_tests },
 
     TEST_SUITE_END
 };
