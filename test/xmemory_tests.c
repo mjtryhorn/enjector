@@ -25,7 +25,7 @@
 static void should_successfully_allocate_memory_and_add_to_tracking() {
     memory_allocation* allocations[XMEMORY_MAX_ALLOCATIONS];
     unsigned int allocations_total;
-    char* new_memory1 = (char*)xmemory_malloc(sizeof(char*));
+    char* new_memory1 = (char*) xmemory_malloc(sizeof(char*));
 
     allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
     TEST_ASSERT_EQUAL_INT_FATAL(allocations_total, 1);
@@ -45,11 +45,11 @@ static void should_successfully_add_to_an_existing_allocation_list() {
     char* new_memory1;
     char* new_memory2;
 
-    new_memory1 = (char*)xmemory_malloc(sizeof(char*));
+    new_memory1 = (char*) xmemory_malloc(sizeof(char*));
     allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
     TEST_ASSERT_EQUAL_INT_FATAL(allocations_total, 1);
 
-    new_memory2 = (char*)xmemory_malloc(sizeof(char*));
+    new_memory2 = (char*) xmemory_malloc(sizeof(char*));
     allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
     TEST_ASSERT_EQUAL_LONG(allocations_total, 2);
 
@@ -68,7 +68,7 @@ static void should_successfully_add_to_an_existing_allocation_list() {
 static void should_successfully_free_memory() {
     memory_allocation* allocations[XMEMORY_MAX_ALLOCATIONS];
 
-    char* new_memory = (char*)xmemory_malloc(sizeof(char*));
+    char* new_memory = (char*) xmemory_malloc(sizeof(char*));
 
     unsigned int allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
 
@@ -86,15 +86,15 @@ static void should_successfully_add_and_free_multiple_items_to_an_allocation_lis
     char* new_memory2;
     char* new_memory3;
 
-    new_memory1 = (char*)xmemory_malloc(sizeof(char*));
+    new_memory1 = (char*) xmemory_malloc(sizeof(char*));
     allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
     TEST_ASSERT_EQUAL_INT_FATAL(allocations_total, 1);
 
-    new_memory2 = (char*)xmemory_malloc(sizeof(char*));
+    new_memory2 = (char*) xmemory_malloc(sizeof(char*));
     allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
     TEST_ASSERT_EQUAL_INT_FATAL(allocations_total, 2);
 
-    new_memory3 = (char*)xmemory_malloc(sizeof(char*));
+    new_memory3 = (char*) xmemory_malloc(sizeof(char*));
     allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
     TEST_ASSERT_EQUAL_INT_FATAL(allocations_total, 3);
 
@@ -132,7 +132,7 @@ static void should_successfully_add_and_free_multiple_items_to_an_allocation_lis
 static void should_successfully_report_leaks() {
     bool has_leaks;
 
-    char * new_memory = (char*)xmemory_malloc(sizeof(char*));
+    char* new_memory = (char*) xmemory_malloc(sizeof(char*));
     has_leaks = xmemory_report_has_leaks();
 
     TEST_ASSERT_TRUE(has_leaks);
@@ -149,8 +149,8 @@ static void should_successfully_report_leaks() {
 static void should_successfully_report_multiple_leaks() {
     bool has_leaks;
 
-    char * new_memory1 = (char*)xmemory_malloc(sizeof(char*));
-    char * new_memory2 = (char*)xmemory_malloc(sizeof(char*));
+    char* new_memory1 = (char*) xmemory_malloc(sizeof(char*));
+    char* new_memory2 = (char*) xmemory_malloc(sizeof(char*));
 
     has_leaks = xmemory_report_has_leaks();
     TEST_ASSERT_TRUE(has_leaks);
@@ -171,14 +171,34 @@ static void should_successfully_clear_memory_report() {
     memory_allocation* allocations[XMEMORY_MAX_ALLOCATIONS];
     unsigned int allocations_total;
 
-    char* new_memory1 = (char*)xmemory_malloc(sizeof(char*));
-    char* new_memory2 = (char*)xmemory_malloc(sizeof(char*));
+    char* new_memory1 = (char*) xmemory_malloc(sizeof(char*));
+    char* new_memory2 = (char*) xmemory_malloc(sizeof(char*));
 
     xmemory_report_clear();
 
     allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
 
     TEST_ASSERT_EQUAL_LONG(allocations_total, 0);
+}
+
+static void should_successfully_duplicate_string() {
+    memory_allocation* allocations[XMEMORY_MAX_ALLOCATIONS];
+    unsigned int allocations_total;
+
+    const char* message = "Hello World";
+
+    char* message_copy = xmemory_strdup(message);
+    TEST_ASSERT_EQUAL_STRING(message, message_copy);
+
+    allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
+    TEST_ASSERT_EQUAL_LONG(allocations_total, 1);
+
+    xmemory_free(message_copy);
+
+    allocations_total = xmemory_report_fetch(allocations, XMEMORY_MAX_ALLOCATIONS);
+    TEST_ASSERT_EQUAL_LONG(allocations_total, 0);
+
+    xmemory_report_clear();
 }
 
 test xmemory_tests[] = {
@@ -189,5 +209,6 @@ test xmemory_tests[] = {
     { "should_successfully_report_leaks", should_successfully_report_leaks },
     { "should_successfully_report_multiple_leaks", should_successfully_report_multiple_leaks },
     { "should_successfully_clear_memory_report", should_successfully_clear_memory_report },
+    { "should_successfully_duplicate_string", should_successfully_duplicate_string },
     TEST_END
 };

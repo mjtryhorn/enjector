@@ -32,7 +32,7 @@ void clock_timer_init(clock_timer* timer, clock_time_quantity initial) {
 
 void clock_timer_reset(clock_timer* timer) {
     assert(timer);
-    timer->next = clock_now_milliseconds() + (double long)timer->duration;
+    timer->next = clock_now_milliseconds() + (double long) timer->duration;
     timer->reset_count++;
 }
 

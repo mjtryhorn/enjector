@@ -163,6 +163,7 @@
     <ClInclude Include="..\include\enjector\core\clock_stopwatch.h" />
     <ClInclude Include="..\include\enjector\core\clock_timer.h" />
     <ClInclude Include="..\include\enjector\core\limits.h" />
+    <ClInclude Include="..\include\enjector\core\promise.h" />
     <ClInclude Include="..\include\enjector\core\sleep.h" />
     <ClInclude Include="..\include\enjector\core\test.h" />
     <ClInclude Include="..\include\enjector\core\xmemory.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="clock_stopwatch.c" />
     <ClCompile Include="clock_timer.c" />
     <ClCompile Include="clock_win32.c" />
+    <ClCompile Include="promise.c" />
     <ClCompile Include="sleep_unix.c" />
     <ClCompile Include="sleep_win32.c" />
     <ClCompile Include="test.c" />

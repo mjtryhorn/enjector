@@ -21,12 +21,14 @@
 #include "clock_tests.h"
 #include "clock_stopwatch_tests.h"
 #include "clock_timer_tests.h"
+#include "promise_tests.h"
 
 test_suite tests[] = {
     { "test_tests", test_tests },
     { "clock_tests", clock_tests },
     { "clock_stopwatch_tests", clock_stopwatch_tests },
     { "clock_timer_tests", clock_timer_tests },
+    { "promise_tests", promise_tests },
 
 #ifdef _DEBUG
     { "xmemory_tests", xmemory_tests},
@@ -35,7 +37,7 @@ test_suite tests[] = {
     TEST_SUITE_END
 };
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char* argv[]) {
     // Return 0 for success and 1 fo failure
     return test_run(tests) ? 0 : 1;
 }

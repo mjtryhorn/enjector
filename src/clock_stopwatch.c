@@ -64,7 +64,7 @@ clock_time_quantity clock_stopwatch_elapsed(clock_stopwatch* stopwatch) {
     assert(stopwatch);
 
     // If the stopwatch hasn't finished then update the elapsed
-    if (stopwatch->end == 0) {
+    if(stopwatch->end == 0) {
         clock_time_quantity now = clock_now_milliseconds();
         stopwatch->elapsed = now - stopwatch->start;
     }
@@ -115,7 +115,7 @@ void clock_stopwatch_elapsed_print(clock_stopwatch* stopwatch) {
 double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count) {
     assert(stopwatch);
 
-    if (count <= 0) {
+    if(count <= 0) {
         return 0;
     }
 
@@ -131,7 +131,7 @@ double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count) {
 void clock_stopwatch_rate_print(clock_stopwatch* stopwatch, const char* name, int count) {
     assert(stopwatch);
 
-    if (count <= 0) {
+    if(count <= 0) {
         return;
     }
 

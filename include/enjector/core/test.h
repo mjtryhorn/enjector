@@ -22,7 +22,7 @@
 
 typedef struct test_t {
     const char* name;
-    void(*test_function)();
+    void (*test_function)();
 } test;
 
 typedef struct test_suite_t {
