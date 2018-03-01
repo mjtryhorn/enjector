@@ -1,3 +1,10 @@
+# Visual Studio
+.idea/
+.vs/
+obj/
+*.filters
+*.user
+
 # Prerequisites
 *.d
 
