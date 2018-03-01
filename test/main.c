@@ -1,7 +1,7 @@
 /*
 * main.c
 *
-* Copyright 2004-2019 Enjector Software, Ltd.
+* Copyright 2004-2018 Enjector Software, Ltd.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -18,9 +18,15 @@
 
 #include "test_tests.h"
 #include "xmemory_tests.h"
+#include "clock_tests.h"
+#include "clock_stopwatch_tests.h"
+#include "clock_timer_tests.h"
 
 test_suite tests[] = {
-    { "test_tests", test_tests},
+    { "test_tests", test_tests },
+    { "clock_tests", clock_tests },
+    { "clock_stopwatch_tests", clock_stopwatch_tests },
+    { "clock_timer_tests", clock_timer_tests },
 
 #ifdef _DEBUG
     { "xmemory_tests", xmemory_tests},

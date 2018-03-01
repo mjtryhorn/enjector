@@ -1,7 +1,7 @@
 /*
 * test_tests.h
 *
-* Copyright 2004-2019 Enjector Software, Ltd.
+* Copyright 2004-2018 Enjector Software, Ltd.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.

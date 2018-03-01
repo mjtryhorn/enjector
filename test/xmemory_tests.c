@@ -1,7 +1,7 @@
 /*
 * xmemory_tests.c
 *
-* Copyright 2004-2019 Enjector Software, Ltd.
+* Copyright 2004-2018 Enjector Software, Ltd.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -144,7 +144,6 @@ static void should_successfully_report_leaks() {
     TEST_ASSERT_FALSE(has_leaks);
 
     xmemory_report_clear();
-
 }
 
 static void should_successfully_report_multiple_leaks() {

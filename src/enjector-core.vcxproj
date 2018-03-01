@@ -159,11 +159,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\enjector\core\clock.h" />
+    <ClInclude Include="..\include\enjector\core\clock_stopwatch.h" />
+    <ClInclude Include="..\include\enjector\core\clock_timer.h" />
     <ClInclude Include="..\include\enjector\core\limits.h" />
+    <ClInclude Include="..\include\enjector\core\sleep.h" />
     <ClInclude Include="..\include\enjector\core\test.h" />
     <ClInclude Include="..\include\enjector\core\xmemory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="clock_stopwatch.c" />
+    <ClCompile Include="clock_timer.c" />
+    <ClCompile Include="clock_win32.c" />
+    <ClCompile Include="sleep_unix.c" />
+    <ClCompile Include="sleep_win32.c" />
     <ClCompile Include="test.c" />
     <ClCompile Include="xmemory.c" />
   </ItemGroup>
