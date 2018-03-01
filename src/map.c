@@ -19,6 +19,7 @@
 #include <enjector/core/limits.h>
 #include <enjector/core/map.h>
 #include <enjector/core/xmemory.h>
+#include <enjector/core/text.h>
 
 #include <assert.h>
 #include <stdio.h>
@@ -30,7 +31,7 @@ map* _map_create(const char* filename, unsigned int line) {
     m->length = 0;
     m->stream_capacity = LIST_DEFAULT_STREAM_CAPACITY;
 
-    m->alloc_filename = xmemory_strdup(filename);
+    m->alloc_filename = text_clone(filename);
     m->alloc_line = line;
 
     return m;
@@ -44,20 +45,21 @@ bool map_set_with_type(map* m, const char* name, const char* type, void* value) 
     // Check if its already set with the same name
     map_item* item = map_get_item(m, name);
 
-    if (item != NULL) {
+    if(item != NULL) {
         item->value = value;
         return true;
     }
 
     // Check if destination is a stream
-    if (m->stream_capacity == 0) {
+    if(m->stream_capacity == 0) {
         printf("map not a stream");
         assert(0);
     }
 
     // Check if there's enough capacity in the stream, resize otherwise
     const int space_left = m->stream_capacity - (m->length + 1);
-        if (space_left < 0) {
+
+    if(space_left < 0) {
         // Resize
         m->stream_capacity += 1 + LIST_DEFAULT_STREAM_CAPACITY;
         map_item** resized_buffer = (map_item**)_xmemory_malloc(sizeof(map_item*) * m->stream_capacity, m->alloc_filename, m->alloc_line);
@@ -68,8 +70,8 @@ bool map_set_with_type(map* m, const char* name, const char* type, void* value) 
 
     // Append
     item = xmemory_new(map_item);
-    item->name = xmemory_strdup(name);
-    item->type = type != NULL ? xmemory_strdup(type) : NULL;
+    item->name = text_clone(name);
+    item->type = type != NULL ? text_clone(type) : NULL;
     item->value = value;
     m->data[m->length] = item;
     m->length++;
@@ -88,13 +90,13 @@ map_item* map_get_item(const map* m, const char* name) {
     assert(m);
     assert(name);
 
-    for (i = 0; i < m->length; i++) {
+    for(i = 0; i < m->length; i++) {
         item = m->data[i];
 
         assert(item);
         assert(item->name);
 
-        if (!strcmp(item->name, name)) {
+        if(text_equals(item->name, name)) {
             return item;
         }
     }
@@ -118,7 +120,7 @@ bool map_exists(const map* m, const char* name) {
 void* map_get_value(const map* m, const char* name) {
     map_item* item = map_get_item(m, name);
 
-    if (item == NULL) {
+    if(item == NULL) {
         return NULL;
     }
 
@@ -138,8 +140,8 @@ unsigned int map_count(const map* m) {
 void map_clear(map* m) {
     assert(m);
 
-    for (int i = 0; i < m->length; i++) {
-        map_item * item = m->data[i];
+    for(int i = 0; i < m->length; i++) {
+        map_item* item = m->data[i];
         map_item_free(item);
     }
 
@@ -149,7 +151,7 @@ void map_clear(map* m) {
 void map_free(map* m) {
     map_clear(m);
 
-    if (m->alloc_filename) xmemory_free(m->alloc_filename);
+    if(m->alloc_filename) xmemory_free(m->alloc_filename);
 
     xmemory_free(m->data);
     xmemory_free((void*) m);
@@ -159,7 +161,7 @@ void map_item_free(map_item* item) {
     assert(item);
     assert(item->name);
 
-    if (item->type) {
+    if(item->type) {
         xmemory_free(item->type);
     }
 
@@ -175,19 +177,19 @@ void map_remove(map* m, const char* name) {
 
     map_item** items = map_enumerable(m);
 
-    for (int i = 0; i < m->length; i++) {
+    for(int i = 0; i < m->length; i++) {
         map_item* item = m->data[i];
 
         assert(item);
         assert(item->name);
 
-        if (!strcmp(item->name, name)) {
+        if(text_equals(item->name, name)) {
 
             // Remove the slot
             map_item_free(item);
 
             // If at the end, skip block moving
-            if (i != items_count - 1) {
+            if(i != items_count - 1) {
                 // Move block
                 void* from = &items[i + 1];
                 void* to = &items[i];
@@ -212,15 +214,15 @@ void map_item_dispose(map* m, const char* name) {
 
     map_item** items = map_enumerable(m);
 
-    for (int i = 0; i < m->length; i++) {
+    for(int i = 0; i < m->length; i++) {
         map_item* item = m->data[i];
 
         assert(item);
         assert(item->name);
 
-        if (!strcmp(item->name, name)) {
+        if(text_equals(item->name, name)) {
 
-            if (item->value) {
+            if(item->value) {
                 xmemory_free(item->value);
             }
 
@@ -228,7 +230,7 @@ void map_item_dispose(map* m, const char* name) {
             map_item_free(item);
 
             // If at the end, skip block moving
-            if (i != items_count - 1) {
+            if(i != items_count - 1) {
 
                 // Move block
                 void* from = &items[i + 1];

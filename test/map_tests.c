@@ -1,5 +1,5 @@
 /*
-* list_tests.c
+* map_tests.c
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *
@@ -20,6 +20,7 @@
 
 #include <enjector/core/map.h>
 #include <enjector/core/xmemory.h>
+#include <enjector/core/text.h>
 
 #include <string.h>
 #include <stdio.h>
@@ -34,13 +35,13 @@ static void should_successfully_create_map_with_items() {
     TEST_ASSERT_TRUE(map_set(m, "Key2", (void*) "Hello2"));
 
     TEST_ASSERT_EQUAL_INT(map_count(m), 2);
-    TEST_ASSERT_TRUE(!strcmp((const char*)map_get_item(m, "Key1")->value, "Hello1"));
+    TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->value, "Hello1");
     TEST_ASSERT_PTR_NULL(map_get_item(m, "Key1")->type, NULL);
 
-    TEST_ASSERT_TRUE(!strcmp((const char*)map_get_item(m, "Key2")->value, "Hello2"));
+    TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key2")->value, "Hello2");
     TEST_ASSERT_PTR_NULL(map_get_item(m, "Key2")->type);
 
-    map_item ** items = map_enumerable(m);
+    map_item** items = map_enumerable(m);
 
     for(unsigned int i = 0; i < map_count(m); i++) {
         TEST_ASSERT_PTR_NOT_NULL_FATAL(items[i]);
@@ -64,11 +65,11 @@ static void should_successfully_create_map_with_typed_items() {
     TEST_ASSERT_TRUE(map_set_with_type(m, "Key2", "string", (void*) "Hello2"));
 
     TEST_ASSERT_EQUAL_INT(map_count(m), 2);
-    TEST_ASSERT_TRUE(!strcmp((const char*)map_get_item(m, "Key1")->value, "Hello1"));
-    TEST_ASSERT_TRUE(!strcmp((const char*)map_get_item(m, "Key1")->type, "string"));
+    TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->value, "Hello1");
+    TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->type, "string");
 
-    TEST_ASSERT_TRUE(!strcmp((const char*)map_get_item(m, "Key2")->value, "Hello2"));
-    TEST_ASSERT_TRUE(!strcmp((const char*)map_get_item(m, "Key2")->type, "string"));
+    TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key2")->value, "Hello2");
+    TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key2")->type, "string");
 
     items = map_enumerable(m);
 
@@ -93,7 +94,7 @@ static void should_successfully_update_existing_item_in_map() {
     TEST_ASSERT_TRUE(map_set(m, "Key1", (void*) "Test"));
 
     TEST_ASSERT_EQUAL_INT(map_count(m), 1);
-    TEST_ASSERT_TRUE(!strcmp((const char*)map_get_item(m, "Key1")->value, "Test"));
+    TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->value, "Test");
 
     map_free(m);
 
@@ -160,7 +161,7 @@ static void should_successfully_filter_map() {
     });
 
     map(customer, filtered_customers);
-    map_filter(customers, key, c, filtered_customers, !strcmp(c->name, "fred2") || !strcmp(c->name, "fred3"));
+    map_filter(customers, key, c, filtered_customers, text_equals(c->name, "fred2") || text_equals(c->name, "fred3"));
 
     TEST_ASSERT_EQUAL_INT(2, map_count(filtered_customers));
     TEST_ASSERT_TRUE(map_exists(filtered_customers, "ORD2"));

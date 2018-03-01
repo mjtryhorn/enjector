@@ -99,6 +99,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../include</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -114,6 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../include</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,6 +165,7 @@
     <ClInclude Include="..\include\enjector\core\clock.h" />
     <ClInclude Include="..\include\enjector\core\clock_stopwatch.h" />
     <ClInclude Include="..\include\enjector\core\clock_timer.h" />
+    <ClInclude Include="..\include\enjector\core\features.h" />
     <ClInclude Include="..\include\enjector\core\limits.h" />
     <ClInclude Include="..\include\enjector\core\list.h" />
     <ClInclude Include="..\include\enjector\core\map.h" />
@@ -170,9 +173,11 @@
     <ClInclude Include="..\include\enjector\core\sleep.h" />
     <ClInclude Include="..\include\enjector\core\string_buffer.h" />
     <ClInclude Include="..\include\enjector\core\test.h" />
+    <ClInclude Include="..\include\enjector\core\text.h" />
     <ClInclude Include="..\include\enjector\core\xmemory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="async.c" />
     <ClCompile Include="clock_stopwatch.c" />
     <ClCompile Include="clock_timer.c" />
     <ClCompile Include="clock_win32.c" />
@@ -183,6 +188,7 @@
     <ClCompile Include="sleep_win32.c" />
     <ClCompile Include="string_buffer.c" />
     <ClCompile Include="test.c" />
+    <ClCompile Include="text.c" />
     <ClCompile Include="xmemory.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

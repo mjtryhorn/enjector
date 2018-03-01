@@ -25,6 +25,8 @@
 #include "map_tests.h"
 #include "promise_tests.h"
 #include "string_buffer_tests.h"
+#include "text_tests.h"
+#include "async_tests.h"
 
 test_suite tests[] = {
     { "test_tests", test_tests },
@@ -39,7 +41,9 @@ test_suite tests[] = {
     { "list_tests", list_tests },
     { "map_tests", map_tests },
     { "string_buffer_tests", string_buffer_tests },
+    { "text_tests", text_tests },
     { "promise_tests", promise_tests },
+    { "async_tests", async_tests },
 
     TEST_SUITE_END
 };
