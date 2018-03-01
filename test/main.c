@@ -24,6 +24,7 @@
 #include "list_tests.h"
 #include "map_tests.h"
 #include "promise_tests.h"
+#include "string_buffer_tests.h"
 
 test_suite tests[] = {
     { "test_tests", test_tests },
@@ -37,6 +38,7 @@ test_suite tests[] = {
     { "clock_timer_tests", clock_timer_tests },
     { "list_tests", list_tests },
     { "map_tests", map_tests },
+    { "string_buffer_tests", string_buffer_tests },
     { "promise_tests", promise_tests },
 
     TEST_SUITE_END
