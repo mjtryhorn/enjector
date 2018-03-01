@@ -1,5 +1,5 @@
 /*
-* list_tests.h
+* map_tests.h
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *

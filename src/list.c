@@ -19,6 +19,7 @@
 #include <enjector/core/limits.h>
 #include <enjector/core/list.h>
 #include <enjector/core/xmemory.h>
+#include <enjector/core/text.h>
 
 #include <assert.h>
 #include <stdlib.h>
@@ -31,7 +32,7 @@ list* _list_create(const char* filename, unsigned int line) {
     l->length = 0;
     l->stream_capacity = LIST_DEFAULT_STREAM_CAPACITY;
 
-    l->alloc_filename = xmemory_strdup(filename);
+    l->alloc_filename = text_clone(filename);
     l->alloc_line = line;
 
     return l;
@@ -61,13 +62,13 @@ void list_add_with_type(list* l, const char* type, void* value) {
 
     // Append
     list_item* item = (list_item*)xmemory_new(list_item);
-    item->type = type ? xmemory_strdup(type) : NULL;
+    item->type = type ? text_clone(type) : NULL;
     item->value = value;
     l->data[l->length] = item;
     l->length++;
 }
 
-void list_add( list* l, void* value) {
+void list_add(list* l, void* value) {
     list_add_with_type(l, NULL, value);
 }
 

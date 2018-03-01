@@ -1,5 +1,5 @@
 /*
-* test.h
+* string_buffer.h
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *

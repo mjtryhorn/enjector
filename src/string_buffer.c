@@ -1,5 +1,5 @@
 /*
-* promise.c
+* string_buffer.c
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *
@@ -31,7 +31,7 @@
 string_buffer* _string_buffer_create_empty(const char* filename, unsigned int line) {
     assert(filename);
 
-    string_buffer * sb = _xmemory_malloc(sizeof(string_buffer), filename, line);
+    string_buffer* sb = _xmemory_malloc(sizeof(string_buffer), filename, line);
     sb->_allocated_filename = filename;
     sb->_allocated_line = line;
 
@@ -45,7 +45,7 @@ string_buffer* _string_buffer_create_empty(const char* filename, unsigned int li
 string_buffer* _string_buffer_create(const char* data, size_t length, const char* filename, unsigned int line) {
     assert(data);
 
-    string_buffer * sb = _xmemory_malloc(sizeof(string_buffer), filename, line);
+    string_buffer* sb = _xmemory_malloc(sizeof(string_buffer), filename, line);
     sb->_allocated_filename = filename;
     sb->_allocated_line = line;
 
@@ -63,7 +63,7 @@ void string_buffer_append(string_buffer* sb, const char* data) {
     assert(data);
 
     // Check if destination is a stream
-    if (sb->stream_capacity == 0) {
+    if(sb->stream_capacity == 0) {
         printf("string_buffer not a stream");
         assert(0);
     }
@@ -72,10 +72,10 @@ void string_buffer_append(string_buffer* sb, const char* data) {
     unsigned long data_len = strlen(data);
     long space_left = sb->stream_capacity - (sb->length + data_len) - 1; // -1 for NULL
 
-    if (space_left < 0) {
+    if(space_left < 0) {
         // Resize
         sb->stream_capacity += data_len + STRING_BUFFER_DEFAULT_STREAM_CAPACITY;
-        char * resized_buffer = (char*) _xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
+        char* resized_buffer = (char*) _xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
         memcpy(resized_buffer, sb->data, sb->length);
         xmemory_free(sb->data);
         sb->data = resized_buffer;
@@ -92,7 +92,7 @@ void string_buffer_append_length(string_buffer* sb, const char* data, unsigned i
     assert(data);
 
     // Check if destination is a stream
-    if (sb->stream_capacity == 0) {
+    if(sb->stream_capacity == 0) {
         printf("string_buffer not a stream");
         assert(0);
     }
@@ -103,7 +103,8 @@ void string_buffer_append_length(string_buffer* sb, const char* data, unsigned i
     data_len = length;	// Use the specified length
 
     long space_left = sb->stream_capacity - (sb->length + data_len) - 1; // -1 for NULL
-    if (space_left < 0) {
+
+    if(space_left < 0) {
         // Resize
         sb->stream_capacity += data_len + STRING_BUFFER_DEFAULT_STREAM_CAPACITY;
         //resized_buffer = (char*)_xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
@@ -111,7 +112,7 @@ void string_buffer_append_length(string_buffer* sb, const char* data, unsigned i
         //xmemory_free(sb->data);
 
         //sb->data = xmemory_realloc(sb->data, sb->stream_capacity);
-        char * resized_buffer = (char*)_xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
+        char* resized_buffer = (char*)_xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
         memcpy(resized_buffer, sb->data, sb->length);
         xmemory_free(sb->data);
         sb->data = resized_buffer;
@@ -173,7 +174,7 @@ void string_buffer_free(string_buffer* sb) {
     string_buffer_clear(sb);
 
     // It may have been get_move
-    if (sb->data) xmemory_free(sb->data);
+    if(sb->data) xmemory_free(sb->data);
 
     xmemory_free(sb);
 }

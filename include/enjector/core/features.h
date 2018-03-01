@@ -1,5 +1,5 @@
 /*
-* limits.h
+* features.h
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *
@@ -18,10 +18,5 @@
 
 #pragma once
 
-#define XMEMORY_MAX_TRACKING_ALLOCATIONS 1000000
-
-#define PROMISE_NAME_MAX_LENGTH 128
-
-#define LIST_DEFAULT_STREAM_CAPACITY 10
-#define STRING_BUFFER_DEFAULT_STREAM_CAPACITY 50
-#define MAX_LENGTH_TEXT_FORMAT_BUFFER 1024
+// Caution, can slow down coroutines
+#define ASYNC_CAPTURE_TASK_TIMINGS

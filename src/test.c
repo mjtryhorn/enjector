@@ -185,7 +185,7 @@ void test_assert_equal_string(const char* expected, const char* actual, const ch
 }
 
 void test_assert_not_equal_string(const char* not_expected, const char* actual, const char* file, int line, bool fatal) {
-    if(!strcmp(not_expected, actual)) {
+    if(text_equals(not_expected, actual)) {
         printf("\n\tExpected '%s' to not_equal '%s'\n\t\t%s:%d\n", not_expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;

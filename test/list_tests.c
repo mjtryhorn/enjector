@@ -20,6 +20,7 @@
 
 #include <enjector/core/list.h>
 #include <enjector/core/xmemory.h>
+#include <enjector/core/text.h>
 
 #include <string.h>
 #include <stdio.h>
@@ -98,9 +99,9 @@ static void should_successfully_create_list_with_typed_items() {
         TEST_ASSERT_PTR_NOT_NULL(item->type);
         TEST_ASSERT_PTR_NOT_NULL(item->value);
 
-        if(!strcmp(item->type, "struct")) {
+        if(text_equals(item->type, "struct")) {
             struct_type_count++;
-        } else if(!strcmp(item->type, "string")) {
+        } else if(text_equals(item->type, "string")) {
             string_type_count++;
         }
     }
@@ -176,11 +177,11 @@ static void should_successfully_create_list_and_add_items_then_iterate() {
     list_foreach_of_begin(l, char*, value) {
         switch(i++) {
         case 0:
-            TEST_ASSERT_TRUE(!strcmp(value, "test1"));
+            TEST_ASSERT_EQUAL_STRING(value, "test1");
             break;
 
         case 1:
-            TEST_ASSERT_TRUE(!strcmp(value, "test2"));
+            TEST_ASSERT_EQUAL_STRING(value, "test2");
             break;
 
         default:
@@ -215,7 +216,7 @@ static void should_successfully_iterate_over_list_using_foreach() {
 
     list_foreach_begin(customers, c) {
         TEST_ASSERT_EQUAL_INT(expected[j].id, c->id);
-        TEST_ASSERT_TRUE(!strcmp(expected[j].name, c->name));
+        TEST_ASSERT_EQUAL_STRING(expected[j].name, c->name);
         j++;
     } list_foreach_of_end
 
@@ -251,15 +252,15 @@ static void should_successfully_filter_list() {
     });
 
     list(customer, filtered_customers);
-    list_filter(customers, c, filtered_customers, !strcmp(c->name, "fred2") || !strcmp(c->name, "fred3"));
+    list_filter(customers, c, filtered_customers, text_equals(c->name, "fred2") || text_equals(c->name, "fred3"));
 
     TEST_ASSERT_EQUAL_INT(2, list_count(filtered_customers));
 
     TEST_ASSERT_EQUAL_INT(2, list_get(filtered_customers, 0)->id);
-    TEST_ASSERT_TRUE(!strcmp("fred2", list_get(filtered_customers, 0)->name));
+    TEST_ASSERT_EQUAL_STRING("fred2", list_get(filtered_customers, 0)->name);
 
     TEST_ASSERT_EQUAL_INT(3, list_get(filtered_customers, 1)->id);
-    TEST_ASSERT_TRUE(!strcmp("fred3", list_get(filtered_customers, 1)->name));
+    TEST_ASSERT_EQUAL_STRING("fred3", list_get(filtered_customers, 1)->name);
 
     list_dispose(customers);
     list_free(filtered_customers);
@@ -304,8 +305,8 @@ static void should_successfully_map_from_one_list_to_another() {
     } list_map_end;
 
     TEST_ASSERT_EQUAL_INT(2, list_count(delivery_labels));
-    TEST_ASSERT_TRUE(!strcmp("Order: 1. Product: watch1. Customer: fred1", list_get(delivery_labels, 0)->label));
-    TEST_ASSERT_TRUE(!strcmp("Order: 2. Product: watch2. Customer: fred2", list_get(delivery_labels, 1)->label));
+    TEST_ASSERT_EQUAL_STRING("Order: 1. Product: watch1. Customer: fred1", list_get(delivery_labels, 0)->label);
+    TEST_ASSERT_EQUAL_STRING("Order: 2. Product: watch2. Customer: fred2", list_get(delivery_labels, 1)->label);
 
     list_dispose(orders);
     list_dispose(delivery_labels);
@@ -332,11 +333,11 @@ static void should_successfully_get_first_and_last_item_from_list() {
 
     list_first(customers, first_customer);
     TEST_ASSERT_EQUAL_INT(expected[0].id, first_customer->id);
-    TEST_ASSERT_TRUE(!strcmp(expected[0].name, first_customer->name));
+    TEST_ASSERT_EQUAL_STRING(expected[0].name, first_customer->name);
 
     list_last(customers, last_customer);
     TEST_ASSERT_EQUAL_INT(expected[3].id, last_customer->id);
-    TEST_ASSERT_TRUE(!strcmp(expected[3].name, last_customer->name));
+    TEST_ASSERT_EQUAL_STRING(expected[3].name, last_customer->name);
 
     list_dispose(customers);
 
@@ -367,13 +368,13 @@ static void should_successfully_take_first_few_items() {
 
     TEST_ASSERT_EQUAL_INT(2, list_count(taken_orders));
     TEST_ASSERT_EQUAL_INT(expected[0].id, list_get(taken_orders, 0)->id);
-    TEST_ASSERT_TRUE(!strcmp(expected[0].product, list_get(taken_orders, 0)->product));
-    TEST_ASSERT_TRUE(!strcmp(expected[0].customer, list_get(taken_orders, 0)->customer));
+    TEST_ASSERT_EQUAL_STRING(expected[0].product, list_get(taken_orders, 0)->product);
+    TEST_ASSERT_EQUAL_STRING(expected[0].customer, list_get(taken_orders, 0)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[0].delivered, list_get(taken_orders, 0)->delivered);
 
     TEST_ASSERT_EQUAL_INT(expected[1].id, list_get(taken_orders, 1)->id);
-    TEST_ASSERT_TRUE(!strcmp(expected[1].product, list_get(taken_orders, 1)->product));
-    TEST_ASSERT_TRUE(!strcmp(expected[1].customer, list_get(taken_orders, 1)->customer));
+    TEST_ASSERT_EQUAL_STRING(expected[1].product, list_get(taken_orders, 1)->product);
+    TEST_ASSERT_EQUAL_STRING(expected[1].customer, list_get(taken_orders, 1)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[1].delivered, list_get(taken_orders, 1)->delivered);
 
     list_dispose(orders);
@@ -440,13 +441,13 @@ static void should_successfully_take_last_few_items() {
 
     TEST_ASSERT_EQUAL_INT(2, list_count(taken_orders));
     TEST_ASSERT_EQUAL_INT(expected[3].id, list_get(taken_orders, 0)->id);
-    TEST_ASSERT_TRUE(!strcmp(expected[3].product, list_get(taken_orders, 0)->product));
-    TEST_ASSERT_TRUE(!strcmp(expected[3].customer, list_get(taken_orders, 0)->customer));
+    TEST_ASSERT_EQUAL_STRING(expected[3].product, list_get(taken_orders, 0)->product);
+    TEST_ASSERT_EQUAL_STRING(expected[3].customer, list_get(taken_orders, 0)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[3].delivered, list_get(taken_orders, 0)->delivered);
 
     TEST_ASSERT_EQUAL_INT(expected[2].id, list_get(taken_orders, 1)->id);
-    TEST_ASSERT_TRUE(!strcmp(expected[2].product, list_get(taken_orders, 1)->product));
-    TEST_ASSERT_TRUE(!strcmp(expected[2].customer, list_get(taken_orders, 1)->customer));
+    TEST_ASSERT_EQUAL_STRING(expected[2].product, list_get(taken_orders, 1)->product);
+    TEST_ASSERT_EQUAL_STRING(expected[2].customer, list_get(taken_orders, 1)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[2].delivered, list_get(taken_orders, 1)->delivered);
 
     list_dispose(orders);
