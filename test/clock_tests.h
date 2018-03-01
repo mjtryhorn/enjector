@@ -1,5 +1,5 @@
 /*
-* limits.h
+* clock_tests.h
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *
@@ -18,6 +18,6 @@
 
 #pragma once
 
-#define XMEMORY_MAX_TRACKING_ALLOCATIONS 1000000
+#include <enjector/core/test.h>
 
-#define PROMISE_NAME_MAX_LENGTH 128
+extern test clock_tests[];

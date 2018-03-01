@@ -1,5 +1,5 @@
 /*
-* limits.h
+* sleep_win32.c
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *
@@ -16,8 +16,14 @@
 * limitations under the License.
 */
 
-#pragma once
+#ifdef _MSC_VER
 
-#define XMEMORY_MAX_TRACKING_ALLOCATIONS 1000000
+#include <enjector/core/sleep.h>
 
-#define PROMISE_NAME_MAX_LENGTH 128
+#include <windows.h>
+
+void sleep(unsigned int milliseconds) {
+    Sleep(milliseconds);
+}
+
+#endif

@@ -1,5 +1,5 @@
 /*
-* limits.h
+* sleep_unix.c
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *
@@ -16,8 +16,12 @@
 * limitations under the License.
 */
 
-#pragma once
+#ifndef _MSC_VER
 
-#define XMEMORY_MAX_TRACKING_ALLOCATIONS 1000000
+#include <unistd.h>
 
-#define PROMISE_NAME_MAX_LENGTH 128
+void system_sleep(unsigned int milliseconds) {
+    usleep(milliseconds * 1000);
+}
+
+#endif
