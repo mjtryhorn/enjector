@@ -49,6 +49,14 @@ test_suite tests[] = {
 };
 
 int main(int argc, const char* argv[]) {
-    // Return 0 for success and 1 fo failure
-    return test_run(tests) ? 0 : 1;
+
+	bool result = test_run(tests);
+
+#if _DEBUG
+	printf("End, press key to close\n");
+	getchar();
+#endif
+
+	// Return 0 for success and 1 fo failure
+    return result ? 0 : 1;
 }
