@@ -23,29 +23,31 @@
 #include "clock_timer_tests.h"
 #include "list_tests.h"
 #include "map_tests.h"
+#include "graph_tests.h"
 #include "promise_tests.h"
 #include "string_buffer_tests.h"
 #include "text_tests.h"
 #include "async_tests.h"
 
 test_suite tests[] = {
-    { "test_tests", test_tests },
+	{ "test_tests", test_tests },
 
 #ifdef _DEBUG
-    { "xmemory_tests", xmemory_tests },
+	{ "xmemory_tests", xmemory_tests },
 #endif
 
-    { "clock_tests", clock_tests },
-    { "clock_stopwatch_tests", clock_stopwatch_tests },
-    { "clock_timer_tests", clock_timer_tests },
-    { "list_tests", list_tests },
-    { "map_tests", map_tests },
-    { "string_buffer_tests", string_buffer_tests },
-    { "text_tests", text_tests },
-    { "promise_tests", promise_tests },
-    { "async_tests", async_tests },
+	{ "clock_tests", clock_tests },
+	{ "clock_stopwatch_tests", clock_stopwatch_tests },
+	{ "clock_timer_tests", clock_timer_tests },
+	{ "list_tests", list_tests },
+	{ "map_tests", map_tests },
+	{ "graph_tests", graph_tests },
+	{ "string_buffer_tests", string_buffer_tests },
+	{ "text_tests", text_tests },
+	{ "promise_tests", promise_tests },
+	{ "async_tests", async_tests },
 
-    TEST_SUITE_END
+	TEST_SUITE_END
 };
 
 int main(int argc, const char* argv[]) {
@@ -58,5 +60,5 @@ int main(int argc, const char* argv[]) {
 #endif
 
 	// Return 0 for success and 1 fo failure
-    return result ? 0 : 1;
+	return result ? 0 : 1;
 }

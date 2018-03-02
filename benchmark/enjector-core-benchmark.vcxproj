@@ -166,10 +166,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="async_benchmarks.c" />
+    <ClCompile Include="graph_benchmarks.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="async_benchmarks.h" />
+    <ClInclude Include="graph_benchmarks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
