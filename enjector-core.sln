@@ -11,6 +11,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enjector-core-test", "test\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enjector-core-benchmark", "benchmark\enjector-core-benchmark.vcxproj", "{00DB6148-7D34-4DF8-B7F1-D1E739DB58E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{07DA8B0A-8099-47AE-A729-22E22385B5A3} = {07DA8B0A-8099-47AE-A729-22E22385B5A3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

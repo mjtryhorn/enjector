@@ -71,5 +71,7 @@ bool benchmark_run(benchmark_suite fixtures[]) {
     } else {
         printf("Some benchmark tests failed\n");
     }
+
+	return all_passed;
 }
 

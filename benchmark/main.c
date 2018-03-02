@@ -17,10 +17,13 @@
 */
 
 #include <enjector/core/benchmark.h>
+
 #include "async_benchmarks.h"
+#include "graph_benchmarks.h"
 
 benchmark_suite benchmarks[] = {
 	{ "async_benchmarks", async_benchmarks },
+	{ "graph_benchmarks", graph_benchmarks },
 	BENCHMARK_SUITE_END
 };
 

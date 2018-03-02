@@ -167,6 +167,8 @@
     <ClInclude Include="..\include\enjector\core\clock_stopwatch.h" />
     <ClInclude Include="..\include\enjector\core\clock_timer.h" />
     <ClInclude Include="..\include\enjector\core\features.h" />
+    <ClInclude Include="..\include\enjector\core\graph.h" />
+    <ClInclude Include="..\include\enjector\core\guid.h" />
     <ClInclude Include="..\include\enjector\core\limits.h" />
     <ClInclude Include="..\include\enjector\core\list.h" />
     <ClInclude Include="..\include\enjector\core\map.h" />
@@ -183,6 +185,7 @@
     <ClCompile Include="clock_stopwatch.c" />
     <ClCompile Include="clock_timer.c" />
     <ClCompile Include="clock_win32.c" />
+    <ClCompile Include="graph.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="map.c" />
     <ClCompile Include="promise.c" />
