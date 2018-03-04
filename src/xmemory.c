@@ -161,14 +161,13 @@ size_t xmemory_report_fetch(memory_allocation* allocations[], unsigned int max_a
     assert(max_allocations > 0);
 
 #ifdef TRACK_MEMORY
-    unsigned int total_allocations;
     unsigned int allocations_count = 0;
 
     assert(allocations);
     assert(max_allocations > 0);
     assert(memory_allocation_tracking);
 
-    total_allocations = memory_allocation_tracking_count;
+    const unsigned int total_allocations = memory_allocation_tracking_count;
 
     // Is there enough space for the report?
     assert(total_allocations < max_allocations);
