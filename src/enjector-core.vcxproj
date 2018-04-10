@@ -168,7 +168,6 @@
     <ClInclude Include="..\include\enjector\core\clock_timer.h" />
     <ClInclude Include="..\include\enjector\core\features.h" />
     <ClInclude Include="..\include\enjector\core\graph.h" />
-    <ClInclude Include="..\include\enjector\core\guid.h" />
     <ClInclude Include="..\include\enjector\core\limits.h" />
     <ClInclude Include="..\include\enjector\core\list.h" />
     <ClInclude Include="..\include\enjector\core\map.h" />

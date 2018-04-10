@@ -73,6 +73,7 @@ void clock_stopwatch_elapsed_print(clock_stopwatch* stopwatch);
  *
  * @param stopwatch		Pointer to a previous started and ended stopwatch object
  *						that is holding the timing details.
+ * @param count
  */
 double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count);
 
@@ -81,5 +82,7 @@ double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count);
  *
  * @param stopwatch		Pointer to a previous started and ended stopwatch object
  *						that is holding the timing details.
+ * @param name
+ * @param count
  */
 void clock_stopwatch_rate_print(clock_stopwatch* stopwatch, const char* name, int count);

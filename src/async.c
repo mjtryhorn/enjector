@@ -29,11 +29,12 @@
 #include <signal.h>
 #include <sys/time.h>
 #include <unistd.h>
-#endif
 
 // So that we can shared this between modules
 // https://msdn.microsoft.com/en-us/library/h90dkhs0(VS.80).aspx
 #pragma data_seg (".myseg")
+
+#endif
 
 static int _global_task_counter = 0;
 static async_task_scheduler* _current_scheduler = NULL;
@@ -155,7 +156,7 @@ task_state async_task_scheduler_exec(async_task* task) {
 
                 // The promise called reject() or raised an error. Has the coroutine set up
                 // an async_try ... async_catch? If not then the coroutine will terminate.
-                if(task->exit_on_error == false) {
+                if(!task->exit_on_error) {
 
                     // We're not exiting the coroutine on error, the coroutine
                     // will manage the error in it's async_catch block.
@@ -281,7 +282,7 @@ void async_task_scheduler_remove_all(async_task_scheduler* scheduler, void* ctx)
         }
 
         // Move to the next index, otherwise stay at the same index position and move along
-        if(is_removed == false) {
+        if(!is_removed) {
             i++;
         }
     }
@@ -315,7 +316,7 @@ void async_task_scheduler_remove_by_task(async_task_scheduler* scheduler, const 
         }
 
         // Move to the next index, otherwise stay at the same index position and move along
-        if(is_removed == false) {
+        if(!is_removed) {
             i++;
         }
     }
