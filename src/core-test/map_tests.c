@@ -36,7 +36,7 @@ static void should_successfully_create_map_with_items() {
 
     TEST_ASSERT_EQUAL_INT(map_count(m), 2);
     TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->value, "Hello1");
-    TEST_ASSERT_PTR_NULL(map_get_item(m, "Key1")->type, NULL);
+    TEST_ASSERT_PTR_NULL(map_get_item(m, "Key1")->type);
 
     TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key2")->value, "Hello2");
     TEST_ASSERT_PTR_NULL(map_get_item(m, "Key2")->type);

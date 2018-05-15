@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <enjector/core/xmemory.h>
+
 #include <stdbool.h>
 #include <stddef.h>
 
