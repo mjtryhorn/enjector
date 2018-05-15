@@ -36,7 +36,7 @@ static void should_successfully_create_list_with_untyped_items() {
 
     TEST_ASSERT_EQUAL_INT(list_count(l), 2);
 
-    for(int i = 0; i < list_count(l); i++) {
+    for(unsigned int i = 0; i < list_count(l); i++) {
         item = list_get_item(l, i);
         TEST_ASSERT_PTR_NOT_NULL_FATAL(item);
         TEST_ASSERT_PTR_NULL(item->type);
@@ -60,7 +60,7 @@ static void should_successfully_create_list_with_untyped_items_using_enumerable(
     list_item** items = list_enumerable(l);
     TEST_ASSERT_EQUAL_INT(list_count(l), 2);
 
-    for(int i = 0; i < list_count(l); i++) {
+    for(unsigned int i = 0; i < list_count(l); i++) {
         item = items[i];
         TEST_ASSERT_PTR_NOT_NULL_FATAL(item);
         TEST_ASSERT_PTR_NULL(item->type);
@@ -93,7 +93,7 @@ static void should_successfully_create_list_with_typed_items() {
     int struct_type_count = 0;
     int string_type_count = 0;
 
-    for(int i = 0; i < list_count(l); i++) {
+    for(unsigned int i = 0; i < list_count(l); i++) {
         item = list_get_item(l, i);
         TEST_ASSERT_PTR_NOT_NULL_FATAL(item);
         TEST_ASSERT_PTR_NOT_NULL(item->type);
@@ -120,7 +120,7 @@ static void should_successfully_clear_a_populated_list() {
     const char* test_string = "Hello";
     int struct_type_count;
     int string_type_count;
-    list_item* item;
+    list_item* item = NULL;
 
     TEST_ASSERT_PTR_NOT_NULL(l);
 
@@ -204,7 +204,7 @@ static void should_successfully_iterate_over_list_using_foreach() {
 
     list(customer, customers);
 
-    for(int i = 0; i < 2; i++) {
+    for(unsigned int i = 0; i < 2; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
@@ -324,7 +324,7 @@ static void should_successfully_get_first_and_last_item_from_list() {
 
     list(customer, customers);
 
-    for(int i = 0; i < 4; i++) {
+    for(unsigned int i = 0; i < 4; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
@@ -354,7 +354,7 @@ static void should_successfully_take_first_few_items() {
 
     list(order, orders);
 
-    for(int i = 0; i < 4; i++) {
+    for(unsigned int i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -393,7 +393,7 @@ static void should_successfully_attempt_to_take_more_items_than_in_list() {
 
     list(order, orders);
 
-    for(int i = 0; i < 4; i++) {
+    for(unsigned int i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -427,7 +427,7 @@ static void should_successfully_take_last_few_items() {
 
     list(order, orders);
 
-    for(int i = 0; i < 4; i++) {
+    for(unsigned int i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -466,7 +466,7 @@ static void should_successfully_attempt_to_take_last_more_items_than_in_list() {
 
     list(order, orders);
 
-    for(int i = 0; i < 4; i++) {
+    for(unsigned int i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -500,14 +500,14 @@ static void should_successfully_remove_item_by_ref_from_list() {
 
     list(customer, customers);
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
@@ -542,14 +542,14 @@ static void should_successfully_remove_item_by_index_from_list() {
 
     list(customer, customers);
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
@@ -579,14 +579,14 @@ static void should_successfully_remove_item_by_index_from_begining_of_list() {
 
     list(customer, customers);
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
@@ -617,14 +617,14 @@ static void should_successfully_remove_item_by_index_from_end_of_list() {
 
     list(customer, customers);
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
@@ -655,14 +655,14 @@ static void should_successfully_remove_item_by_value_from_list() {
 
     list(customer, customers);
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(int i = 0; i < 3; i++) {
+    for(unsigned int i = 0; i < 3; i++) {
         TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 

@@ -81,7 +81,7 @@ clock_time_quantity clock_stopwatch_elapsed(clock_stopwatch* stopwatch) {
 const char* clock_stopwatch_elapsed_time(clock_stopwatch* stopwatch) {
     assert(stopwatch);
 
-    long total = clock_stopwatch_elapsed(stopwatch) / 1e3;
+    long total = (long) clock_stopwatch_elapsed(stopwatch) / (long) 1e3;
 
     int days = total / 86400;
     int hours = (total / 3600) - (days * 24);
@@ -119,6 +119,7 @@ double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count) {
         return 0;
     }
 
+	// TODO: avoid potential divide by 0
     return (double)(count / (stopwatch->elapsed / 1000));
 }
 

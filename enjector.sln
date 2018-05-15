@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enjector", "enjector.vcxproj", "{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{07DA8B0A-8099-47AE-A729-22E22385B5A3} = {07DA8B0A-8099-47AE-A729-22E22385B5A3}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enjector-core", "src\core\enjector-core.vcxproj", "{07DA8B0A-8099-47AE-A729-22E22385B5A3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enjector-core-benchmark", "src\core-benchmark\enjector-core-benchmark.vcxproj", "{00DB6148-7D34-4DF8-B7F1-D1E739DB58E9}"
@@ -20,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enjector-core-test", "src\c
 		{07DA8B0A-8099-47AE-A729-22E22385B5A3} = {07DA8B0A-8099-47AE-A729-22E22385B5A3}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enjector", "src\main\enjector.vcxproj", "{7A9267B2-EF9D-487F-87A9-D4C6B959302B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -28,14 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Debug|x64.ActiveCfg = Debug|x64
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Debug|x64.Build.0 = Debug|x64
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Debug|x86.ActiveCfg = Debug|Win32
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Debug|x86.Build.0 = Debug|Win32
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Release|x64.ActiveCfg = Release|x64
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Release|x64.Build.0 = Release|x64
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Release|x86.ActiveCfg = Release|Win32
-		{6A3F473A-8A2F-4F52-9AE1-FBB36609AEF6}.Release|x86.Build.0 = Release|Win32
 		{07DA8B0A-8099-47AE-A729-22E22385B5A3}.Debug|x64.ActiveCfg = Debug|x64
 		{07DA8B0A-8099-47AE-A729-22E22385B5A3}.Debug|x64.Build.0 = Debug|x64
 		{07DA8B0A-8099-47AE-A729-22E22385B5A3}.Debug|x86.ActiveCfg = Debug|Win32
@@ -60,6 +49,14 @@ Global
 		{F9FF7815-B9B0-4FA6-993C-1AA6AA74B9E2}.Release|x64.Build.0 = Release|x64
 		{F9FF7815-B9B0-4FA6-993C-1AA6AA74B9E2}.Release|x86.ActiveCfg = Release|Win32
 		{F9FF7815-B9B0-4FA6-993C-1AA6AA74B9E2}.Release|x86.Build.0 = Release|Win32
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Debug|x64.ActiveCfg = Debug|x64
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Debug|x64.Build.0 = Debug|x64
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Debug|x86.ActiveCfg = Debug|Win32
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Debug|x86.Build.0 = Debug|Win32
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Release|x64.ActiveCfg = Release|x64
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Release|x64.Build.0 = Release|x64
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Release|x86.ActiveCfg = Release|Win32
+		{7A9267B2-EF9D-487F-87A9-D4C6B959302B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
