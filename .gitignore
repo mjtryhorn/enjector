@@ -4,6 +4,7 @@
 obj/
 *.filters
 *.user
+!*.exe
 
 # Prerequisites
 *.d
@@ -36,7 +37,7 @@ obj/
 *.dylib
 
 # Executables
-*.exe
+# *.exe
 *.out
 *.app
 *.i*86

@@ -25,31 +25,31 @@ typedef long double graph_edge_id;
 typedef long double graph_vertex_id;
 
 typedef struct {
-	graph_vertex_id	id;
-	char*			type;
-	map*			attributes;
-	void*			context;
+    graph_vertex_id	id;
+    char*			type;
+    map*			attributes;
+    void*			context;
 } graph_vertex;
 
 typedef struct {
-	graph_edge_id	id;
-	char*			type;
-	graph_vertex*	a;
-	graph_vertex*	b;
-	map*			attributes;
+    graph_edge_id	id;
+    char*			type;
+    graph_vertex*	a;
+    graph_vertex*	b;
+    map*			attributes;
 
-	void*			context;
+    void*			context;
 } graph_edge;
 
 typedef struct {
-	list*			verticies;
-	list*			edges;
-	map*			attributes;
+    list*			verticies;
+    list*			edges;
+    map*			attributes;
 
-	void*			context;
+    void*			context;
 
-	graph_edge_id	edge_id_counter;
-	graph_vertex_id	vertex_id_counter;
+    graph_edge_id	edge_id_counter;
+    graph_vertex_id	vertex_id_counter;
 } graph;
 
 graph*			graph_create();
