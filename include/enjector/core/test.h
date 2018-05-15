@@ -44,6 +44,9 @@ void test_assert_not_equal_int(int not_expected, int actual, const char* file, i
 void test_assert_equal_long(long expected, long actual, const char* file, int line, bool fatal);
 void test_assert_not_equal_long(long not_expected, long actual, const char* file, int line, bool fatal);
 
+void test_assert_equal_float(float expected, float actual, const char* file, int line, bool fatal);
+void test_assert_not_equal_float(float not_expected, float actual, const char* file, int line, bool fatal);
+
 void test_assert_equal_string(const char* expected, const char* actual, const char* file, int line, bool fatal);
 void test_assert_not_equal_string(const char* not_expected, const char* actual, const char* file, int line, bool fatal);
 
@@ -67,6 +70,11 @@ void test_assert_not_null(void* actual, const char* file, int line, bool fatal);
 #define TEST_ASSERT_EQUAL_LONG_FATAL(expected, actual) test_assert_equal_long(expected, actual, __FILE__, __LINE__, true)
 #define TEST_ASSERT_NOT_EQUAL_LONG(not_expected, actual) test_assert_not_equal_long(not_expected, actual, __FILE__, __LINE__, false)
 #define TEST_ASSERT_NOT_EQUAL_LONG_FATAL(not_expected, actual) test_assert_not_equal_long(not_expected, actual, __FILE__, __LINE__, true)
+
+#define TEST_ASSERT_EQUAL_FLOAT(expected, actual) test_assert_equal_float(expected, actual, __FILE__, __LINE__, false)
+#define TEST_ASSERT_EQUAL_FLOAT_FATAL(expected, actual) test_assert_equal_float(expected, actual, __FILE__, __LINE__, true)
+#define TEST_ASSERT_NOT_EQUAL_FLOAT(not_expected, actual) test_assert_not_equal_float(not_expected, actual, __FILE__, __LINE__, false)
+#define TEST_ASSERT_NOT_EQUAL_FLOAT_FATAL(not_expected, actual) test_assert_not_equal_float(not_expected, actual, __FILE__, __LINE__, true)
 
 #define TEST_ASSERT_EQUAL_STRING(expected, actual) test_assert_equal_string(expected, actual, __FILE__, __LINE__, false)
 #define TEST_ASSERT_EQUAL_STRING_FATAL(expected, actual) test_assert_equal_string(expected, actual, __FILE__, __LINE__, true)

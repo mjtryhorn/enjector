@@ -28,30 +28,30 @@ typedef struct list_item_t {
 
 typedef struct list_t {
     list_item** data;
-    int length;
-    int stream_capacity;
+    unsigned int length;
+    unsigned int stream_capacity;
 
     char* alloc_filename;
-    int alloc_line;
+    unsigned int alloc_line;
 } list;
 
-list*		_list_create(const char* filename, unsigned int line);
-#define		list_create() _list_create(__FILE__, __LINE__);
-void		list_add(list* l, void* value);
-void		list_add_with_type(list* l, const char* type, void* value);
-list_item*	list_get_item(const list* l, const unsigned int index);	// TODO: list_get_item_at
-void*		list_get_value(const list* l, const unsigned index);
-list_item** list_enumerable(const list* l);
-void		list_remove_item(list* l, list_item* item);
-void		list_remove_item_at(list* l, unsigned int index);
-void		list_dispose_item_at(list* l, unsigned int index);
-void        list_dispose_item_by_value(list* l, void* value);
-bool        list_remove_item_by_value(list* l, void* value);
-int			list_count(const list* l);
-void		list_clear(list* l);
-void		list_free(list* l);
-void		list_take_right(const list* source, const size_t count, list* target);
-void		list_take(const list* source, const size_t count, list* target);
+list*			_list_create(const char* filename, unsigned int line);
+#define			list_create() _list_create(__FILE__, __LINE__);
+void			list_add(list* l, void* value);
+void			list_add_with_type(list* l, const char* type, void* value);
+list_item*		list_get_item(const list* l, const unsigned int index);	// TODO: list_get_item_at
+void*			list_get_value(const list* l, const unsigned index);
+list_item**		list_enumerable(const list* l);
+void			list_remove_item(list* l, list_item* item);
+void			list_remove_item_at(list* l, unsigned int index);
+void			list_dispose_item_at(list* l, unsigned int index);
+void			list_dispose_item_by_value(list* l, void* value);
+bool			list_remove_item_by_value(list* l, void* value);
+unsigned int	list_count(const list* l);
+void			list_clear(list* l);
+void			list_free(list* l);
+void			list_take_right(const list* source, const size_t count, list* target);
+void			list_take(const list* source, const size_t count, list* target);
 
 #define list(type, name) \
     list* name = list_create();\
