@@ -1,7 +1,9 @@
 # Visual Studio
+bin/
+lib/
+obj/
 .idea/
 .vs/
-obj/
 *.filters
 *.user
 !*.exe
