@@ -23,6 +23,7 @@
 #include <assert.h>
 
 #ifdef _MSC_VER
+#include <windows.h>
 #include <consoleapi.h>
 #endif
 

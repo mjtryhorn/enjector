@@ -31,6 +31,8 @@
 #include "text_tests.h"
 #include "json_tests.h"
 #include "async_tests.h"
+#include "queue_tests.h"
+#include "vm_parser_tests.h"
 
 #include <stdio.h>
 
@@ -52,6 +54,8 @@ test_suite tests[] = {
     { "promise_tests", promise_tests },
     { "json_tests", json_tests },
     { "async_tests", async_tests },
+    { "queue_tests", queue_tests },
+    { "vm_parser_tests", queue_tests },
 
     TEST_SUITE_END
 };
