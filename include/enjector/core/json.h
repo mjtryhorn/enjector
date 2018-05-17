@@ -26,8 +26,6 @@
 
 void json_serialise_string(string_buffer* stream, const char* name, char* value);
 void json_serialise_char_array_fixed(string_buffer* stream, const char* name, char* value, int size);
-void json_serialise_integer(string_buffer* stream, char* name, int value);
-//void json_serialise_long(string_buffer* stream, char* name, long value);
 void json_serialise_float(string_buffer* stream, char* name, float value);
 void json_serialise_object(string_buffer* stream, char* name, char* json);
 void json_serialise_bool(string_buffer* stream, char* name, bool value);
@@ -125,7 +123,7 @@ extern void cls ## _dispose(cls* instance);
 
 #define as_bool_save(stream, instance, prop) json_serialise_bool(stream, #prop, instance->prop);
 
-#define as_integer_save(stream, instance, prop) json_serialise_integer(stream, #prop, instance->prop);
+#define as_integer_save(stream, instance, prop) json_serialise_int(stream, #prop, instance->prop);
 
 #define as_long_save(stream, instance, prop) json_serialise_long(stream, #prop, instance->prop);
 

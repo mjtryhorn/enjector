@@ -133,7 +133,7 @@ void string_buffer_append_format(string_buffer* sb, const char* format, ...) {
     va_list args;
 
     va_start(args, format);
-    vsnprintf(data, sizeof(data), format, args);
+    vsprintf_s(data, sizeof(data), format, args);
     va_end(args);
 
     string_buffer_append(sb, data);

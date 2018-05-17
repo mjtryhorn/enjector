@@ -115,7 +115,8 @@ static void should_successfully_iterate_over_map_using_foreach() {
     };
 
     for(int i = 0; i < 2; i++) {
-        char key[10]; snprintf(key, 10, "CUS%d", expected[i].id);
+        char key[10]; 
+    	sprintf_s(key, sizeof(key), "CUS%d", expected[i].id);
         map_set_new(customers, key, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
@@ -126,7 +127,8 @@ static void should_successfully_iterate_over_map_using_foreach() {
     int j = 0;
 
     map_foreach_begin(customers, actual_key, c) {
-        char expected_key[10]; snprintf(expected_key, 10, "CUS%d", expected[i].id);
+        char expected_key[10]; 
+    	sprintf_s(expected_key, sizeof(expected_key), "CUS%d", expected[i].id);
         TEST_ASSERT_EQUAL_STRING(expected_key, actual_key);
         TEST_ASSERT_EQUAL_INT(expected[j].id, c->id);
         TEST_ASSERT_EQUAL_STRING(expected[j].name, c->name);

@@ -299,7 +299,7 @@ static void should_successfully_map_from_one_list_to_another() {
     list(delivery_label, delivery_labels);
 
     list_map_begin(orders, o, delivery_labels, l) {
-        snprintf(l->label,
+        sprintf_s(l->label,
                  sizeof(l->label),
                  "Order: %d. Product: %s. Customer: %s", o->id, o->product, o->customer);
     } list_map_end;

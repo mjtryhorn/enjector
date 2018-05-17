@@ -19,6 +19,7 @@
 #include <enjector/core/json.h>
 #include <enjector/core/xmemory.h>
 #include <enjector/core/text.h>
+#include <enjector/core/string_buffer.h>
 
 #include <assert.h>
 #include <string.h>
@@ -55,33 +56,13 @@ void json_serialise_char_array_fixed(string_buffer* stream, const char* name, ch
     json_serialise_string(stream, name, value);
 }
 
-void json_serialise_integer(string_buffer* stream, char* name, int value) {
-    string_buffer_append(stream, "\"");
-    string_buffer_append(stream, name);
-    string_buffer_append(stream, "\":");
-
-    char buf[20];
-    snprintf(buf, 20, "%d", value);
-    string_buffer_append(stream, buf);
-}
-
-//void json_serialise_long(string_buffer* stream, char* name, long value) {
-//	string_buffer_append(stream, "\"");
-//	string_buffer_append(stream, name);
-//	string_buffer_append(stream, "\":");
-//
-//	char buf[50];
-//	sprintf(buf, "%ld", value);
-//	string_buffer_append(stream, buf);
-//}
-
 void json_serialise_float(string_buffer* stream, char* name, float value) {
     string_buffer_append(stream, "\"");
     string_buffer_append(stream, name);
     string_buffer_append(stream, "\":");
 
     char buf[50];
-    snprintf(buf, 50, "%f", value);
+    sprintf_s(buf, sizeof(buf), "%f", value);
     string_buffer_append(stream, buf);
 }
 

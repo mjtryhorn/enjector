@@ -19,6 +19,7 @@
 #include <enjector/core/text.h>
 #include <enjector/core/limits.h>
 #include <enjector/core/xmemory.h>
+#include <enjector/core/list.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -400,7 +401,7 @@ char* _text_format(const char* filename, unsigned int line, const char* format, 
     va_start(args, format);
 
     char message[MAX_LENGTH_TEXT_FORMAT_BUFFER];
-    vsnprintf(message, MAX_LENGTH_TEXT_FORMAT_BUFFER, format, args);
+    vsprintf_s(message, sizeof(message), format, args);
 
     va_end(args);
 

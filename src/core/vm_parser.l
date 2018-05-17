@@ -20,8 +20,6 @@
 %option nounistd 
 
 %{
-	#include <string.h>
-
 	#include <enjector/core/text.h>
 	#include <enjector/core/vm_parser.h>
 	
@@ -38,8 +36,8 @@
 	#undef vm_parser_stype
 	#define vm_parser_stype VM_PARSER_STYPE
 
-	extern vm_parser_stype vm_parser_lval;
-	extern size_t  vm_parser_state_input_lineno;
+	extern vm_parser_stype	vm_parser_lval;
+	extern size_t			vm_parser_state_input_lineno;
 	
 	/*{name}		{ vm_parser_lval.s = text_clone(yytext); return NAME; }
 	 {float}		{ vm_parser_lval.d = atof(yytext); return DECIMAL; }
@@ -48,13 +46,13 @@
 	extern script*			_vm_parser_ctx_current_script;
 %}
 
-nl		(\r\n|\r|\n)
-ws		[ \t]+
-name	[a-zA-Z_][0-9a-zA-Z_]*
-number	[0-9][0-9]*
-float	{number}\.[0-9]+
-comment	"//"([^\r|^\n])*
-string  (\'(\\.|[^'])*\'|\"(\\.|[^"])*\")
+nl					(\r\n|\r|\n)
+ws					[ \t]+
+name				[a-zA-Z_][0-9a-zA-Z_]*
+number				[0-9][0-9]*
+float				{number}\.[0-9]+
+comment				"//"([^\r|^\n])*
+string				(\'(\\.|[^'])*\'|\"(\\.|[^"])*\")
 
 condition			(">="|"=>"|"<="|"=<"|">"|"<"|"!="|"==")
 conditional_operand	("&&"|"||")

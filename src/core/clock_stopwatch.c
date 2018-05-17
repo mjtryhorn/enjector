@@ -88,7 +88,7 @@ const char* clock_stopwatch_elapsed_time(clock_stopwatch* stopwatch) {
     int mins = (total / 60) - (days * 1440) - (hours * 60);
 
     static char buffer[120];
-    snprintf(buffer, sizeof(buffer), "%d days, %d hours, %d minutes, %ld seconds",
+    sprintf_s(buffer, sizeof(buffer), "%d days, %d hours, %d minutes, %ld seconds",
              days, hours, mins, total % 60);
 
     return buffer;

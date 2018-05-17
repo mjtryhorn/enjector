@@ -26,13 +26,13 @@
 #include <sys/timeb.h>
 
 int gettimeofday(struct timeval* t, void* timezone) {
-    assert(t);
+	assert(t);
 
-    struct _timeb timebuffer;
-    _ftime_s(&timebuffer);
-    t->tv_sec = timebuffer.time;
-    t->tv_usec = 1000 * timebuffer.millitm;
-    return 0;
+	struct _timeb timebuffer;
+	_ftime_s(&timebuffer);
+	t->tv_sec = (long) timebuffer.time;
+	t->tv_usec = 1000 * timebuffer.millitm;
+	return 0;
 }
 
 /**
@@ -41,12 +41,12 @@ int gettimeofday(struct timeval* t, void* timezone) {
  * @returns	The number of seconds including millisecond.
  */
 clock_time_index clock_now_milliseconds() {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
 
-    clock_time_index total = tv.tv_sec * 1e3 + tv.tv_usec / 1e3;
+	clock_time_index total = tv.tv_sec * 1e3 + tv.tv_usec / 1e3;
 
-    return total;
+	return total;
 }
 
 /**
@@ -55,7 +55,7 @@ clock_time_index clock_now_milliseconds() {
 * @returns	The number of seconds including milliseconds.
 */
 clock_time_index clock_now_seconds() {
-    return clock_now_milliseconds() / 1e3;
+	return clock_now_milliseconds() / 1e3;
 }
 
 /**
@@ -65,20 +65,20 @@ clock_time_index clock_now_seconds() {
  */
 
 const char* clock_now_utc() {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
 
-    // Convert and get date-time down to the seconds
-    time_t t = tv.tv_sec;
-    char buffer[60];
-    struct tm timestamp;
-    localtime_s(&timestamp, &t);
+	// Convert and get date-time down to the seconds
+	time_t t = tv.tv_sec;
+	char buffer[60];
+	struct tm timestamp;
+	localtime_s(&timestamp, &t);
 
-    size_t len = strftime(buffer, 60, "%Y-%m-%d %H:%M:%S", &timestamp);
+	size_t len = strftime(buffer, 60, "%Y-%m-%d %H:%M:%S", &timestamp);
 
-    // Append the milliseconds
-    static char bufferWithMilliseconds[80];
-    snprintf(bufferWithMilliseconds, 80, "%s.%-2d", buffer, tv.tv_usec / 1000);
+	// Append the milliseconds
+	static char bufferWithMilliseconds[80];
+	sprintf_s(bufferWithMilliseconds, sizeof(bufferWithMilliseconds), "%s.%-2d", buffer, tv.tv_usec / 1000);
 
-    return bufferWithMilliseconds;
+	return bufferWithMilliseconds;
 }

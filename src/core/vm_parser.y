@@ -17,10 +17,7 @@
 */
 
 %define api.prefix vm_parser_
-%{
-	#include <string.h>
-	#include <stdio.h>
-	
+%{	
 	#include <enjector/core/vm_parser.h>
 	
 	extern char yytext[];

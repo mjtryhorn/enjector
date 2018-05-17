@@ -769,8 +769,6 @@ char *yytext;
 */
 #define YY_NO_UNISTD_H 1
 #line 23 "vm_parser.l"
-	#include <string.h>
-
 	#include <enjector/core/text.h>
 	#include <enjector/core/vm_parser.h>
 	
@@ -787,16 +785,16 @@ char *yytext;
 	#undef vm_parser_stype
 	#define vm_parser_stype VM_PARSER_STYPE
 
-	extern vm_parser_stype vm_parser_lval;
-	extern size_t  vm_parser_state_input_lineno;
+	extern vm_parser_stype	vm_parser_lval;
+	extern size_t			vm_parser_state_input_lineno;
 	
 	/*{name}		{ vm_parser_lval.s = text_clone(yytext); return NAME; }
 	 {float}		{ vm_parser_lval.d = atof(yytext); return DECIMAL; }
 	 {number}		{ vm_parser_lval.i = atoi(yytext); return NUMBER; }
 	 */
 	extern script*			_vm_parser_ctx_current_script;
-#line 798 "<stdout>"
-#line 799 "<stdout>"
+#line 796 "<stdout>"
+#line 797 "<stdout>"
 
 #define INITIAL 0
 
@@ -1013,10 +1011,10 @@ YY_DECL
 		}
 
 	{
-#line 62 "vm_parser.l"
+#line 60 "vm_parser.l"
 
 
-#line 1019 "<stdout>"
+#line 1017 "<stdout>"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1075,87 +1073,87 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 64 "vm_parser.l"
+#line 62 "vm_parser.l"
 { return FUNCTION; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 65 "vm_parser.l"
+#line 63 "vm_parser.l"
 { return RETURN; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 66 "vm_parser.l"
+#line 64 "vm_parser.l"
 { return IF; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 67 "vm_parser.l"
+#line 65 "vm_parser.l"
 { return WHILE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 68 "vm_parser.l"
+#line 66 "vm_parser.l"
 { return DOEVENTS; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 70 "vm_parser.l"
+#line 68 "vm_parser.l"
 { vm_parser_lval.string = text_clone(yytext); return NAME; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 71 "vm_parser.l"
+#line 69 "vm_parser.l"
 { vm_parser_lval.string = text_clone(yytext); return DECIMAL; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 72 "vm_parser.l"
+#line 70 "vm_parser.l"
 { vm_parser_lval.string = text_clone(yytext); return NUMBER; }
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 73 "vm_parser.l"
+#line 71 "vm_parser.l"
 { vm_parser_lval.string = text_clone(yytext); return STRING; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 75 "vm_parser.l"
+#line 73 "vm_parser.l"
 { vm_parser_lval.string = text_clone(yytext); return CONDITION; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 76 "vm_parser.l"
+#line 74 "vm_parser.l"
 { vm_parser_lval.string = text_clone(yytext); return CONDITIONAL_OPERAND; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 78 "vm_parser.l"
+#line 76 "vm_parser.l"
 {/* skip */}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 79 "vm_parser.l"
+#line 77 "vm_parser.l"
 {/* skip */}
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 80 "vm_parser.l"
+#line 78 "vm_parser.l"
 { _vm_parser_ctx_current_script->vm_parser_state_input_lineno++; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 82 "vm_parser.l"
+#line 80 "vm_parser.l"
 { return yytext[0]; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 83 "vm_parser.l"
+#line 81 "vm_parser.l"
 ECHO;
 	YY_BREAK
-#line 1158 "<stdout>"
+#line 1156 "<stdout>"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2160,4 +2158,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 83 "vm_parser.l"
+#line 81 "vm_parser.l"

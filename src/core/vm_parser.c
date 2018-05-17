@@ -81,7 +81,6 @@ bool vm_parser_load(script* script, const char* text) {
 }
 
 void vm_parser_clear(script* script) {
-    int i;
     assert(script);
 
     if (script->vm) {
@@ -105,7 +104,7 @@ void vm_parser_clear(script* script) {
     if (script->vm_parser_state_vars) {
         list_item** items = list_enumerable(script->vm_parser_state_vars);
 
-        for (i = 0; i < list_count(script->vm_parser_state_vars); i++) {
+        for (unsigned i = 0; i < list_count(script->vm_parser_state_vars); i++) {
             list_item* item = items[i];
 
             if (item->value) {
@@ -329,7 +328,7 @@ char* vm_parser_generator_temp_var_create() {
     script* script = _vm_parser_ctx_current_script;
 
     char tmp[5];
-    sprintf(tmp, "v%d", script->vm_parser_generator_temp_var_count++);
+    sprintf_s(tmp, sizeof(tmp), "v%d", script->vm_parser_generator_temp_var_count++);
 
     char* var = text_clone(tmp);
     list_add(script->vm_parser_state_vars, var);
@@ -346,7 +345,7 @@ char* vm_parser_generator_temp_label_create() {
     script* script = _vm_parser_ctx_current_script;
     unsigned int count = queue_count(script->vm_parser_state_labels);
     char tmp[5];
-    sprintf(tmp, "L%d", count);
+    sprintf_s(tmp, sizeof(tmp), "L%d", count);
     return text_clone(tmp);
 }
 

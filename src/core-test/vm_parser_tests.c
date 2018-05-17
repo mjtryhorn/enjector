@@ -19,8 +19,9 @@
 #include "vm_parser_tests.h"
 
 #include <enjector/core/vm_parser.h>
+#include <enjector/core/map.h>
+
 #include <stdlib.h>
-#include "enjector/core/map.h"
 
 static void should_successfully_parse_single_function() {
     const char* text = "function test1() {}";
@@ -37,7 +38,6 @@ static void should_successfully_parse_single_function() {
     xmemory_report_exit_on_leaks();
 }
 
-
 static void should_successfully_declare_variables() {
     const char* text = "function test1() { a = 1; }";
 
@@ -46,7 +46,7 @@ static void should_successfully_declare_variables() {
 
     bool result = vm_parser_load(script, text);
     TEST_ASSERT_TRUE_FATAL(result);
-    //	TEST_ASSERT_TRUE(list_count(script->bytecodes) > 0);
+    //TEST_ASSERT_TRUE(list_count(script->bytecodes) > 0);
 
     vm_parser_dispose(script);
 
