@@ -29,20 +29,17 @@
 
 #ifndef _MSC_VER
 
-size_t strncpy_s(char *d, size_t n, char const *s, size_t l)
-{
-  //strncpy(d, s, n);
+size_t strncpy_s(char *d, size_t n, char const *s, size_t l) {
+    //strncpy(d, s, n);
     return snprintf(d, n, "%s", s);
 }
 
-size_t strncat_s(char *d, char const *s, size_t n)
-{
-  return snprintf(d, n, "%s%s", d, s);
+size_t strncat_s(char *d, char const *s, size_t n) {
+    return snprintf(d, n, "%s%s", d, s);
 }
 
-size_t strcat_s(char *d, size_t dn, char const *s)
-{
-  return snprintf(d, dn, "%s%s", d, s);
+size_t strcat_s(char *d, size_t dn, char const *s) {
+    return snprintf(d, dn, "%s%s", d, s);
 }
 
 

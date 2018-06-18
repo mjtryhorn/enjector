@@ -89,7 +89,7 @@ const char* clock_stopwatch_elapsed_time(clock_stopwatch* stopwatch) {
 
     static char buffer[120];
     snprintf(buffer, sizeof(buffer), "%zd days, %zd hours, %zd minutes, %zd seconds",
-        days, hours, mins, total % 60);
+             days, hours, mins, total % 60);
 
     return buffer;
 }

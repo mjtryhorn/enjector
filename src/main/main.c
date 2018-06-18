@@ -11,8 +11,7 @@ void should_successfully_test_equality_bool() {
     TEST_ASSERT_TRUE_FATAL(actual);
 }
 
-int main()
-{
+int main() {
 
     should_successfully_test_equality_bool();
     return 0;

@@ -82,9 +82,9 @@ const char* clock_now_utc() {
 #ifdef _MSC_VER
     localtime_s(&timestamp, &t);
 #else
-    localtime_r(&timestamp, &t);    
+    localtime_r(&timestamp, &t);
 #endif
-    
+
     size_t len = strftime(buffer, 60, "%Y-%m-%d %H:%M:%S", &timestamp);
 
     // Append the milliseconds
