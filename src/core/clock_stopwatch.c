@@ -112,7 +112,7 @@ void clock_stopwatch_elapsed_print(clock_stopwatch* stopwatch) {
  * @param stopwatch		Pointer to a previous started and ended stopwatch object
  *						that is holding the timing details.
  */
-double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count) {
+size_t clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count) {
     assert(stopwatch);
 
     // Avoid potential divide by 0
@@ -120,8 +120,11 @@ double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count) 
         return 0;
     }
 
-    // TODO: better calculation required
-    return (double)(count / (double)((stopwatch->elapsed / 1000)));
+    double latency = stopwatch->elapsed / count;
+
+    const size_t tps = count * 1000 / stopwatch->elapsed;
+
+    return tps;
 }
 
 /**

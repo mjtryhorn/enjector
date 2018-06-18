@@ -16,7 +16,7 @@ set(SOURCE_FILES
 	clock_timer.c
 
 	${INCLUDE_PATH_CORE}/clock.h
-	clock_win32.c
+	clock.c
 
 	${INCLUDE_PATH_CORE}/graph.h
 	graph.c

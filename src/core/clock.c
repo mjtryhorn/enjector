@@ -22,6 +22,9 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include <time.h>
+#include <sys/timeb.h>
+
 #ifdef _MSC_VER
 #include <windows.h>
 
@@ -38,10 +41,6 @@ int gettimeofday(struct timeval* t, void* timezone) {
 #else
 #include <sys/time.h>
 #endif
-
-#include <time.h>
-#include <sys/timeb.h>
-
 
 /**
  * Returns the current time in milliseconds since 1900.
