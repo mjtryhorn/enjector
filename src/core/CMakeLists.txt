@@ -36,9 +36,9 @@ set(SOURCE_FILES
 	${INCLUDE_PATH_CORE}/async.h
 	async.c
 
-	${INCLUDE_PATH_CORE}/sleep.h
-	sleep_unix.c
-	sleep_win32.c
+	${INCLUDE_PATH_CORE}/system_sleep.h
+	system_sleep_unix.c
+	system_sleep_win32.c
 
 	${INCLUDE_PATH_CORE}/string_buffer.h
 	string_buffer.c

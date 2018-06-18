@@ -20,13 +20,13 @@
 
 #include <enjector/core/clock_stopwatch.h>
 #include <enjector/core/xmemory.h>
-#include <enjector/core/sleep.h>
+#include <enjector/core/system_sleep.h>
 
 static void should_successfully_test_stop_watch_start_end() {
     clock_stopwatch stopwatch;
     clock_stopwatch_start(&stopwatch);
 
-    sleep(100);
+    system_sleep(100);
 
     clock_time_quantity v1 = clock_stopwatch_end(&stopwatch);
     clock_time_quantity v2 = clock_stopwatch_elapsed(&stopwatch);
@@ -41,12 +41,12 @@ static void should_successfully_test_stop_watch_start_end_continue() {
     clock_stopwatch stopwatch;
     clock_stopwatch_start(&stopwatch);
 
-    sleep(100);
+    system_sleep(100);
 
     clock_stopwatch_end(&stopwatch);
     clock_stopwatch_start(&stopwatch);
 
-    sleep(200);
+    system_sleep(200);
 
     clock_time_quantity v1 = clock_stopwatch_end(&stopwatch);
     TEST_ASSERT_TRUE(v1 >= 200);
@@ -58,7 +58,7 @@ static void should_successfully_test_rate_count() {
     clock_stopwatch stopwatch;
     clock_stopwatch_start(&stopwatch);
 
-    sleep(1000);
+    system_sleep(1000);
 
     clock_stopwatch_elapsed(&stopwatch);
 

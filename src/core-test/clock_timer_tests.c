@@ -19,14 +19,14 @@
 #include "clock_timer_tests.h"
 
 #include <enjector/core/clock_timer.h>
-#include <enjector/core/sleep.h>
+#include <enjector/core/system_sleep.h>
 #include <enjector/core/xmemory.h>
 
 static void should_successfully_test_timer_not_expired() {
     clock_timer timer;
     clock_timer_init(&timer, 100);
 
-    sleep(50);
+    system_sleep(50);
     TEST_ASSERT_FALSE(clock_timer_has_expired(&timer));
 
     const clock_time_quantity v = clock_timer_value(&timer);
@@ -39,7 +39,7 @@ static void should_successfully_test_timer_expired() {
     clock_timer timer;
     clock_timer_init(&timer, 50);
 
-    sleep(60);
+    system_sleep(60);
     TEST_ASSERT_TRUE(clock_timer_has_expired(&timer));
 
     xmemory_report_exit_on_leaks();
@@ -58,7 +58,7 @@ static void should_successfully_test_timer_reset() {
     clock_timer timer;
     clock_timer_init(&timer, 100);
 
-    sleep(50);
+    system_sleep(50);
     TEST_ASSERT_FALSE(clock_timer_has_expired(&timer));
 
     const clock_time_quantity v = clock_timer_value(&timer);

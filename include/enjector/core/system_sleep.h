@@ -1,5 +1,5 @@
 /*
-* sleep_win32.c
+* sleep.h
 *
 * Copyright 2004-2018 Enjector Software, Ltd.
 *
@@ -16,14 +16,6 @@
 * limitations under the License.
 */
 
-#ifdef _MSC_VER
+#pragma once
 
-#include <enjector/core/sleep.h>
-
-#include <windows.h>
-
-void sleep(unsigned int milliseconds) {
-    Sleep(milliseconds);
-}
-
-#endif
+void system_sleep(unsigned int milliseconds);
