@@ -16,6 +16,8 @@
 * limitations under the License.
 */
 
+#undef _MSC_VER
+
 #include <enjector/core/benchmark.h>
 
 #include "json_benchmarks.h"

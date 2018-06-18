@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <assert.h>
 
+#undef _MSC_VER
+
 #ifdef _MSC_VER
 #include <consoleapi.h>
 #endif

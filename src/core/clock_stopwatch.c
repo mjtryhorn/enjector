@@ -89,7 +89,7 @@ const char* clock_stopwatch_elapsed_time(clock_stopwatch* stopwatch) {
 
     static char buffer[120];
     snprintf(buffer, sizeof(buffer), "%zd days, %zd hours, %zd minutes, %zd seconds",
-             days, hours, mins, total % 60);
+        days, hours, mins, total % 60);
 
     return buffer;
 }
@@ -120,7 +120,8 @@ double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count) 
         return 0;
     }
 
-    return (double)(count / (stopwatch->elapsed / 1000));
+    // TODO: better calculation required
+    return (double)(count / (double)((stopwatch->elapsed / 1000)));
 }
 
 /**
