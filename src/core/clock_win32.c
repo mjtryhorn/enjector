@@ -16,6 +16,8 @@
 * limitations under the License.
 */
 
+#ifdef _MSC_VER
+
 #include <enjector/core/clock.h>
 
 #include <stdio.h>
@@ -82,3 +84,5 @@ const char* clock_now_utc() {
 
     return bufferWithMilliseconds;
 }
+
+#endif
