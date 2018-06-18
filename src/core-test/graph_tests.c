@@ -37,8 +37,8 @@ static void should_successfully_create_simple_graph() {
     TEST_ASSERT_PTR_NOT_NULL_FATAL(e1->a);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(e1->b);
 
-    TEST_ASSERT_EQUAL_INT(1, graph_count_edges(g));
-    TEST_ASSERT_EQUAL_INT(2, graph_count_vertices(g));
+    TEST_ASSERT_EQUAL_SIZE(1, graph_count_edges(g));
+    TEST_ASSERT_EQUAL_SIZE(2, graph_count_vertices(g));
 
     TEST_ASSERT_EQUAL_PTR(v1, e1->a);
     TEST_ASSERT_EQUAL_PTR(v2, e1->b);
@@ -123,9 +123,9 @@ static void should_successfully_find_child_edges() {
     TEST_ASSERT_TRUE(e1 == fe1);
     TEST_ASSERT_TRUE(e2 == fe2);
 
-    TEST_ASSERT_EQUAL_INT_FATAL(2, edges->length);
-    TEST_ASSERT_EQUAL_INT(v2->id, fe1->b->id);
-    TEST_ASSERT_EQUAL_INT(v3->id, fe2->b->id);
+    TEST_ASSERT_EQUAL_SIZE_FATAL(2, edges->length);
+    TEST_ASSERT_EQUAL_SIZE(v2->id, fe1->b->id);
+    TEST_ASSERT_EQUAL_SIZE(v3->id, fe2->b->id);
 
     list_free(edges);
 
@@ -152,9 +152,9 @@ static void should_successfully_find_parent_edges() {
     TEST_ASSERT_TRUE(e1 == fe1);
     TEST_ASSERT_TRUE(e2 == fe2);
 
-    TEST_ASSERT_EQUAL_INT_FATAL(2, edges->length);
-    TEST_ASSERT_EQUAL_INT(v3->id, fe1->b->id);
-    TEST_ASSERT_EQUAL_INT(v3->id, fe2->b->id);
+    TEST_ASSERT_EQUAL_SIZE_FATAL(2, edges->length);
+    TEST_ASSERT_EQUAL_SIZE(v3->id, fe1->b->id);
+    TEST_ASSERT_EQUAL_SIZE(v3->id, fe2->b->id);
 
     list_free(edges);
 
@@ -215,8 +215,8 @@ static void should_successfully_remove_edge() {
 
     TEST_ASSERT_TRUE(e1 == fe1);
 
-    TEST_ASSERT_EQUAL_INT(1, list_count(g->edges));
-    TEST_ASSERT_EQUAL_INT(v3->id, fe1->b->id);
+    TEST_ASSERT_EQUAL_SIZE(1, list_count(g->edges));
+    TEST_ASSERT_EQUAL_SIZE(v3->id, fe1->b->id);
 
     list_free(edges);
     graph_dispose(g);
@@ -237,16 +237,16 @@ static void should_successfully_remove_single_part_bidirectional() {
     graph_edge_remove_link(g, v2, v3);
 
     list* edges_from_v3 = graph_vertex_fetch_edges_from(g, v3->id);
-    TEST_ASSERT_EQUAL_INT(1, list_count(edges_from_v3));
+    TEST_ASSERT_EQUAL_SIZE(1, list_count(edges_from_v3));
 
     graph_edge* fe3 = ((graph_edge*)edges_from_v3->data[0]->value);
 
     TEST_ASSERT_TRUE(e3 == fe3);
 
-    TEST_ASSERT_EQUAL_INT(v3->id, fe3->a->id);
-    TEST_ASSERT_EQUAL_INT(v2->id, fe3->b->id);
+    TEST_ASSERT_EQUAL_SIZE(v3->id, fe3->a->id);
+    TEST_ASSERT_EQUAL_SIZE(v2->id, fe3->b->id);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(g->edges));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(g->edges));
 
     list_free(edges_from_v3);
     graph_dispose(g);
@@ -264,11 +264,11 @@ static void should_successfully_remove_edges_after_vertex_removal() {
     graph_vertex_remove(g, v3);
 
     list* edges = graph_vertex_fetch_edges_from(g, v1->id);
-    TEST_ASSERT_EQUAL_INT(0, list_count(g->edges));
+    TEST_ASSERT_EQUAL_SIZE(0, list_count(g->edges));
     list_free(edges);
 
     edges = graph_vertex_fetch_edges_from(g, v2->id);
-    TEST_ASSERT_EQUAL_INT(0, list_count(g->edges));
+    TEST_ASSERT_EQUAL_SIZE(0, list_count(g->edges));
     list_free(edges);
 
     graph_dispose(g);
@@ -289,11 +289,11 @@ static void should_fail_to_create_double_links() {
     TEST_ASSERT_PTR_NULL(e3);
 
     list* edges_from = graph_vertex_fetch_edges_from(g, v1->id);
-    TEST_ASSERT_EQUAL_INT(1, list_count(edges_from));
+    TEST_ASSERT_EQUAL_SIZE(1, list_count(edges_from));
     list_free(edges_from);
 
     edges_from = graph_vertex_fetch_edges_from(g, v2->id);
-    TEST_ASSERT_EQUAL_INT(1, list_count(edges_from));
+    TEST_ASSERT_EQUAL_SIZE(1, list_count(edges_from));
     list_free(edges_from);
 
     graph_dispose(g);

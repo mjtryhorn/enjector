@@ -127,7 +127,7 @@ void json_serialise_long(string_buffer* json, const char* name, long value) {
     string_buffer_append_format(json, "\"%s\":%ld", name, value);
 }
 
-void json_serialise_unsigned_long(string_buffer* json, const char* name, unsigned long value) {
+void json_serialise_unsigned_long(string_buffer* json, const char* name, size_t value) {
     string_buffer_append_format(json, "\"%s\":%lu", name, value);
 }
 
@@ -201,7 +201,7 @@ bool json_deserialise_char_array(map* attrs, const char* name, char* value, int 
             value_result_dispose = true;
         }
 
-        int value_result_length = text_length(value_result);
+        size_t value_result_length = text_length(value_result);
 
         if (value_result_length> size) {
             value_result_length = size - 1;
@@ -561,7 +561,7 @@ bool json_deserialise_object(char* s, map* deserialised_attrs) {
 
             while (n-- > 0) printf(" ");
 
-            printf("^ Character: %ld:%s\n", index, &buffer[index - 5]);
+            printf("^ Character: %zd:%s\n", index, &buffer[index - 5]);
             return false;
         }
 
@@ -820,7 +820,7 @@ bool json_deserialise_array(char* s, list* deserialised_list) {
 
             while (n-- > 0) printf(" ");
 
-            printf("^ Character: %ld:%s\n", index, &buffer[index - 5]);
+            printf("^ Character: %zd:%s\n", index, &buffer[index - 5]);
             return false;
         }
 

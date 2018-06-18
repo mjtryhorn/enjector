@@ -22,17 +22,17 @@
 #include <enjector/core/xmemory.h>
 
 static void should_successfully_get_now_milliseconds() {
-    const long actual_result = clock_now_milliseconds();
+    const clock_time_quantity actual_result = clock_now_milliseconds();
 
-    TEST_ASSERT_NOT_EQUAL_INT(0, actual_result);
+    TEST_ASSERT_NOT_EQUAL_SIZE(0, actual_result);
 
     xmemory_report_exit_on_leaks();
 }
 
 static void should_successfully_get_now_seconds() {
-    const long actual_result = clock_now_seconds();
+    const clock_time_quantity actual_result = clock_now_seconds();
 
-    TEST_ASSERT_NOT_EQUAL_INT(0, actual_result);
+    TEST_ASSERT_NOT_EQUAL_SIZE(0, actual_result);
 
     xmemory_report_exit_on_leaks();
 }

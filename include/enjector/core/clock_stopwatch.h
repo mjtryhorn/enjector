@@ -75,7 +75,7 @@ void clock_stopwatch_elapsed_print(clock_stopwatch* stopwatch);
  *						that is holding the timing details.
  * @param count
  */
-double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count);
+double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count);
 
 /**
  * Prints the rate based on the stopwatch's elapsed time.

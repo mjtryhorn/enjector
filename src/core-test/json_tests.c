@@ -97,7 +97,7 @@ static void should_successfully_json_serialise_object() {
     p->home->security->name = text_clone("Vanguard");
 
     p->addresses = list_create();
-    p->score = 1.123456;
+    p->score = 1.123456f;
 
     address* add1 = address_create();
     add1->is_billing = true;
@@ -136,7 +136,7 @@ static void should_successfully_json_deserialise_object() {
 
     TEST_ASSERT_TRUE(text_equals(p->firstname, "Fred"));
     TEST_ASSERT_TRUE(text_equals(p->lastname, "Smith"));
-    TEST_ASSERT_EQUAL_INT(p->age, 42);
+    TEST_ASSERT_EQUAL_SIZE(p->age, 42);
     TEST_ASSERT_EQUAL_LONG(p->created_on, LONG_MAX);
 
     TEST_ASSERT_TRUE(p->home->is_billing);
@@ -146,7 +146,7 @@ static void should_successfully_json_deserialise_object() {
     TEST_ASSERT_TRUE(text_equals(p->home->security->name, "Vanguard"));
 
     TEST_ASSERT_PTR_NOT_NULL(p->addresses);
-    TEST_ASSERT_EQUAL_INT(list_count(p->addresses), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(p->addresses), 2);
 
     address* add1 = list_get_item(p->addresses, 0)->value;
     TEST_ASSERT_FALSE(add1->is_billing);
@@ -162,7 +162,7 @@ static void should_successfully_json_deserialise_object() {
     TEST_ASSERT_TRUE(text_equals(add2->security->type, "B Alarm Type"));
     TEST_ASSERT_TRUE(text_equals(add2->security->name, "B Alarm Name"));
 
-    TEST_ASSERT_EQUAL_FLOAT(1.123456, p->score);
+    TEST_ASSERT_EQUAL_FLOAT(1.123456f, p->score);
 
     person_dispose(p);
 
@@ -225,9 +225,9 @@ static void should_successfully_json_deserialise_object_with_foreign_charset() {
 
     TEST_ASSERT_TRUE(text_equals(p->firstname, "murciélago"));
     TEST_ASSERT_TRUE(text_equals(p->lastname, "たとえば"));
-    TEST_ASSERT_EQUAL_INT(p->age, 42);
+    TEST_ASSERT_EQUAL_SIZE(p->age, 42);
     TEST_ASSERT_EQUAL_LONG(p->created_on, LONG_MIN);
-    TEST_ASSERT_EQUAL_INT(p->score, 0);
+    TEST_ASSERT_EQUAL_FLOAT(p->score, 0);
 
     TEST_ASSERT_TRUE(p->home->is_billing);
     TEST_ASSERT_TRUE(text_equals(p->home->street1, "street 1"));
@@ -236,7 +236,7 @@ static void should_successfully_json_deserialise_object_with_foreign_charset() {
     TEST_ASSERT_TRUE(text_equals(p->home->security->name, "Vanguard"));
 
     TEST_ASSERT_PTR_NOT_NULL(p->addresses);
-    TEST_ASSERT_EQUAL_INT(list_count(p->addresses), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(p->addresses), 2);
 
     address* add1 = list_get_item(p->addresses, 0)->value;
     TEST_ASSERT_FALSE(add1->is_billing);
@@ -314,7 +314,7 @@ static void should_successfully_json_deserialise_object_with_json_chars() {
 
     TEST_ASSERT_TRUE(text_equals(p->firstname, "Fred'so"));
     TEST_ASSERT_TRUE(text_equals(p->lastname, "Smith\"so"));
-    TEST_ASSERT_EQUAL_INT(p->age, 42);
+    TEST_ASSERT_EQUAL_SIZE(p->age, 42);
     TEST_ASSERT_EQUAL_LONG(p->created_on, LONG_MIN);
 
     TEST_ASSERT_TRUE(p->home->is_billing);
@@ -324,7 +324,7 @@ static void should_successfully_json_deserialise_object_with_json_chars() {
     TEST_ASSERT_TRUE(text_equals(p->home->security->name, "Va\"ngu\"ard"));
 
     TEST_ASSERT_PTR_NOT_NULL(p->addresses);
-    TEST_ASSERT_EQUAL_INT(list_count(p->addresses), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(p->addresses), 2);
 
     address* add1 = list_get_item(p->addresses, 0)->value;
     TEST_ASSERT_FALSE(add1->is_billing);
@@ -353,8 +353,8 @@ static void should_successfully_json_deserialise_object_with_foreign_chars_and_j
 
     TEST_ASSERT_TRUE(text_equals(p->firstname, "Fred'so"));
     TEST_ASSERT_TRUE(text_equals(p->lastname, "Smith\"so"));
-    TEST_ASSERT_EQUAL_INT(p->age, 42);
-    TEST_ASSERT_EQUAL_INT(p->created_on, 0);
+    TEST_ASSERT_EQUAL_SIZE(p->age, 42);
+    TEST_ASSERT_EQUAL_SIZE(p->created_on, 0);
 
     TEST_ASSERT_TRUE(p->home->is_billing);
     TEST_ASSERT_TRUE(text_equals(p->home->street1, "{street 1}"));
@@ -363,7 +363,7 @@ static void should_successfully_json_deserialise_object_with_foreign_chars_and_j
     TEST_ASSERT_TRUE(text_equals(p->home->security->name, "Va'ngu'ard"));
 
     TEST_ASSERT_PTR_NOT_NULL_FATAL(p->addresses);
-    TEST_ASSERT_EQUAL_INT(list_count(p->addresses), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(p->addresses), 2);
 
     address* add1 = list_get_item(p->addresses, 0)->value;
     TEST_ASSERT_FALSE(add1->is_billing);
@@ -404,7 +404,7 @@ serialisable(myaction, {
 });
 
 static void should_successfully_json_deserialise_object_extract_payload_without_deserialising() {
-    const char* json = "{\"app\":\"enjector\", \"type\" : \"session\", \"name\" : \"session authenticate\", \"message_id\" : \"b726191b - 5dfd - 979e-73bf - 1fc877c830ae\", \"created_on\" : \"Fri, 21 Aug 2015[ ] { ' } null true false : 10:17:36 GMT\", \"source\" : \"client\", \"payload\" : {\"username\":\"a\", \"password\" : \"a\"}}";
+    char* json = "{\"app\":\"enjector\", \"type\" : \"session\", \"name\" : \"session authenticate\", \"message_id\" : \"b726191b - 5dfd - 979e-73bf - 1fc877c830ae\", \"created_on\" : \"Fri, 21 Aug 2015[ ] { ' } null true false : 10:17:36 GMT\", \"source\" : \"client\", \"payload\" : {\"username\":\"a\", \"password\" : \"a\"}}";
 
     myaction* a = myaction_deserialise(json);
 
@@ -434,7 +434,7 @@ serialisable(uidpwd, {
 });
 
 static void should_successfully_json_deserialise_object_with_just_nulls() {
-    const char* json = "{\"username\":null, \"password\" : null}";
+    char* json = "{\"username\":null, \"password\" : null}";
 
     uidpwd* a = uidpwd_deserialise(json);
 
@@ -533,7 +533,7 @@ static void should_successfully_deserialise_a_list_of_strings() {
     strings_holder* holder = strings_holder_deserialise(json);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(holder);
 
-    TEST_ASSERT_EQUAL_INT(3, list_count(holder->strings));
+    TEST_ASSERT_EQUAL_SIZE(3, list_count(holder->strings));
     TEST_ASSERT_TRUE(text_equals("string1", (char*) list_get_item(holder->strings, 0)->value));
     TEST_ASSERT_TRUE(text_equals("string2", (char*) list_get_item(holder->strings, 1)->value));
     TEST_ASSERT_TRUE(text_equals("string3", (char*) list_get_item(holder->strings, 2)->value));
@@ -559,16 +559,16 @@ static void should_successfully_deserialise_a_mixed_list_of_strings_and_integers
     mixed_lists_holder* holder = mixed_lists_holder_deserialise(json);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(holder);
 
-    TEST_ASSERT_EQUAL_INT(3, list_count(holder->group_names));
+    TEST_ASSERT_EQUAL_SIZE(3, list_count(holder->group_names));
     TEST_ASSERT_TRUE(text_equals("abc", (char*)list_get_item(holder->group_names, 0)->value));
     TEST_ASSERT_TRUE(text_equals("def", (char*)list_get_item(holder->group_names, 1)->value));
     TEST_ASSERT_TRUE(text_equals("ghijk", (char*)list_get_item(holder->group_names, 2)->value));
 
-    TEST_ASSERT_EQUAL_INT(4, list_count(holder->group_ids));
-    TEST_ASSERT_EQUAL_INT(1, *((int*)list_get_item(holder->group_ids, 0)->value));
-    TEST_ASSERT_EQUAL_INT(2112, *((int*)list_get_item(holder->group_ids, 1)->value));
-    TEST_ASSERT_EQUAL_INT(33331, *((int*)list_get_item(holder->group_ids, 2)->value));
-    TEST_ASSERT_EQUAL_INT(4, *((int*)list_get_item(holder->group_ids, 3)->value));
+    TEST_ASSERT_EQUAL_SIZE(4, list_count(holder->group_ids));
+    TEST_ASSERT_EQUAL_SIZE(1, *((int*)list_get_item(holder->group_ids, 0)->value));
+    TEST_ASSERT_EQUAL_SIZE(2112, *((int*)list_get_item(holder->group_ids, 1)->value));
+    TEST_ASSERT_EQUAL_SIZE(33331, *((int*)list_get_item(holder->group_ids, 2)->value));
+    TEST_ASSERT_EQUAL_SIZE(4, *((int*)list_get_item(holder->group_ids, 3)->value));
 
     mixed_lists_holder_dispose(holder);
 
@@ -576,7 +576,7 @@ static void should_successfully_deserialise_a_mixed_list_of_strings_and_integers
 }
 
 static void should_fail_json_deserialise_due_to_parse_error() {
-    const char* json = "{\"app\":\"enjector\", \"type\" : \"session\", \"name\" : \"session authenticate\", \"message_id\" : \"b726191b - 5dfd - 979e-73bf - 1fc877c830ae\", \"created_on\" : \"Fri, 21 Aug 2015[ ] { ' } null true false : 10:17:36 GMT\", \"source\" : \"client\", \"payload\" : {\"username\":\"a\", \"password\" : \"a\"}}{\"app\":\"enjector\", \"type\" : \"session\", \"name\" : \"session authenticate\", \"message_id\" : \"b726191b - 5dfd - 979e-73bf - 1fc877c830ae\", \"created_on\" : \"Fri, 21 Aug 2015[ ] { ' } null true false : 10:17:36 GMT\", \"source\" : \"client\", \"payload\" : {\"username\":\"a\", \"password\" : \"a\"}}";
+    char* json = "{\"app\":\"enjector\", \"type\" : \"session\", \"name\" : \"session authenticate\", \"message_id\" : \"b726191b - 5dfd - 979e-73bf - 1fc877c830ae\", \"created_on\" : \"Fri, 21 Aug 2015[ ] { ' } null true false : 10:17:36 GMT\", \"source\" : \"client\", \"payload\" : {\"username\":\"a\", \"password\" : \"a\"}}{\"app\":\"enjector\", \"type\" : \"session\", \"name\" : \"session authenticate\", \"message_id\" : \"b726191b - 5dfd - 979e-73bf - 1fc877c830ae\", \"created_on\" : \"Fri, 21 Aug 2015[ ] { ' } null true false : 10:17:36 GMT\", \"source\" : \"client\", \"payload\" : {\"username\":\"a\", \"password\" : \"a\"}}";
 
     myaction* a = myaction_deserialise(json);
 
@@ -612,9 +612,9 @@ static void should_successfully_json_serialisation_and_deserialise_object_with_d
 }
 
 static void should_successfully_json_deserialise_object_with_duplicate_attributes() {
-    const char* json = "{\"username\":\"user1\",\"password\":\"pass1\",\"username\":\"user2\"}";
+    char* json = "{\"username\":\"user1\",\"password\":\"pass1\",\"username\":\"user2\"}";
 
-    uidpwd* q = uidpwd2_deserialise(json);
+    uidpwd2* q = uidpwd2_deserialise(json);
     TEST_ASSERT_PTR_NULL_FATAL(q);
 
     xmemory_report_exit_on_leaks();
@@ -638,17 +638,17 @@ serialisable(testinfo, {
 });
 
 static void should_successfully_json_deserialise_object_with_bool1() {
-    const char* json = "{\"from\":26159,\"to\":26724,\"term\":3,\"success\":false,\"match_index\":-858993460}";
+    char* json = "{\"from\":26159,\"to\":26724,\"term\":3,\"success\":false,\"match_index\":-858993460}";
 
     testinfo* q = testinfo_deserialise(json);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(q);
 
-    TEST_ASSERT_EQUAL_INT(26159, q->from);
-    TEST_ASSERT_EQUAL_INT(26724, q->to);
-    TEST_ASSERT_EQUAL_INT(3, q->term);
+    TEST_ASSERT_EQUAL_SIZE(26159, q->from);
+    TEST_ASSERT_EQUAL_SIZE(26724, q->to);
+    TEST_ASSERT_EQUAL_SIZE(3, q->term);
     TEST_ASSERT_EQUAL_BOOL(false, q->success);
     TEST_ASSERT_FALSE(q->success);
-    TEST_ASSERT_EQUAL_INT(-858993460, q->match_index);
+    TEST_ASSERT_EQUAL_SIZE(-858993460, q->match_index);
 
     testinfo_dispose(q);
 
@@ -656,17 +656,17 @@ static void should_successfully_json_deserialise_object_with_bool1() {
 }
 
 static void should_successfully_json_deserialise_object_with_bool2() {
-    const char* json = "{\"from\":26159,\"to\":26724,\"term\":3,\"success\":true,\"match_index\":-858993460}";
+    char* json = "{\"from\":26159,\"to\":26724,\"term\":3,\"success\":true,\"match_index\":-858993460}";
 
     testinfo* q = testinfo_deserialise(json);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(q);
 
-    TEST_ASSERT_EQUAL_INT(26159, q->from);
-    TEST_ASSERT_EQUAL_INT(26724, q->to);
-    TEST_ASSERT_EQUAL_INT(3, q->term);
+    TEST_ASSERT_EQUAL_SIZE(26159, q->from);
+    TEST_ASSERT_EQUAL_SIZE(26724, q->to);
+    TEST_ASSERT_EQUAL_SIZE(3, q->term);
     TEST_ASSERT_EQUAL_BOOL(true, q->success);
     TEST_ASSERT_TRUE(q->success);
-    TEST_ASSERT_EQUAL_INT(-858993460, q->match_index);
+    TEST_ASSERT_EQUAL_SIZE(-858993460, q->match_index);
 
     testinfo_dispose(q);
 
@@ -699,14 +699,14 @@ static void should_successfully_json_deserialise_complex_object1() {
     test_cluster_discovery_info* q = test_cluster_discovery_info_deserialise(json);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(q);
 
-    TEST_ASSERT_EQUAL_INT(509052683, q->id);
+    TEST_ASSERT_EQUAL_SIZE(509052683, q->id);
     TEST_ASSERT_TRUE(text_equals("test-cluster", q->group_name));
     TEST_ASSERT_TRUE(text_equals("test", q->group_name_shortcode));
-    TEST_ASSERT_EQUAL_INT(4801, q->port);
+    TEST_ASSERT_EQUAL_SIZE(4801, q->port);
     TEST_ASSERT_TRUE(text_equals("3b5e5289-f328-a213-c05e-2aabc9d813d1", q->msg_id));
 
     list* hosts = q->hosts;
-    TEST_ASSERT_EQUAL_INT(8, list_count(hosts));
+    TEST_ASSERT_EQUAL_SIZE(8, list_count(hosts));
     TEST_ASSERT_TRUE(text_equals("127.0.0.1", (char*) list_get_item(hosts, 0)->value));
 
     test_cluster_discovery_info_dispose(q);
@@ -768,28 +768,28 @@ static void should_successfully_json_deserialise_map() {
     TEST_ASSERT_PTR_NOT_NULL_FATAL(collection);
 
     TEST_ASSERT_TRUE(text_equals("Collection of themes", collection->name));
-    TEST_ASSERT_EQUAL_INT_FATAL(3, map_count(collection->themes));
+    TEST_ASSERT_EQUAL_SIZE_FATAL(3, map_count(collection->themes));
 
     map_item* item_theme1 = map_get_item_at(collection->themes, 0);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(item_theme1);
     TEST_ASSERT_TRUE(text_equals("theme1", item_theme1->name));
     test_theme* theme1 = (test_theme*) item_theme1->value;
     TEST_ASSERT_TRUE(text_equals("theme1", theme1->name));
-    TEST_ASSERT_EQUAL_INT(1, theme1->votes);
+    TEST_ASSERT_EQUAL_SIZE(1, theme1->votes);
 
     map_item* item_theme2 = map_get_item_at(collection->themes, 1);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(item_theme2);
     TEST_ASSERT_TRUE(text_equals("theme2", item_theme2->name));
     test_theme* theme2 = (test_theme*)item_theme2->value;
     TEST_ASSERT_TRUE(text_equals("theme2", theme2->name));
-    TEST_ASSERT_EQUAL_INT(2, theme2->votes);
+    TEST_ASSERT_EQUAL_SIZE(2, theme2->votes);
 
     map_item* item_theme3 = map_get_item_at(collection->themes, 2);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(item_theme3);
     TEST_ASSERT_TRUE(text_equals("theme3", item_theme3->name));
     test_theme* theme3 = (test_theme*)item_theme3->value;
     TEST_ASSERT_TRUE(text_equals("theme3", theme3->name));
-    TEST_ASSERT_EQUAL_INT(3, theme3->votes);
+    TEST_ASSERT_EQUAL_SIZE(3, theme3->votes);
 
     test_theme_collection_dispose(collection);
 

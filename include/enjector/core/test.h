@@ -19,6 +19,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stddef.h>
 
 typedef struct test_t {
     const char* name;
@@ -43,6 +44,9 @@ void test_assert_not_equal_int(int not_expected, int actual, const char* file, i
 
 void test_assert_equal_long(long expected, long actual, const char* file, int line, bool fatal);
 void test_assert_not_equal_long(long not_expected, long actual, const char* file, int line, bool fatal);
+
+void test_assert_equal_size_t(size_t expected, size_t actual, const char* file, int line, bool fatal);
+void test_assert_not_equal_size_t(size_t not_expected, size_t actual, const char* file, int line, bool fatal);
 
 void test_assert_equal_float(float expected, float actual, const char* file, int line, bool fatal);
 void test_assert_not_equal_float(float not_expected, float actual, const char* file, int line, bool fatal);
@@ -70,6 +74,11 @@ void test_assert_not_null(void* actual, const char* file, int line, bool fatal);
 #define TEST_ASSERT_EQUAL_LONG_FATAL(expected, actual) test_assert_equal_long(expected, actual, __FILE__, __LINE__, true)
 #define TEST_ASSERT_NOT_EQUAL_LONG(not_expected, actual) test_assert_not_equal_long(not_expected, actual, __FILE__, __LINE__, false)
 #define TEST_ASSERT_NOT_EQUAL_LONG_FATAL(not_expected, actual) test_assert_not_equal_long(not_expected, actual, __FILE__, __LINE__, true)
+
+#define TEST_ASSERT_EQUAL_SIZE(expected, actual) test_assert_equal_size_t(expected, actual, __FILE__, __LINE__, false)
+#define TEST_ASSERT_EQUAL_SIZE_FATAL(expected, actual) test_assert_equal_size_t(expected, actual, __FILE__, __LINE__, true)
+#define TEST_ASSERT_NOT_EQUAL_SIZE(not_expected, actual) test_assert_not_equal_size_t(not_expected, actual, __FILE__, __LINE__, false)
+#define TEST_ASSERT_NOT_EQUAL_SIZE_FATAL(not_expected, actual) test_assert_not_equal_size_t(not_expected, actual, __FILE__, __LINE__, true)
 
 #define TEST_ASSERT_EQUAL_FLOAT(expected, actual) test_assert_equal_float(expected, actual, __FILE__, __LINE__, false)
 #define TEST_ASSERT_EQUAL_FLOAT_FATAL(expected, actual) test_assert_equal_float(expected, actual, __FILE__, __LINE__, true)

@@ -30,7 +30,7 @@ static void should_successfully_test_stop_watch_start_end() {
 
     clock_time_quantity v1 = clock_stopwatch_end(&stopwatch);
     clock_time_quantity v2 = clock_stopwatch_elapsed(&stopwatch);
-    TEST_ASSERT_TRUE(v1, v2);
+    TEST_ASSERT_EQUAL_SIZE(v1, v2);
     TEST_ASSERT_TRUE(v1 >= 100);
 
     xmemory_report_exit_on_leaks();
@@ -59,6 +59,8 @@ static void should_successfully_test_rate_count() {
     clock_stopwatch_start(&stopwatch);
 
     sleep(1000);
+
+    clock_stopwatch_elapsed(&stopwatch);
 
     double rate = clock_stopwatch_rate_calculate(&stopwatch, 1);
     TEST_ASSERT_TRUE(rate >= 1);

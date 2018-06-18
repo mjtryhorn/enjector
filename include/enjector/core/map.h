@@ -30,27 +30,27 @@ typedef struct map_item_t {
 typedef struct map_t {
     map_item** data;
     size_t length;
-    unsigned int stream_capacity;
+    size_t stream_capacity;
 
     char* alloc_filename;
-    int alloc_line;
+    size_t alloc_line;
 } map;
 
-map*		 _map_create(const char* filename, unsigned int line);
-#define		 map_create() _map_create(__FILE__, __LINE__);
-bool 	     map_set(map* m, const char* name, void* value);
-bool 	     map_set_with_type(map* m, const char* name, const char* type, void* value);
-map_item*	 map_get_item(const map* m, const char* name);
-bool 	     map_exists(const map* m, const char* name);
-void*		 map_get_value(const map* m, const char* name);
-void		 map_clear(map* m);
-void		 map_remove(map* m, const char* name);
-void		 map_item_dispose(map* m, const char* name);
-map_item**	 map_enumerable(const map* m);
-unsigned int map_count(const map* m);
-void		 map_free(map* m);
-void		 map_item_free(map_item* item);
-map_item*	 map_get_item_at(const map* m, unsigned int index);
+map*		_map_create(const char* filename, size_t line);
+#define		map_create() _map_create(__FILE__, __LINE__);
+bool 	    map_set(map* m, const char* name, void* value);
+bool 	    map_set_with_type(map* m, const char* name, const char* type, void* value);
+map_item*	map_get_item(const map* m, const char* name);
+bool 	    map_exists(const map* m, const char* name);
+void*		map_get_value(const map* m, const char* name);
+void		map_clear(map* m);
+void		map_remove(map* m, const char* name);
+void		map_item_dispose(map* m, const char* name);
+map_item**	map_enumerable(const map* m);
+size_t      map_count(const map* m);
+void		map_free(map* m);
+void		map_item_free(map_item* item);
+map_item*	map_get_item_at(const map* m, size_t index);
 
 #define map_of(type, name) \
     map* name = NULL;\
@@ -63,7 +63,7 @@ map_item*	 map_get_item_at(const map* m, unsigned int index);
 #define map_foreach_begin(source, key_alias, value_alias)\
     map_item** items = map_enumerable(source);\
     size_t items_count = map_count(source);\
-    for (unsigned int i = 0; i < items_count; i++) {\
+    for (size_t i = 0; i < items_count; i++) {\
 	    map_item* item = items[i];\
 	    const char* key_alias = item->name;\
 	    source ## _type* value_alias = (source ## _type*) item->value;
@@ -73,7 +73,7 @@ map_item*	 map_get_item_at(const map* m, unsigned int index);
 #define map_foreach_of_begin(source, key_alias, value_type, value_alias) {\
     map_item** items = map_enumerable(source);\
     size_t items_count = map_count(source);\
-    for (unsigned int _i = 0; _i < items_count; _i++) {\
+    for (size_t _i = 0; _i < items_count; _i++) {\
 	    map_item* item = items[_i];\
 	    const char* key_alias = item->name;\
 	    value_type value_alias = (value_type) item->value;
@@ -110,7 +110,7 @@ map_item*	 map_get_item_at(const map* m, unsigned int index);
 #define map_item_disposes_of(source, type) {\
 	map_item** items = map_enumerable(source);\
 	size_t items_count = map_count(source);\
-	for (unsigned int i = 0; i < items_count; i++) {\
+	for (size_t i = 0; i < items_count; i++) {\
 		map_item* item = items[i];\
 		const char* key_alias = item->name;\
 		type ## _dispose(item->value);\

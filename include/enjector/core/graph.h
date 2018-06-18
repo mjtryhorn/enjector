@@ -21,8 +21,8 @@
 #include "map.h"
 #include "list.h"
 
-typedef long double graph_edge_id;
-typedef long double graph_vertex_id;
+typedef size_t graph_edge_id;
+typedef size_t graph_vertex_id;
 
 typedef struct {
     graph_vertex_id	id;

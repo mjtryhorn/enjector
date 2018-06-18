@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-string_buffer* _string_buffer_create_empty(const char* filename, unsigned int line) {
+string_buffer* _string_buffer_create_empty(const char* filename, size_t line) {
     assert(filename);
 
     string_buffer* sb = _xmemory_malloc(sizeof(string_buffer), filename, line);
@@ -42,7 +42,7 @@ string_buffer* _string_buffer_create_empty(const char* filename, unsigned int li
     return sb;
 }
 
-string_buffer* _string_buffer_create(const char* data, size_t length, const char* filename, unsigned int line) {
+string_buffer* _string_buffer_create(const char* data, size_t length, const char* filename, size_t line) {
     assert(data);
 
     string_buffer* sb = _xmemory_malloc(sizeof(string_buffer), filename, line);
@@ -63,19 +63,19 @@ void string_buffer_append(string_buffer* sb, const char* data) {
     assert(data);
 
     // Check if destination is a stream
-    if(sb->stream_capacity == 0) {
+    if (sb->stream_capacity == 0) {
         printf("string_buffer not a stream");
         assert(0);
     }
 
     // Check if there's enough capacity in the stream, resize otherwise
-    unsigned long data_len = strlen(data);
-    long space_left = sb->stream_capacity - (sb->length + data_len) - 1; // -1 for NULL
+    const size_t data_len = strlen(data);
 
-    if(space_left < 0) {
+    if (sb->stream_capacity < (sb->length + data_len) - 1) { // -1 for NULL
+
         // Resize
         sb->stream_capacity += data_len + STRING_BUFFER_DEFAULT_STREAM_CAPACITY;
-        char* resized_buffer = (char*) _xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
+        char* resized_buffer = (char*)_xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
         memcpy(resized_buffer, sb->data, sb->length);
         xmemory_free(sb->data);
         sb->data = resized_buffer;
@@ -87,24 +87,22 @@ void string_buffer_append(string_buffer* sb, const char* data) {
     sb->data[sb->length] = 0;
 }
 
-void string_buffer_append_length(string_buffer* sb, const char* data, unsigned int length) {
+void string_buffer_append_length(string_buffer* sb, const char* data, size_t length) {
     assert(sb);
     assert(data);
 
     // Check if destination is a stream
-    if(sb->stream_capacity == 0) {
+    if (sb->stream_capacity == 0) {
         printf("string_buffer not a stream");
         assert(0);
     }
 
     // Check if there's enough capacity in the stream, resize otherwise
-    unsigned long data_len = strlen(data);
+    size_t data_len = strlen(data);
     assert(length <= data_len);
     data_len = length;	// Use the specified length
 
-    long space_left = sb->stream_capacity - (sb->length + data_len) - 1; // -1 for NULL
-
-    if(space_left < 0) {
+    if (sb->stream_capacity < (sb->length + data_len) - 1) { // -1 for NULL
         // Resize
         sb->stream_capacity += data_len + STRING_BUFFER_DEFAULT_STREAM_CAPACITY;
         //resized_buffer = (char*)_xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
@@ -157,7 +155,7 @@ char* string_buffer_move(string_buffer* sb) {
     return data;
 }
 
-unsigned long string_buffer_length(const string_buffer* sb) {
+size_t string_buffer_length(const string_buffer* sb) {
     assert(sb);
 
     return sb->length;
@@ -174,7 +172,7 @@ void string_buffer_free(string_buffer* sb) {
     string_buffer_clear(sb);
 
     // It may have been get_move
-    if(sb->data) xmemory_free(sb->data);
+    if (sb->data) xmemory_free(sb->data);
 
     xmemory_free(sb);
 }

@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include <string.h>
 
-map* _map_create(const char* filename, unsigned int line) {
+map* _map_create(const char* filename, size_t line) {
     map* m = (map*)_xmemory_malloc(sizeof(map), filename, line);
     m->data = (map_item**)_xmemory_malloc(sizeof(map_item*) * LIST_DEFAULT_STREAM_CAPACITY, filename, line);
     m->length = 0;
@@ -45,21 +45,21 @@ bool map_set_with_type(map* m, const char* name, const char* type, void* value) 
     // Check if its already set with the same name
     map_item* item = map_get_item(m, name);
 
-    if(item != NULL) {
+    if (item != NULL) {
         item->value = value;
         return true;
     }
 
     // Check if destination is a stream
-    if(m->stream_capacity == 0) {
+    if (m->stream_capacity == 0) {
         printf("map not a stream");
         assert(0);
     }
 
     // Check if there's enough capacity in the stream, resize otherwise
-    const int space_left = m->stream_capacity - (m->length + 1);
+    const long space_left = (long)(m->stream_capacity - (m->length + 1));
 
-    if(space_left < 0) {
+    if (space_left < 0) {
         // Resize
         m->stream_capacity += 1 + LIST_DEFAULT_STREAM_CAPACITY;
         map_item** resized_buffer = (map_item**)_xmemory_malloc(sizeof(map_item*) * m->stream_capacity, m->alloc_filename, m->alloc_line);
@@ -84,19 +84,16 @@ bool map_set(map* m, const char* name, void* value) {
 }
 
 map_item* map_get_item(const map* m, const char* name) {
-    map_item* item;
-    int i;
-
     assert(m);
     assert(name);
 
-    for(i = 0; i < m->length; i++) {
-        item = m->data[i];
+    for (size_t i = 0; i < m->length; i++) {
+        map_item* item = m->data[i];
 
         assert(item);
         assert(item->name);
 
-        if(text_equals(item->name, name)) {
+        if (text_equals(item->name, name)) {
             return item;
         }
     }
@@ -104,7 +101,7 @@ map_item* map_get_item(const map* m, const char* name) {
     return NULL;
 }
 
-map_item* map_get_item_at(const map* m, unsigned int index) {
+map_item* map_get_item_at(const map* m, size_t index) {
     assert(m);
     assert(index < m->length);
 
@@ -120,7 +117,7 @@ bool map_exists(const map* m, const char* name) {
 void* map_get_value(const map* m, const char* name) {
     map_item* item = map_get_item(m, name);
 
-    if(item == NULL) {
+    if (item == NULL) {
         return NULL;
     }
 
@@ -132,7 +129,7 @@ map_item** map_enumerable(const map* m) {
     return m->data;
 }
 
-unsigned int map_count(const map* m) {
+size_t map_count(const map* m) {
     assert(m);
     return m->length;
 }
@@ -140,7 +137,7 @@ unsigned int map_count(const map* m) {
 void map_clear(map* m) {
     assert(m);
 
-    for(int i = 0; i < m->length; i++) {
+    for (size_t i = 0; i < m->length; i++) {
         map_item* item = m->data[i];
         map_item_free(item);
     }
@@ -151,17 +148,17 @@ void map_clear(map* m) {
 void map_free(map* m) {
     map_clear(m);
 
-    if(m->alloc_filename) xmemory_free(m->alloc_filename);
+    if (m->alloc_filename) xmemory_free(m->alloc_filename);
 
     xmemory_free(m->data);
-    xmemory_free((void*) m);
+    xmemory_free((void*)m);
 }
 
 void map_item_free(map_item* item) {
     assert(item);
     assert(item->name);
 
-    if(item->type) {
+    if (item->type) {
         xmemory_free(item->type);
     }
 
@@ -173,23 +170,23 @@ void map_remove(map* m, const char* name) {
     assert(m);
     assert(name);
 
-    int items_count = map_count(m);
+    const size_t items_count = map_count(m);
 
     map_item** items = map_enumerable(m);
 
-    for(int i = 0; i < m->length; i++) {
+    for (size_t i = 0; i < m->length; i++) {
         map_item* item = m->data[i];
 
         assert(item);
         assert(item->name);
 
-        if(text_equals(item->name, name)) {
+        if (text_equals(item->name, name)) {
 
             // Remove the slot
             map_item_free(item);
 
             // If at the end, skip block moving
-            if(i != items_count - 1) {
+            if (i != items_count - 1) {
                 // Move block
                 void* from = &items[i + 1];
                 void* to = &items[i];
@@ -210,19 +207,19 @@ void map_item_dispose(map* m, const char* name) {
     assert(m);
     assert(name);
 
-    int items_count = map_count(m);
+    const size_t items_count = map_count(m);
 
     map_item** items = map_enumerable(m);
 
-    for(int i = 0; i < m->length; i++) {
+    for (size_t i = 0; i < m->length; i++) {
         map_item* item = m->data[i];
 
         assert(item);
         assert(item->name);
 
-        if(text_equals(item->name, name)) {
+        if (text_equals(item->name, name)) {
 
-            if(item->value) {
+            if (item->value) {
                 xmemory_free(item->value);
             }
 
@@ -230,12 +227,12 @@ void map_item_dispose(map* m, const char* name) {
             map_item_free(item);
 
             // If at the end, skip block moving
-            if(i != items_count - 1) {
+            if (i != items_count - 1) {
 
                 // Move block
                 void* from = &items[i + 1];
                 void* to = &items[i];
-                size_t blocks = items_count - 1 - i;
+                const size_t blocks = items_count - 1 - i;
 
                 // Move array pointers along
                 memmove(to, from, sizeof(map_item*) * blocks);

@@ -34,7 +34,7 @@ static void should_successfully_create_map_with_items() {
     TEST_ASSERT_TRUE(map_set(m, "Key1", (void*) "Hello1"));
     TEST_ASSERT_TRUE(map_set(m, "Key2", (void*) "Hello2"));
 
-    TEST_ASSERT_EQUAL_INT(map_count(m), 2);
+    TEST_ASSERT_EQUAL_SIZE(map_count(m), 2);
     TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->value, "Hello1");
     TEST_ASSERT_PTR_NULL(map_get_item(m, "Key1")->type);
 
@@ -43,7 +43,7 @@ static void should_successfully_create_map_with_items() {
 
     map_item** items = map_enumerable(m);
 
-    for(unsigned int i = 0; i < map_count(m); i++) {
+    for(size_t i = 0; i < map_count(m); i++) {
         TEST_ASSERT_PTR_NOT_NULL_FATAL(items[i]);
         TEST_ASSERT_PTR_NOT_NULL_FATAL(items[i]->name);
         TEST_ASSERT_PTR_NOT_NULL_FATAL(items[i]->value);
@@ -56,7 +56,7 @@ static void should_successfully_create_map_with_items() {
 
 static void should_successfully_create_map_with_typed_items() {
     map_item** items;
-    unsigned int i;
+    size_t i;
     map* m = map_create();
 
     assert(m);
@@ -64,7 +64,7 @@ static void should_successfully_create_map_with_typed_items() {
     TEST_ASSERT_TRUE(map_set_with_type(m, "Key1", "string", (void*) "Hello1"));
     TEST_ASSERT_TRUE(map_set_with_type(m, "Key2", "string", (void*) "Hello2"));
 
-    TEST_ASSERT_EQUAL_INT(map_count(m), 2);
+    TEST_ASSERT_EQUAL_SIZE(map_count(m), 2);
     TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->value, "Hello1");
     TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->type, "string");
 
@@ -93,7 +93,7 @@ static void should_successfully_update_existing_item_in_map() {
     TEST_ASSERT_TRUE(map_set(m, "Key1", (void*) "Hello1"));
     TEST_ASSERT_TRUE(map_set(m, "Key1", (void*) "Test"));
 
-    TEST_ASSERT_EQUAL_INT(map_count(m), 1);
+    TEST_ASSERT_EQUAL_SIZE(map_count(m), 1);
     TEST_ASSERT_EQUAL_STRING((const char*)map_get_item(m, "Key1")->value, "Test");
 
     map_free(m);
@@ -128,7 +128,7 @@ static void should_successfully_iterate_over_map_using_foreach() {
     map_foreach_begin(customers, actual_key, c) {
         char expected_key[10]; snprintf(expected_key, 10, "CUS%d", expected[i].id);
         TEST_ASSERT_EQUAL_STRING(expected_key, actual_key);
-        TEST_ASSERT_EQUAL_INT(expected[j].id, c->id);
+        TEST_ASSERT_EQUAL_SIZE(expected[j].id, c->id);
         TEST_ASSERT_EQUAL_STRING(expected[j].name, c->name);
         j++;
     } map_foreach_end;
@@ -163,16 +163,16 @@ static void should_successfully_filter_map() {
     map(customer, filtered_customers);
     map_filter(customers, key, c, filtered_customers, text_equals(c->name, "fred2") || text_equals(c->name, "fred3"));
 
-    TEST_ASSERT_EQUAL_INT(2, map_count(filtered_customers));
+    TEST_ASSERT_EQUAL_SIZE(2, map_count(filtered_customers));
     TEST_ASSERT_TRUE(map_exists(filtered_customers, "ORD2"));
     TEST_ASSERT_TRUE(map_exists(filtered_customers, "ORD3"));
 
     customer* c2 = map_get(filtered_customers, "ORD2");
-    TEST_ASSERT_EQUAL_INT(2, c2->id);
+    TEST_ASSERT_EQUAL_SIZE(2, c2->id);
     TEST_ASSERT_EQUAL_STRING("fred2", c2->name);
 
     customer* c3 = map_get(filtered_customers, "ORD3");
-    TEST_ASSERT_EQUAL_INT(3, c3->id);
+    TEST_ASSERT_EQUAL_SIZE(3, c3->id);
     TEST_ASSERT_EQUAL_STRING("fred3", c3->name);
 
     map_dispose(customers);
@@ -204,9 +204,9 @@ static void should_successfully_clear_map() {
         b->name = "fred4";
     });
 
-    TEST_ASSERT_EQUAL_INT(4, map_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(4, map_count(customers));
     map_clear_dispose(customers);
-    TEST_ASSERT_EQUAL_INT(0, map_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(0, map_count(customers));
 
     map_free(customers);
 
@@ -238,7 +238,7 @@ static void should_successfully_remove_from_map() {
 
     map_item_dispose(customers, "ORD2");
 
-    TEST_ASSERT_EQUAL_INT(3, map_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(3, map_count(customers));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD1"));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD3"));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD4"));
@@ -275,7 +275,7 @@ static void should_successfully_remove_from_begining_of_map() {
 
     map_item_dispose(customers, "ORD1");
 
-    TEST_ASSERT_EQUAL_INT(3, map_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(3, map_count(customers));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD2"));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD3"));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD4"));
@@ -312,7 +312,7 @@ static void should_successfully_remove_from_end_of_map() {
 
     map_item_dispose(customers, "ORD4");
 
-    TEST_ASSERT_EQUAL_INT(3, map_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(3, map_count(customers));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD1"));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD2"));
     TEST_ASSERT_TRUE(map_exists(customers, "ORD3"));

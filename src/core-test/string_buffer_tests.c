@@ -33,7 +33,7 @@ static void should_successfully_create_string_buffer_and_append_some_items() {
     string_buffer_append(sb, "Hello");
     string_buffer_append(sb, " World");
 
-    TEST_ASSERT_EQUAL_INT(string_buffer_length(sb), (int) strlen(expected_value));
+    TEST_ASSERT_EQUAL_SIZE(string_buffer_length(sb), (int) strlen(expected_value));
     TEST_ASSERT_EQUAL_STRING(expected_value, string_buffer_get(sb));
 
     string_buffer_free(sb);
@@ -50,7 +50,7 @@ static void should_successfully_create_string_buffer_and_append_format_some_item
     string_buffer_append_format(sb, "Hello %s %s", "Fred", "Bob");
     string_buffer_append(sb, " World");
 
-    TEST_ASSERT_EQUAL_INT(string_buffer_length(sb), (int)strlen(expected_value));
+    TEST_ASSERT_EQUAL_SIZE(string_buffer_length(sb), (int)strlen(expected_value));
     TEST_ASSERT_EQUAL_STRING(expected_value, string_buffer_get(sb));
 
     string_buffer_free(sb);

@@ -34,9 +34,9 @@ static void should_successfully_create_list_with_untyped_items() {
     list_add(l, (void*) "Hello1");
     list_add(l, (void*) "Hello2");
 
-    TEST_ASSERT_EQUAL_INT(list_count(l), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(l), 2);
 
-    for(unsigned int i = 0; i < list_count(l); i++) {
+    for(size_t i = 0; i < list_count(l); i++) {
         item = list_get_item(l, i);
         TEST_ASSERT_PTR_NOT_NULL_FATAL(item);
         TEST_ASSERT_PTR_NULL(item->type);
@@ -58,9 +58,9 @@ static void should_successfully_create_list_with_untyped_items_using_enumerable(
     list_add(l, (void*) "Hello2");
 
     list_item** items = list_enumerable(l);
-    TEST_ASSERT_EQUAL_INT(list_count(l), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(l), 2);
 
-    for(unsigned int i = 0; i < list_count(l); i++) {
+    for(size_t i = 0; i < list_count(l); i++) {
         item = items[i];
         TEST_ASSERT_PTR_NOT_NULL_FATAL(item);
         TEST_ASSERT_PTR_NULL(item->type);
@@ -88,12 +88,12 @@ static void should_successfully_create_list_with_typed_items() {
     list_add_with_type(l, "struct", &test_struct);
     list_add_with_type(l, "string", (void*)test_string);
 
-    TEST_ASSERT_EQUAL_INT(list_count(l), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(l), 2);
 
     int struct_type_count = 0;
     int string_type_count = 0;
 
-    for(unsigned int i = 0; i < list_count(l); i++) {
+    for(size_t i = 0; i < list_count(l); i++) {
         item = list_get_item(l, i);
         TEST_ASSERT_PTR_NOT_NULL_FATAL(item);
         TEST_ASSERT_PTR_NOT_NULL(item->type);
@@ -106,8 +106,8 @@ static void should_successfully_create_list_with_typed_items() {
         }
     }
 
-    TEST_ASSERT_EQUAL_INT(struct_type_count, 1);
-    TEST_ASSERT_EQUAL_INT(string_type_count, 1);
+    TEST_ASSERT_EQUAL_SIZE(struct_type_count, 1);
+    TEST_ASSERT_EQUAL_SIZE(string_type_count, 1);
 
     list_free(l);
 
@@ -118,20 +118,17 @@ static void should_successfully_clear_a_populated_list() {
     list* l = list_create();
     mytest test_struct;
     const char* test_string = "Hello";
-    int struct_type_count;
-    int string_type_count;
-    list_item* item = NULL;
 
     TEST_ASSERT_PTR_NOT_NULL(l);
 
     list_add_with_type(l, "struct", &test_struct);
     list_add_with_type(l, "string", (void*)test_string);
 
-    TEST_ASSERT_EQUAL_INT(list_count(l), 2);
+    TEST_ASSERT_EQUAL_SIZE(list_count(l), 2);
 
     list_clear(l);
 
-    TEST_ASSERT_EQUAL_INT(list_count(l), 0);
+    TEST_ASSERT_EQUAL_SIZE(list_count(l), 0);
 
     list_free(l);
 
@@ -156,7 +153,7 @@ static void should_successfully_create_list_and_add_items() {
         b->name = "fred2";
     });
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(customers));
 
     list_dispose(customers);
 
@@ -171,7 +168,7 @@ static void should_successfully_create_list_and_add_items_then_iterate() {
     list_add(l, "test1");
     list_add(l, "test2");
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(l));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(l));
 
     int i = 0;
     list_foreach_of_begin(l, char*, value) {
@@ -204,7 +201,7 @@ static void should_successfully_iterate_over_list_using_foreach() {
 
     list(customer, customers);
 
-    for(unsigned int i = 0; i < 2; i++) {
+    for(size_t i = 0; i < 2; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
@@ -215,12 +212,12 @@ static void should_successfully_iterate_over_list_using_foreach() {
     int j = 0;
 
     list_foreach_begin(customers, c) {
-        TEST_ASSERT_EQUAL_INT(expected[j].id, c->id);
+        TEST_ASSERT_EQUAL_SIZE(expected[j].id, c->id);
         TEST_ASSERT_EQUAL_STRING(expected[j].name, c->name);
         j++;
     } list_foreach_of_end
 
-    TEST_ASSERT_EQUAL_INT(2, j);
+    TEST_ASSERT_EQUAL_SIZE(2, j);
 
     list_dispose(customers);
 
@@ -254,12 +251,12 @@ static void should_successfully_filter_list() {
     list(customer, filtered_customers);
     list_filter(customers, c, filtered_customers, text_equals(c->name, "fred2") || text_equals(c->name, "fred3"));
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(filtered_customers));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(filtered_customers));
 
-    TEST_ASSERT_EQUAL_INT(2, list_get(filtered_customers, 0)->id);
+    TEST_ASSERT_EQUAL_SIZE(2, list_get(filtered_customers, 0)->id);
     TEST_ASSERT_EQUAL_STRING("fred2", list_get(filtered_customers, 0)->name);
 
-    TEST_ASSERT_EQUAL_INT(3, list_get(filtered_customers, 1)->id);
+    TEST_ASSERT_EQUAL_SIZE(3, list_get(filtered_customers, 1)->id);
     TEST_ASSERT_EQUAL_STRING("fred3", list_get(filtered_customers, 1)->name);
 
     list_dispose(customers);
@@ -304,7 +301,7 @@ static void should_successfully_map_from_one_list_to_another() {
                  "Order: %d. Product: %s. Customer: %s", o->id, o->product, o->customer);
     } list_map_end;
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(delivery_labels));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(delivery_labels));
     TEST_ASSERT_EQUAL_STRING("Order: 1. Product: watch1. Customer: fred1", list_get(delivery_labels, 0)->label);
     TEST_ASSERT_EQUAL_STRING("Order: 2. Product: watch2. Customer: fred2", list_get(delivery_labels, 1)->label);
 
@@ -324,7 +321,7 @@ static void should_successfully_get_first_and_last_item_from_list() {
 
     list(customer, customers);
 
-    for(unsigned int i = 0; i < 4; i++) {
+    for(size_t i = 0; i < 4; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
@@ -332,11 +329,11 @@ static void should_successfully_get_first_and_last_item_from_list() {
     }
 
     list_first(customers, first_customer);
-    TEST_ASSERT_EQUAL_INT(expected[0].id, first_customer->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, first_customer->id);
     TEST_ASSERT_EQUAL_STRING(expected[0].name, first_customer->name);
 
     list_last(customers, last_customer);
-    TEST_ASSERT_EQUAL_INT(expected[3].id, last_customer->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[3].id, last_customer->id);
     TEST_ASSERT_EQUAL_STRING(expected[3].name, last_customer->name);
 
     list_dispose(customers);
@@ -354,7 +351,7 @@ static void should_successfully_take_first_few_items() {
 
     list(order, orders);
 
-    for(unsigned int i = 0; i < 4; i++) {
+    for(size_t i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -366,13 +363,13 @@ static void should_successfully_take_first_few_items() {
     list(order, taken_orders);
     list_take(orders, 2, taken_orders);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(taken_orders));
-    TEST_ASSERT_EQUAL_INT(expected[0].id, list_get(taken_orders, 0)->id);
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(taken_orders));
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, list_get(taken_orders, 0)->id);
     TEST_ASSERT_EQUAL_STRING(expected[0].product, list_get(taken_orders, 0)->product);
     TEST_ASSERT_EQUAL_STRING(expected[0].customer, list_get(taken_orders, 0)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[0].delivered, list_get(taken_orders, 0)->delivered);
 
-    TEST_ASSERT_EQUAL_INT(expected[1].id, list_get(taken_orders, 1)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[1].id, list_get(taken_orders, 1)->id);
     TEST_ASSERT_EQUAL_STRING(expected[1].product, list_get(taken_orders, 1)->product);
     TEST_ASSERT_EQUAL_STRING(expected[1].customer, list_get(taken_orders, 1)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[1].delivered, list_get(taken_orders, 1)->delivered);
@@ -393,7 +390,7 @@ static void should_successfully_attempt_to_take_more_items_than_in_list() {
 
     list(order, orders);
 
-    for(unsigned int i = 0; i < 4; i++) {
+    for(size_t i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -405,11 +402,11 @@ static void should_successfully_attempt_to_take_more_items_than_in_list() {
     list(order, taken_orders);
     list_take(orders, 4, taken_orders);
 
-    TEST_ASSERT_EQUAL_INT(4, list_count(taken_orders));
-    TEST_ASSERT_EQUAL_INT(expected[0].id, list_get(taken_orders, 0)->id);
-    TEST_ASSERT_EQUAL_INT(expected[1].id, list_get(taken_orders, 1)->id);
-    TEST_ASSERT_EQUAL_INT(expected[2].id, list_get(taken_orders, 2)->id);
-    TEST_ASSERT_EQUAL_INT(expected[3].id, list_get(taken_orders, 3)->id);
+    TEST_ASSERT_EQUAL_SIZE(4, list_count(taken_orders));
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, list_get(taken_orders, 0)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[1].id, list_get(taken_orders, 1)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[2].id, list_get(taken_orders, 2)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[3].id, list_get(taken_orders, 3)->id);
 
     list_dispose(orders);
     list_free(taken_orders);
@@ -427,7 +424,7 @@ static void should_successfully_take_last_few_items() {
 
     list(order, orders);
 
-    for(unsigned int i = 0; i < 4; i++) {
+    for(size_t i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -439,13 +436,13 @@ static void should_successfully_take_last_few_items() {
     list(order, taken_orders);
     list_take_right(orders, 2, taken_orders);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(taken_orders));
-    TEST_ASSERT_EQUAL_INT(expected[3].id, list_get(taken_orders, 0)->id);
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(taken_orders));
+    TEST_ASSERT_EQUAL_SIZE(expected[3].id, list_get(taken_orders, 0)->id);
     TEST_ASSERT_EQUAL_STRING(expected[3].product, list_get(taken_orders, 0)->product);
     TEST_ASSERT_EQUAL_STRING(expected[3].customer, list_get(taken_orders, 0)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[3].delivered, list_get(taken_orders, 0)->delivered);
 
-    TEST_ASSERT_EQUAL_INT(expected[2].id, list_get(taken_orders, 1)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[2].id, list_get(taken_orders, 1)->id);
     TEST_ASSERT_EQUAL_STRING(expected[2].product, list_get(taken_orders, 1)->product);
     TEST_ASSERT_EQUAL_STRING(expected[2].customer, list_get(taken_orders, 1)->customer);
     TEST_ASSERT_EQUAL_BOOL(expected[2].delivered, list_get(taken_orders, 1)->delivered);
@@ -466,7 +463,7 @@ static void should_successfully_attempt_to_take_last_more_items_than_in_list() {
 
     list(order, orders);
 
-    for(unsigned int i = 0; i < 4; i++) {
+    for(size_t i = 0; i < 4; i++) {
         list_add_new(orders, a, {
             a->id = expected[i].id;
             a->product = expected[i].product;
@@ -478,11 +475,11 @@ static void should_successfully_attempt_to_take_last_more_items_than_in_list() {
     list(order, taken_orders);
     list_take_right(orders, 20, taken_orders);
 
-    TEST_ASSERT_EQUAL_INT(4, list_count(taken_orders));
-    TEST_ASSERT_EQUAL_INT(expected[3].id, list_get(taken_orders, 0)->id);
-    TEST_ASSERT_EQUAL_INT(expected[2].id, list_get(taken_orders, 1)->id);
-    TEST_ASSERT_EQUAL_INT(expected[1].id, list_get(taken_orders, 2)->id);
-    TEST_ASSERT_EQUAL_INT(expected[0].id, list_get(taken_orders, 3)->id);
+    TEST_ASSERT_EQUAL_SIZE(4, list_count(taken_orders));
+    TEST_ASSERT_EQUAL_SIZE(expected[3].id, list_get(taken_orders, 0)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[2].id, list_get(taken_orders, 1)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[1].id, list_get(taken_orders, 2)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, list_get(taken_orders, 3)->id);
 
     list_dispose(orders);
     list_free(taken_orders);
@@ -500,32 +497,32 @@ static void should_successfully_remove_item_by_ref_from_list() {
 
     list(customer, customers);
 
-    for(unsigned int i = 0; i < 3; i++) {
+    for(size_t i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(unsigned int i = 0; i < 3; i++) {
-        TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
+    for(size_t i = 0; i < 3; i++) {
+        TEST_ASSERT_EQUAL_SIZE(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
     // Act
     // - Remove middle item
     list_item* item = list_get_item(customers, 1);
-    TEST_ASSERT_EQUAL_INT(expected[1].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[1].id, ((customer*)item->value)->id);
 
     xmemory_free(item->value);
     list_remove_item(customers, item);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(customers));
 
     item = list_get_item(customers, 0);
-    TEST_ASSERT_EQUAL_INT(expected[0].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, ((customer*)item->value)->id);
 
     item = list_get_item(customers, 1);
-    TEST_ASSERT_EQUAL_INT(expected[2].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[2].id, ((customer*)item->value)->id);
 
     list_dispose(customers);
 
@@ -542,28 +539,28 @@ static void should_successfully_remove_item_by_index_from_list() {
 
     list(customer, customers);
 
-    for(unsigned int i = 0; i < 3; i++) {
+    for(size_t i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(unsigned int i = 0; i < 3; i++) {
-        TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
+    for(size_t i = 0; i < 3; i++) {
+        TEST_ASSERT_EQUAL_SIZE(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
     // Act
     // - Remove middle item
     list_dispose_item_at(customers, 1);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(customers));
 
     list_item* item = list_get_item(customers, 0);
-    TEST_ASSERT_EQUAL_INT(expected[0].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, ((customer*)item->value)->id);
 
     item = list_get_item(customers, 1);
-    TEST_ASSERT_EQUAL_INT(expected[2].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[2].id, ((customer*)item->value)->id);
 
     list_dispose(customers);
     xmemory_report_exit_on_leaks();
@@ -579,28 +576,28 @@ static void should_successfully_remove_item_by_index_from_begining_of_list() {
 
     list(customer, customers);
 
-    for(unsigned int i = 0; i < 3; i++) {
+    for(size_t i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(unsigned int i = 0; i < 3; i++) {
-        TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
+    for(size_t i = 0; i < 3; i++) {
+        TEST_ASSERT_EQUAL_SIZE(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
     // Act
     // - Remove middle item
     list_dispose_item_at(customers, 0);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(customers));
 
     list_item* item = list_get_item(customers, 0);
-    TEST_ASSERT_EQUAL_INT(expected[1].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[1].id, ((customer*)item->value)->id);
 
     item = list_get_item(customers, 1);
-    TEST_ASSERT_EQUAL_INT(expected[2].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[2].id, ((customer*)item->value)->id);
 
     list_dispose(customers);
 
@@ -617,28 +614,28 @@ static void should_successfully_remove_item_by_index_from_end_of_list() {
 
     list(customer, customers);
 
-    for(unsigned int i = 0; i < 3; i++) {
+    for(size_t i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(unsigned int i = 0; i < 3; i++) {
-        TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
+    for(size_t i = 0; i < 3; i++) {
+        TEST_ASSERT_EQUAL_SIZE(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
     // Act
     // - Remove middle item
     list_dispose_item_at(customers, 2);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(customers));
 
     list_item* item = list_get_item(customers, 0);
-    TEST_ASSERT_EQUAL_INT(expected[0].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, ((customer*)item->value)->id);
 
     item = list_get_item(customers, 1);
-    TEST_ASSERT_EQUAL_INT(expected[1].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[1].id, ((customer*)item->value)->id);
 
     list_dispose(customers);
 
@@ -655,33 +652,33 @@ static void should_successfully_remove_item_by_value_from_list() {
 
     list(customer, customers);
 
-    for(unsigned int i = 0; i < 3; i++) {
+    for(size_t i = 0; i < 3; i++) {
         list_add_new(customers, a, {
             a->id = expected[i].id;
             a->name = expected[i].name;
         });
     }
 
-    for(unsigned int i = 0; i < 3; i++) {
-        TEST_ASSERT_EQUAL_INT(expected[i].id, ((customer*)customers->data[i]->value)->id);
+    for(size_t i = 0; i < 3; i++) {
+        TEST_ASSERT_EQUAL_SIZE(expected[i].id, ((customer*)customers->data[i]->value)->id);
     }
 
     // Act
     // - Remove middle item
     list_item* item = list_get_item(customers, 1);
     customer* c = (customer*)item->value;
-    TEST_ASSERT_EQUAL_INT(expected[1].id, c->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[1].id, c->id);
 
     TEST_ASSERT_TRUE(list_remove_item_by_value(customers, c));
     xmemory_free(c);
 
-    TEST_ASSERT_EQUAL_INT(2, list_count(customers));
+    TEST_ASSERT_EQUAL_SIZE(2, list_count(customers));
 
     item = list_get_item(customers, 0);
-    TEST_ASSERT_EQUAL_INT(expected[0].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[0].id, ((customer*)item->value)->id);
 
     item = list_get_item(customers, 1);
-    TEST_ASSERT_EQUAL_INT(expected[2].id, ((customer*)item->value)->id);
+    TEST_ASSERT_EQUAL_SIZE(expected[2].id, ((customer*)item->value)->id);
 
     list_dispose(customers);
 

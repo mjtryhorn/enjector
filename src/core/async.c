@@ -259,9 +259,9 @@ void async_task_scheduler_remove_all(async_task_scheduler* scheduler, void* ctx)
     assert(scheduler);
     assert(ctx);
 
-    int items_len = list_count(scheduler->tasks);
+    size_t items_len = list_count(scheduler->tasks);
 
-    int i = 0;
+    size_t i = 0;
 
     while(i < items_len) {
         list_item* item = list_get_item(scheduler->tasks, i);
@@ -293,9 +293,9 @@ void async_task_scheduler_remove_by_task(async_task_scheduler* scheduler, const 
     assert(ctx);
     assert(task_name);
 
-    int items_len = list_count(scheduler->tasks);
+    size_t items_len = list_count(scheduler->tasks);
 
-    int i = 0;
+    size_t i = 0;
 
     while(i < items_len) {
         list_item* item = list_get_item(scheduler->tasks, i);
@@ -351,9 +351,9 @@ void async_task_scheduler_suspend_all(async_task_scheduler* scheduler, void* ctx
     assert(scheduler);
     assert(ctx);
 
-    int items_len = list_count(scheduler->tasks);
+    size_t items_len = list_count(scheduler->tasks);
 
-    int i = 0;
+    size_t i = 0;
 
     list_foreach_of_begin(scheduler->tasks, async_task*, task) {
         if(task->ctx == ctx && task->state == TaskStateRunning) {
@@ -412,9 +412,9 @@ bool async_task_scheduler_poll(async_task_scheduler* scheduler) {
     //	list* tasks_still_running = list_create();
 
     //	list_item** items = list_enumerable(scheduler->tasks);
-    int items_len = list_count(scheduler->tasks);
+    size_t items_len = list_count(scheduler->tasks);
 
-    for(int i = 0; i < items_len; i++) {
+    for(size_t i = 0; i < items_len; i++) {
         //	for (int i = 0; i < list_count(scheduler->tasks); i++)
         //	{
         list_item* item = list_get_item(scheduler->tasks, i);
@@ -531,7 +531,7 @@ void async_task_scheduler_runfor(async_task_scheduler* scheduler, long double du
 void async_task_scheduler_run_until_no_tasks(async_task_scheduler* scheduler) {
     assert(scheduler);
 
-    int tasks_count;
+    size_t tasks_count;
 
     while(tasks_count = list_count(scheduler->tasks), tasks_count > 0 && async_task_scheduler_poll(scheduler)) {
         //		system_sleep(TIMER_FREQ_ASYNC_SCHEDULER); // Should be min scheduler - TODO: adapative based on

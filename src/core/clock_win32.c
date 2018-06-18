@@ -30,7 +30,7 @@ int gettimeofday(struct timeval* t, void* timezone) {
 
     struct _timeb timebuffer;
     _ftime_s(&timebuffer);
-    t->tv_sec = timebuffer.time;
+    t->tv_sec = (long)timebuffer.time;
     t->tv_usec = 1000 * timebuffer.millitm;
     return 0;
 }
@@ -44,7 +44,7 @@ clock_time_index clock_now_milliseconds() {
     struct timeval tv;
     gettimeofday(&tv, NULL);
 
-    clock_time_index total = tv.tv_sec * 1e3 + tv.tv_usec / 1e3;
+    const clock_time_index total = (clock_time_index)(tv.tv_sec * 1e3 + tv.tv_usec / 1e3);
 
     return total;
 }
@@ -55,7 +55,7 @@ clock_time_index clock_now_milliseconds() {
 * @returns	The number of seconds including milliseconds.
 */
 clock_time_index clock_now_seconds() {
-    return clock_now_milliseconds() / 1e3;
+    return (clock_time_index)(clock_now_milliseconds() / 1e3);
 }
 
 /**

@@ -18,15 +18,17 @@
 
 #pragma once
 
-typedef long double clock_time_index;
-typedef long double clock_time_quantity;
+#include <stddef.h>
+
+typedef size_t clock_time_index;
+typedef size_t clock_time_quantity;
 
 /**
  * Returns the current time in milliseconds since 1900.
  *
  * @returns	The number of seconds including milliseconds.
  */
-long double clock_now_milliseconds();
+clock_time_quantity clock_now_milliseconds();
 
 /**
 * Returns the current time in seconds since 1900.

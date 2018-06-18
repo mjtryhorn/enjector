@@ -39,7 +39,7 @@ void graph_dispose(graph* g) {
     assert(g);
 
     list_item** verticies = list_enumerable(g->verticies);
-    int vertices_index = list_count(g->verticies);
+    size_t vertices_index = list_count(g->verticies);
 
     while (vertices_index-- > 0) {
         list_item* list_get_item = verticies[vertices_index];
@@ -53,7 +53,7 @@ void graph_dispose(graph* g) {
     list_free(g->verticies);
 
     list_item** edges = list_enumerable(g->edges);
-    int edges_index = list_count(g->edges);
+    size_t edges_index = list_count(g->edges);
 
     while (edges_index-- > 0) {
         list_item* list_get_item = edges[edges_index];
@@ -168,7 +168,7 @@ graph_vertex* graph_vertex_fetch(graph* g, graph_vertex_id vertex_id) {
     graph_vertex* found_vertex = NULL;
 
     list_item** verticies = list_enumerable(g->verticies);
-    int vertices_index = list_count(g->verticies);
+    size_t vertices_index = list_count(g->verticies);
 
     while (vertices_index-- > 0) {
         list_item* list_get_item = verticies[vertices_index];

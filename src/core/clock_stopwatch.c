@@ -64,8 +64,8 @@ clock_time_quantity clock_stopwatch_elapsed(clock_stopwatch* stopwatch) {
     assert(stopwatch);
 
     // If the stopwatch hasn't finished then update the elapsed
-    if(stopwatch->end == 0) {
-        clock_time_quantity now = clock_now_milliseconds();
+    if (stopwatch->end == 0) {
+        const clock_time_quantity now = clock_now_milliseconds();
         stopwatch->elapsed = now - stopwatch->start;
     }
 
@@ -81,14 +81,14 @@ clock_time_quantity clock_stopwatch_elapsed(clock_stopwatch* stopwatch) {
 const char* clock_stopwatch_elapsed_time(clock_stopwatch* stopwatch) {
     assert(stopwatch);
 
-    long total = (long) clock_stopwatch_elapsed(stopwatch) / (long) 1e3;
+    const size_t total = clock_stopwatch_elapsed(stopwatch) / (size_t) 1e3;
 
-    int days = total / 86400;
-    int hours = (total / 3600) - (days * 24);
-    int mins = (total / 60) - (days * 1440) - (hours * 60);
+    const size_t days = total / 86400;
+    const size_t hours = (total / 3600) - (days * 24);
+    const size_t mins = (total / 60) - (days * 1440) - (hours * 60);
 
     static char buffer[120];
-    snprintf(buffer, sizeof(buffer), "%d days, %d hours, %d minutes, %ld seconds",
+    snprintf(buffer, sizeof(buffer), "%zd days, %zd hours, %zd minutes, %zd seconds",
              days, hours, mins, total % 60);
 
     return buffer;
@@ -112,14 +112,14 @@ void clock_stopwatch_elapsed_print(clock_stopwatch* stopwatch) {
  * @param stopwatch		Pointer to a previous started and ended stopwatch object
  *						that is holding the timing details.
  */
-double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count) {
+double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count) {
     assert(stopwatch);
 
-    if(count <= 0) {
+    // Avoid potential divide by 0
+    if (!count || !stopwatch->elapsed) {
         return 0;
     }
 
-	// TODO: avoid potential divide by 0
     return (double)(count / (stopwatch->elapsed / 1000));
 }
 
@@ -132,10 +132,10 @@ double clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, int count) {
 void clock_stopwatch_rate_print(clock_stopwatch* stopwatch, const char* name, int count) {
     assert(stopwatch);
 
-    if(count <= 0) {
+    if (count <= 0) {
         return;
     }
 
-    double rate = clock_stopwatch_rate_calculate(stopwatch, count);
+    const double rate = clock_stopwatch_rate_calculate(stopwatch, count);
     printf("%s rate: %f per second\n", name, rate);
 }

@@ -58,13 +58,13 @@ int text_compare_nocase(const char* p1, const char* p2) {
     return c1 - c2;
 }
 
-char* _text_clone(const char* str, const char* filename, unsigned int line) {
+char* _text_clone(const char* str, const char* filename, size_t line) {
     assert(str);
 
     return _xmemory_strdup(str, filename, line);
 }
 
-char* _text_clone_length(const char* str, size_t str_len, const char* filename, unsigned int line) {
+char* _text_clone_length(const char* str, size_t str_len, const char* filename, size_t line) {
     assert(str);
 
     char* str_copy = (char*)_xmemory_malloc(str_len + 1, filename, line);
@@ -108,7 +108,7 @@ char* text_copy_length(char* dest, const char* src, size_t len) {
     return dest;
 }
 
-long text_length(const char* str) {
+size_t text_length(const char* str) {
     assert(str);
 
     const char* ptr = str;
@@ -143,7 +143,7 @@ void text_replace_inplace(char* source, char old_value, char new_value) {
     }
 }
 
-char* _text_replace(const char* source, const char* old_value, const char* new_value, const char* filename, unsigned int line) {
+char* _text_replace(const char* source, const char* old_value, const char* new_value, const char* filename, size_t line) {
     assert(source);
     assert(old_value);
     assert(new_value);
@@ -239,16 +239,16 @@ end_repl_str:
     return ret;
 }
 
-char* _text_trim(const char* s, const char* filename, unsigned int line) {
+char* _text_trim(const char* s, const char* filename, size_t line) {
     assert(s);
 
-    int p_left = 0;
-    int p_right = 0;
-    int n = text_length(s);
+    size_t p_left = 0;
+    size_t p_right = 0;
+    const size_t n = text_length(s);
 
     char c;
 
-    int index = 0;
+    size_t index = 0;
 
     while(c = s[index++], index < n && (c == ' ' || c == '\r' || c == '\n')) {
         p_left = index;
@@ -265,21 +265,21 @@ char* _text_trim(const char* s, const char* filename, unsigned int line) {
     // Nothing to trim?
     if(p_right == 0 || p_left == n - 1) return _text_clone(s, filename, line);
 
-    int rs = p_right - p_left;
+    const size_t rs = p_right - p_left;
     char* r = _xmemory_malloc(rs + 1, filename, line);
     text_copy_length(r, &s[p_left], rs);
 
     return r;
 }
 
-char* _text_trim_left(const char* s, const char* filename, unsigned int line) {
+char* _text_trim_left(const char* s, const char* filename, size_t line) {
     assert(s);
 
-    int p = 0;
-    int n = text_length(s);
+    size_t p = 0;
+    const size_t n = text_length(s);
     char c;
 
-    int index = 0;
+    size_t index = 0;
 
     while(c = s[index++], index < n && (c == ' ' || c == '\r' || c == '\n')) {
         p = index;
@@ -288,20 +288,20 @@ char* _text_trim_left(const char* s, const char* filename, unsigned int line) {
     // Nothing to trim?
     if(p == n - 1) return _text_clone(s, filename, line);
 
-    int rs = n - p;
+    size_t rs = n - p;
     char* r = _xmemory_malloc(rs + 1, filename, line);
     text_copy_length(r, &s[p], rs);
 
     return r;
 }
 
-char* _text_trim_right(const char* s, const char* filename, unsigned int line) {
+char* _text_trim_right(const char* s, const char* filename, size_t line) {
     assert(s);
 
-    int p = 0;
+    size_t p = 0;
     char c;
 
-    int index = strlen(s);
+    size_t index = strlen(s);
 
     while(c = s[--index], index > 0 && (c == ' ' || c == '\r' || c == '\n')) {
         p = index;
@@ -310,7 +310,7 @@ char* _text_trim_right(const char* s, const char* filename, unsigned int line) {
     // Nothing to trim?
     if(p == 0) return _text_clone(s, filename, line);
 
-    int rs = p;
+    const size_t rs = p;
     char* r = _xmemory_malloc(p + 1, filename, line);
     text_copy_length(r, s, p);
     r[rs] = 0;
@@ -330,11 +330,11 @@ bool text_is_null_or_empty(const char* s) {
     return false;
 }
 
-char* _text_to_lower(const char* s, const char* filename, unsigned int line) {
+char* _text_to_lower(const char* s, const char* filename, size_t line) {
     assert(s);
 
-    int n = text_length(s);
-    char* r = xmemory_malloc(n, filename, line);
+    size_t n = text_length(s);
+    char* r = _xmemory_malloc(n, filename, line);
 
     while(n-- > 0) {
         r[n] = tolower(s[n]);
@@ -343,10 +343,10 @@ char* _text_to_lower(const char* s, const char* filename, unsigned int line) {
     return r;
 }
 
-char* _text_to_upper(const char* s, const char* filename, unsigned int line) {
+char* _text_to_upper(const char* s, const char* filename, size_t line) {
     assert(s);
 
-    int n = text_length(s);
+    size_t n = text_length(s);
     char* r = _xmemory_malloc(n, filename, line);
 
     while(n-- > 0) {
@@ -359,7 +359,7 @@ char* _text_to_upper(const char* s, const char* filename, unsigned int line) {
 const char* text_last_index_of(const char* s, char c) {
     assert(s);
 
-    int len = (int)strlen(s);
+    size_t len = (int)strlen(s);
     char* p = ((char*)s) + len;
 
     while(--p > s) {
@@ -385,7 +385,7 @@ bool text_starts_with(const char* s1, const char* s2) {
     return strstr(s1, s2) == s1;
 }
 
-char* text_append(char* target, unsigned int target_size, const char* source) {
+char* text_append(char* target, size_t target_size, const char* source) {
     assert(target);
     assert(source);
 
@@ -393,7 +393,7 @@ char* text_append(char* target, unsigned int target_size, const char* source) {
     return target;
 }
 
-char* _text_format(const char* filename, unsigned int line, const char* format, ...) {
+char* _text_format(const char* filename, size_t line, const char* format, ...) {
     assert(format);
 
     va_list args;
@@ -407,7 +407,7 @@ char* _text_format(const char* filename, unsigned int line, const char* format, 
     return _text_clone(message, filename, line);
 }
 
-list* _text_split(const char* str, char split_char, const char* filename, unsigned int line) {
+list* _text_split(const char* str, char split_char, const char* filename, size_t line) {
     assert(str);
 
     list* rows = _list_create(filename, line);

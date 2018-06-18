@@ -32,7 +32,7 @@
 
 #ifdef TRACK_MEMORY
 static memory_allocation memory_allocation_tracking[XMEMORY_MAX_TRACKING_ALLOCATIONS];
-static unsigned int memory_allocation_tracking_count = 0;
+static size_t memory_allocation_tracking_count = 0;
 #endif
 
 static size_t memory_allocation_count = 0;
@@ -43,7 +43,7 @@ size_t xmemory_report_allocations() {
 
 #ifdef TRACK_MEMORY
 
-void _xmemory_report_track(void* ptr, unsigned long size, const char* filename, unsigned int line) {
+void _xmemory_report_track(void* ptr, size_t size, const char* filename, size_t line) {
     assert(ptr);
 
     memory_allocation_count++;
@@ -56,7 +56,7 @@ void _xmemory_report_track(void* ptr, unsigned long size, const char* filename, 
     // Find a unsed slot
     memory_allocation* allocation = NULL;
 
-    for(unsigned int i = 0; i < memory_allocation_tracking_count; i++) {
+    for(size_t i = 0; i < memory_allocation_tracking_count; i++) {
         memory_allocation* old_allocation = &memory_allocation_tracking[i];
 
         if(old_allocation->is_resident == false) {
@@ -85,7 +85,7 @@ void _xmemory_report_untrack(void* ptr) {
     assert(ptr);
 
     // Remove from tracking
-    for(unsigned int i = 0; i < memory_allocation_tracking_count; i++) {
+    for(size_t i = 0; i < memory_allocation_tracking_count; i++) {
         memory_allocation* allocation = &memory_allocation_tracking[i];
 
         // Check if the memory has already been cleared.
@@ -99,7 +99,7 @@ void _xmemory_report_untrack(void* ptr) {
 
 #endif
 
-void* _xmemory_malloc(unsigned long size, const char* filename, unsigned int line) {
+void* _xmemory_malloc(size_t size, const char* filename, size_t line) {
     assert(size > 0);
     assert(filename);
 
@@ -112,7 +112,7 @@ void* _xmemory_malloc(unsigned long size, const char* filename, unsigned int lin
     return ptr;
 }
 
-char* _xmemory_strdup(const char* str, const char* filename, unsigned int line) {
+char* _xmemory_strdup(const char* str, const char* filename, size_t line) {
     assert(str);
     assert(filename);
 
@@ -133,7 +133,7 @@ void xmemory_free(void* ptr) {
     // Remove from tracking
     bool was_tracked = false;
 
-    for(unsigned int i = 0; i < memory_allocation_tracking_count; i++) {
+    for(size_t i = 0; i < memory_allocation_tracking_count; i++) {
         memory_allocation* allocation = &memory_allocation_tracking[i];
 
         // Check if the memory has already been cleared.
@@ -156,23 +156,23 @@ void xmemory_free(void* ptr) {
 #endif
 }
 
-size_t xmemory_report_fetch(memory_allocation* allocations[], unsigned int max_allocations) {
+size_t xmemory_report_fetch(memory_allocation* allocations[], size_t max_allocations) {
     assert(allocations);
     assert(max_allocations > 0);
 
 #ifdef TRACK_MEMORY
-    unsigned int allocations_count = 0;
+    size_t allocations_count = 0;
 
     assert(allocations);
     assert(max_allocations > 0);
     assert(memory_allocation_tracking);
 
-    const unsigned int total_allocations = memory_allocation_tracking_count;
+    size_t total_allocations = memory_allocation_tracking_count;
 
     // Is there enough space for the report?
     assert(total_allocations < max_allocations);
 
-    for(unsigned int i = 0; i < total_allocations; i++) {
+    for(size_t i = 0; i < total_allocations; i++) {
         // Get allocation item
         memory_allocation* allocation = &memory_allocation_tracking[i];
 
@@ -198,7 +198,7 @@ bool xmemory_report_has_leaks() {
         return true;
     }
 
-    for(unsigned int i = 0; i < memory_allocation_tracking_count; i++) {
+    for(size_t i = 0; i < memory_allocation_tracking_count; i++) {
         memory_allocation* allocation = &memory_allocation_tracking[i];
 
         if(allocation->is_resident) {
@@ -215,23 +215,23 @@ bool xmemory_report_has_leaks() {
 
 void xmemory_report_print() {
 #ifdef TRACK_MEMORY
-    int total_leaks = 0;
+    size_t total_leaks = 0;
 
     if(!memory_allocation_tracking) {
         return;
     }
 
-    for(unsigned int i = 0; i < memory_allocation_tracking_count; i++) {
+    for(size_t i = 0; i < memory_allocation_tracking_count; i++) {
         memory_allocation* allocation = &memory_allocation_tracking[i];
 
         if(allocation->is_resident) {
-            printf("%s:%d (Size:=%lu): %s\n", allocation->filename, allocation->line, allocation->size, (char*) allocation->ptr);
+            printf("%s:%zd (Size:=%zu): %s\n", allocation->filename, allocation->line, allocation->size, (char*) allocation->ptr);
             total_leaks++;
         }
     }
 
-    printf("Total number of allocations: %d \n", memory_allocation_tracking_count);
-    printf("Total number of leaks: %d \n", total_leaks);
+    printf("Total number of allocations: %zd \n", memory_allocation_tracking_count);
+    printf("Total number of leaks: %zd \n", total_leaks);
 #endif
 }
 
@@ -242,7 +242,7 @@ void xmemory_report_clear() {
         return;
     }
 
-    for(unsigned int i = 0; i < memory_allocation_tracking_count; i++) {
+    for(size_t i = 0; i < memory_allocation_tracking_count; i++) {
         memory_allocation* allocation = &memory_allocation_tracking[i];
 
         if(allocation->is_resident) {

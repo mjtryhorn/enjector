@@ -28,7 +28,7 @@ static void should_successfully_compare_same_case_equal() {
 
     int actual_result = text_compare_nocase(string1, string2);
 
-    TEST_ASSERT_EQUAL_INT(expected_result, actual_result);
+    TEST_ASSERT_EQUAL_SIZE(expected_result, actual_result);
 
     xmemory_report_exit_on_leaks();
 }
@@ -40,7 +40,7 @@ static void should_successfully_compare_nocase_equal() {
 
     int actual_result = text_compare_nocase(string1, string2);
 
-    TEST_ASSERT_EQUAL_INT(expected_result, actual_result);
+    TEST_ASSERT_EQUAL_SIZE(expected_result, actual_result);
 
     xmemory_report_exit_on_leaks();
 }
@@ -52,7 +52,7 @@ static void should_successfully_compare_nocase_not_equal_partially() {
 
     int actual_result = text_compare_nocase(string1, string2);
 
-    TEST_ASSERT_EQUAL_INT(expected_result, actual_result);
+    TEST_ASSERT_EQUAL_SIZE(expected_result, actual_result);
 
     xmemory_report_exit_on_leaks();
 }
@@ -64,7 +64,7 @@ static void should_successfully_compare_nocase_not_equal() {
 
     int actual_result = text_compare_nocase(string1, string2);
 
-    TEST_ASSERT_EQUAL_INT(expected_result, actual_result);
+    TEST_ASSERT_EQUAL_SIZE(expected_result, actual_result);
 
     xmemory_report_exit_on_leaks();
 }
@@ -76,7 +76,7 @@ static void should_successfully_compare_nocase_partially_left() {
 
     int actual_result = text_compare_nocase(string1, string2);
 
-    TEST_ASSERT_EQUAL_INT(expected_result, actual_result);
+    TEST_ASSERT_EQUAL_SIZE(expected_result, actual_result);
 
     xmemory_report_exit_on_leaks();
 }
@@ -88,7 +88,7 @@ static void should_successfully_compare_nocase_partially_right() {
 
     int actual_result = text_compare_nocase(string1, string2);
 
-    TEST_ASSERT_EQUAL_INT(expected_result, actual_result);
+    TEST_ASSERT_EQUAL_SIZE(expected_result, actual_result);
 
     xmemory_report_exit_on_leaks();
 }
@@ -101,7 +101,7 @@ static void should_successfully_clone() {
 
     int actual_result = text_compare_nocase(string1, string2);
 
-    TEST_ASSERT_EQUAL_INT(expected_result, actual_result);
+    TEST_ASSERT_EQUAL_SIZE(expected_result, actual_result);
 
     text_free(string2);
 
@@ -113,7 +113,7 @@ static void should_successfully_split_text() {
 
     list* rows = text_split(str, '\n');
     TEST_ASSERT_PTR_NOT_NULL(rows);
-    TEST_ASSERT_EQUAL_INT_FATAL(3, list_count(rows));
+    TEST_ASSERT_EQUAL_SIZE_FATAL(3, list_count(rows));
 
     TEST_ASSERT_EQUAL_STRING("A", list_get_item(rows, 0)->value);
     TEST_ASSERT_EQUAL_STRING("B", list_get_item(rows, 1)->value);

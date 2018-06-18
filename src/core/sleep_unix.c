@@ -20,7 +20,7 @@
 
 #include <unistd.h>
 
-void system_sleep(unsigned int milliseconds) {
+void system_sleep(size_t milliseconds) {
     usleep(milliseconds * 1000);
 }
 

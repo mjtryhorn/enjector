@@ -62,7 +62,7 @@ void _test_console_set_foreground_white() {
 }
 
 void _test_exit_on_fatal(bool fatal) {
-    if(fatal) {
+    if (fatal) {
         exit(1);
     }
 }
@@ -75,13 +75,13 @@ bool test_run(test_suite fixtures[]) {
     assert(fixtures != NULL);
 
     bool all_passed = true;
-    unsigned int counter_passed = 0;
-    unsigned int counter_failed = 0;
+    size_t counter_passed = 0;
+    size_t counter_failed = 0;
 
     int i = 0;
     test_suite* fixture;
 
-    while(fixture = &fixtures[i++], fixture->name != TEST_SUITE_END) {
+    while (fixture = &fixtures[i++], fixture->name != TEST_SUITE_END) {
         assert(fixture);
 
         _test_console_set_foreground_purple();
@@ -91,7 +91,7 @@ bool test_run(test_suite fixtures[]) {
         int j = 0;
         test* test;
 
-        while(test = &fixture->tests[j++], test->name != TEST_END) {
+        while (test = &fixture->tests[j++], test->name != TEST_END) {
             assert(test);
 
             // Reset the error trip, if an error occurs then the flag _flag_test_failed will be true
@@ -102,7 +102,7 @@ bool test_run(test_suite fixtures[]) {
             _test_console_set_foreground_white();
             test->test_function();
 
-            if(_flag_test_failed) {
+            if (_flag_test_failed) {
                 _test_console_set_foreground_red();
                 printf("FAILED\n");
                 all_passed = false;
@@ -119,17 +119,17 @@ bool test_run(test_suite fixtures[]) {
         printf("\n");
     }
 
-    if(all_passed) {
-        printf("All test passed (%d passed)\n\n", counter_passed);
+    if (all_passed) {
+        printf("All test passed (%zd passed)\n\n", counter_passed);
     } else {
-        printf("Some tests failed (%d failed, %d passed)\n\n", counter_failed, counter_passed);
+        printf("Some tests failed (%zd failed, %zd passed)\n\n", counter_failed, counter_passed);
     }
 
     return all_passed;
 }
 
 void test_assert_equal_bool(bool expected, bool actual, const char* file, int line, bool fatal) {
-    if(expected != actual) {
+    if (expected != actual) {
         printf("\n\tExpected '%d' to equal '%d'\n\t\t%s:%d\n", expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -137,7 +137,7 @@ void test_assert_equal_bool(bool expected, bool actual, const char* file, int li
 }
 
 void test_assert_not_equal_bool(bool not_expected, bool actual, const char* file, int line, bool fatal) {
-    if(not_expected == actual) {
+    if (not_expected == actual) {
         printf("\n\tExpected '%d' to not_equal '%d'\n\t\t%s:%d\n", not_expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -145,7 +145,7 @@ void test_assert_not_equal_bool(bool not_expected, bool actual, const char* file
 }
 
 void test_assert_equal_int(int expected, int actual, const char* file, int line, bool fatal) {
-    if(expected != actual) {
+    if (expected != actual) {
         printf("\n\tExpected '%d' to equal '%d'\n\t\t%s:%d\n", expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -153,7 +153,7 @@ void test_assert_equal_int(int expected, int actual, const char* file, int line,
 }
 
 void test_assert_not_equal_int(int not_expected, int actual, const char* file, int line, bool fatal) {
-    if(not_expected == actual) {
+    if (not_expected == actual) {
         printf("\n\tExpected '%d' to not_equal '%d'\n\t\t%s:%d\n", not_expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -161,7 +161,7 @@ void test_assert_not_equal_int(int not_expected, int actual, const char* file, i
 }
 
 void test_assert_equal_long(long expected, long actual, const char* file, int line, bool fatal) {
-    if(expected != actual) {
+    if (expected != actual) {
         printf("\n\tExpected '%ld' to equal '%ld'\n\t\t%s:%d\n", expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -169,15 +169,32 @@ void test_assert_equal_long(long expected, long actual, const char* file, int li
 }
 
 void test_assert_not_equal_long(long not_expected, long actual, const char* file, int line, bool fatal) {
-    if(not_expected == actual) {
+    if (not_expected == actual) {
         printf("\n\tExpected '%ld' to not_equal '%ld'\n\t\t%s:%d\n", not_expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
     }
 }
 
+
+void test_assert_equal_size_t(size_t expected, size_t actual, const char* file, int line, bool fatal) {
+    if (expected != actual) {
+        printf("\n\tExpected '%zd' to equal '%zd'\n\t\t%s:%d\n", expected, actual, file, line);
+        _test_exit_on_fatal(fatal);
+        _flag_test_failed = true;
+    }
+}
+
+void test_assert_not_equal_size_t(size_t not_expected, size_t actual, const char* file, int line, bool fatal) {
+    if (not_expected == actual) {
+        printf("\n\tExpected '%zd' to not_equal '%zd'\n\t\t%s:%d\n", not_expected, actual, file, line);
+        _test_exit_on_fatal(fatal);
+        _flag_test_failed = true;
+    }
+}
+
 void test_assert_equal_float(float expected, float actual, const char* file, int line, bool fatal) {
-    if(expected != actual) {
+    if (expected != actual) {
         printf("\n\tExpected '%f' to equal '%f'\n\t\t%s:%d\n", expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -185,7 +202,7 @@ void test_assert_equal_float(float expected, float actual, const char* file, int
 }
 
 void test_assert_not_equal_float(float not_expected, float actual, const char* file, int line, bool fatal) {
-    if(not_expected == actual) {
+    if (not_expected == actual) {
         printf("\n\tExpected '%f' to not_equal '%f'\n\t\t%s:%d\n", not_expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -193,7 +210,7 @@ void test_assert_not_equal_float(float not_expected, float actual, const char* f
 }
 
 void test_assert_equal_string(const char* expected, const char* actual, const char* file, int line, bool fatal) {
-    if(strcmp(expected, actual)) {
+    if (strcmp(expected, actual)) {
         printf("\n\tExpected '%s' to equal '%s'\n\t\t%s:%d\n", expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -201,7 +218,7 @@ void test_assert_equal_string(const char* expected, const char* actual, const ch
 }
 
 void test_assert_not_equal_string(const char* not_expected, const char* actual, const char* file, int line, bool fatal) {
-    if(!strcmp(not_expected, actual)) {
+    if (!strcmp(not_expected, actual)) {
         printf("\n\tExpected '%s' to not_equal '%s'\n\t\t%s:%d\n", not_expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -209,23 +226,23 @@ void test_assert_not_equal_string(const char* not_expected, const char* actual, 
 }
 
 void test_assert_equal_ptr(void* expected, void* actual, const char* file, int line, bool fatal) {
-    if(expected != actual) {
-        printf("\n\tExpected '%ld' to equal '%ld'\n\t\t%s:%d\n", (long) expected, (long) actual, file, line);
+    if (expected != actual) {
+        printf("\n\tExpected '%p' to equal '%p'\n\t\t%s:%d\n", expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
     }
 }
 
 void test_assert_not_equal_ptr(void* not_expected, void* actual, const char* file, int line, bool fatal) {
-    if(not_expected == actual) {
-        printf("\n\tExpected '%ld' to not_equal '%ld'\n\t\t%s:%d\n", (long) not_expected, (long) actual, file, line);
+    if (not_expected == actual) {
+        printf("\n\tExpected '%p' to not_equal '%p'\n\t\t%s:%d\n", not_expected, actual, file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
     }
 }
 
 void test_assert_null(void* actual, const char* file, int line, bool fatal) {
-    if(actual != NULL) {
+    if (actual != NULL) {
         printf("\n\tExpected to be null\n\t\t%s:%d\n", file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;
@@ -233,7 +250,7 @@ void test_assert_null(void* actual, const char* file, int line, bool fatal) {
 }
 
 void test_assert_not_null(void* actual, const char* file, int line, bool fatal) {
-    if(actual == NULL) {
+    if (actual == NULL) {
         printf("\tExpected not be null\n\t\t%s:%d\n", file, line);
         _test_exit_on_fatal(fatal);
         _flag_test_failed = true;

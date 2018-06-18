@@ -26,7 +26,7 @@
 #include <string.h>
 #include <stdio.h>
 
-list* _list_create(const char* filename, unsigned int line) {
+list* _list_create(const char* filename, size_t line) {
     list* l = _xmemory_malloc(sizeof(list), filename, line);
     l->data = (list_item**)_xmemory_malloc(sizeof(list_item*) * LIST_DEFAULT_STREAM_CAPACITY, filename, line);
     l->length = 0;
@@ -43,15 +43,15 @@ void list_add_with_type(list* l, const char* type, void* value) {
     assert(value);
 
     // Check if destination is a stream
-    if(l->stream_capacity == 0) {
+    if (l->stream_capacity == 0) {
         printf("list not a stream");
         assert(0);
     }
 
     // Check if there's enough capacity in the stream, resize otherwise
-    int space_left = l->stream_capacity - (l->length + 1);
+    const long space_left = (long)(l->stream_capacity - (l->length + 1));
 
-    if(space_left < 0) {
+    if (space_left < 0) {
         // Resize
         l->stream_capacity += 1 + LIST_DEFAULT_STREAM_CAPACITY;
         list_item** resized_buffer = (list_item**)_xmemory_malloc(sizeof(list_item*) * l->stream_capacity, l->alloc_filename, l->alloc_line);
@@ -75,7 +75,7 @@ void list_add(list* l, void* value) {
 void list_item_free(list_item* item) {
     assert(item);
 
-    if(item->type) xmemory_free(item->type);
+    if (item->type) xmemory_free(item->type);
 
     xmemory_free(item);
 }
@@ -94,15 +94,15 @@ void list_remove_item(list* l, list_item* item) {
     list_item** items = list_enumerable(l);
     const size_t items_count = list_count(l);
 
-    for(unsigned int i = 0; i < items_count; i++) {
+    for (size_t i = 0; i < items_count; i++) {
         list_item* p = items[i];
 
-        if(p == item) {
+        if (p == item) {
             // Remove the slot
             list_item_free(p);
 
             // If at the end, skip block moving
-            if(i != items_count - 1) {
+            if (i != items_count - 1) {
                 // Move block
                 void* from = &items[i + 1];
                 void* to = &items[i];
@@ -126,15 +126,15 @@ bool list_remove_item_by_value(list* l, void* value) {
     list_item** items = list_enumerable(l);
     const size_t items_count = list_count(l);
 
-    for(unsigned int i = 0; i < items_count; i++) {
+    for (size_t i = 0; i < items_count; i++) {
         list_item* p = items[i];
 
-        if(p->value == value) {
+        if (p->value == value) {
             // Remove the slot
             list_item_free(p);
 
             // If at the end, skip block moving
-            if(i != items_count - 1) {
+            if (i != items_count - 1) {
                 // Move block
                 void* from = &items[i + 1];
                 void* to = &items[i];
@@ -160,11 +160,11 @@ void list_dispose_item_by_value(list* l, void* value) {
     list_item** items = list_enumerable(l);
     const size_t items_count = list_count(l);
 
-    for(unsigned int i = 0; i < items_count; i++) {
+    for (size_t i = 0; i < items_count; i++) {
         list_item* p = items[i];
 
-        if(p->value == value) {
-            if(p->value) {
+        if (p->value == value) {
+            if (p->value) {
                 xmemory_free(p->value);
             }
 
@@ -172,7 +172,7 @@ void list_dispose_item_by_value(list* l, void* value) {
             list_item_free(p);
 
             // If at the end, skip block moving
-            if(i != items_count - 1) {
+            if (i != items_count - 1) {
                 // Move block
                 void* from = &items[i + 1];
                 void* to = &items[i];
@@ -188,7 +188,7 @@ void list_dispose_item_by_value(list* l, void* value) {
     }
 }
 
-void list_remove_item_at(list* l, unsigned int index) {
+void list_remove_item_at(list* l, size_t index) {
     assert(l);
     assert(l->length > 0);
     assert(index < l->length);
@@ -202,7 +202,7 @@ void list_remove_item_at(list* l, unsigned int index) {
     list_item_free(p);
 
     // If at the end, skip block moving
-    if(index != items_count - 1) {
+    if (index != items_count - 1) {
         // Move block
         void* from = &items[index + 1];
         void* to = &items[index];
@@ -215,7 +215,7 @@ void list_remove_item_at(list* l, unsigned int index) {
     l->length--;
 }
 
-void list_dispose_item_at(list* l, unsigned int index) {
+void list_dispose_item_at(list* l, size_t index) {
     assert(l);
     assert(l->length > 0);
     assert(index < l->length);
@@ -225,7 +225,7 @@ void list_dispose_item_at(list* l, unsigned int index) {
 
     list_item* p = items[index];
 
-    if(p->value) {
+    if (p->value) {
         xmemory_free(p->value);
     }
 
@@ -233,7 +233,7 @@ void list_dispose_item_at(list* l, unsigned int index) {
     list_item_free(p);
 
     // If at the end, skip block moving
-    if(index != items_count - 1) {
+    if (index != items_count - 1) {
         // Move block
         void* from = &items[index + 1];
         void* to = &items[index];
@@ -246,24 +246,24 @@ void list_dispose_item_at(list* l, unsigned int index) {
     l->length--;
 }
 
-list_item* list_get_item(const list* l, const unsigned int index) {
+list_item* list_get_item(const list* l, size_t index) {
     assert(l);
     assert(index < l->length);
 
     return l->data[index];
 }
 
-void* list_get_value(const list* l, const unsigned index) {
+void* list_get_value(const list* l, size_t index) {
     list_item* item = list_get_item(l, index);
 
-    if(item == NULL) {
+    if (item == NULL) {
         return NULL;
     }
 
     return item->value;
 }
 
-unsigned int list_count(const list* l) {
+size_t list_count(const list* l) {
     assert(l);
 
     return l->length;
@@ -272,7 +272,7 @@ unsigned int list_count(const list* l) {
 void list_clear(list* l) {
     assert(l);
 
-    for(int i = 0; i < l->length; i++) {
+    for (size_t i = 0; i < l->length; i++) {
         list_item* item = (list_item*)l->data[i];
 
         list_item_free(item);
@@ -288,7 +288,7 @@ void list_free(list* l) {
     assert(l);
     list_clear(l);
 
-    if(l->alloc_filename) xmemory_free(l->alloc_filename);
+    if (l->alloc_filename) xmemory_free(l->alloc_filename);
 
     xmemory_free(l->data);
     xmemory_free(l);
@@ -298,7 +298,7 @@ void list_take(const list* source, const size_t count, list* target) {
     list_item** items = list_enumerable(source);
     const size_t items_count = count <= list_count(source) ? count : list_count(source);
 
-    for(unsigned int i = 0; i < items_count; i++) {
+    for (size_t i = 0; i < items_count; i++) {
         list_item* item = items[i];
         list_add(target, item->value);
     }
@@ -309,7 +309,7 @@ void list_take_right(const list* source, const size_t count, list* target) {
     const size_t total_items_count = list_count(source);
     const size_t items_count = count <= list_count(source) ? count : list_count(source);
 
-    for(unsigned int i = 0; i < items_count; i++) {
+    for (size_t i = 0; i < items_count; i++) {
         list_item* item = items[total_items_count - i - 1];
         list_add(target, item->value);
     }

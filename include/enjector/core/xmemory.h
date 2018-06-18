@@ -27,18 +27,18 @@
 
 typedef struct memory_allocation_t {
     void* ptr;
-    unsigned long size;
+    size_t size;
     char* filename;
-    unsigned int line;
+    size_t line;
     bool is_resident;
     char* stack_trace;
 } memory_allocation;
 
-void*		_xmemory_malloc(unsigned long size, const char* filename, unsigned int line);
+void*		_xmemory_malloc(size_t size, const char* filename, size_t line);
 #define		xmemory_malloc(size) _xmemory_malloc(size, __FILE__, __LINE__)
 #define		xmemory_new(type) (type*) _xmemory_malloc(sizeof(type), __FILE__, __LINE__)
 
-char*       _xmemory_strdup(const char* str, const char* filename, unsigned int line);
+char*       _xmemory_strdup(const char* str, const char* filename, size_t line);
 #define		xmemory_strdup(str) _xmemory_strdup(str, __FILE__, __LINE__)
 
 void		xmemory_free(void* ptr);
@@ -46,7 +46,7 @@ void		xmemory_free(void* ptr);
 
 size_t		xmemory_report_allocations();
 
-size_t		xmemory_report_fetch(memory_allocation* allocations[], unsigned int max_allocations);
+size_t		xmemory_report_fetch(memory_allocation* allocations[], size_t max_allocations);
 
 bool		xmemory_report_has_leaks();
 void		xmemory_report_print();

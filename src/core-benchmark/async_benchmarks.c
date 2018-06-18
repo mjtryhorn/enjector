@@ -20,7 +20,7 @@
 
 #include <enjector/core/promise.h>
 #include <enjector/core/async.h>
-#include "enjector/core/benchmark.h"
+#include <enjector/core/benchmark.h>
 
 static promise(promise_do_nothing) {
     promise_complete(0);

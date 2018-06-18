@@ -24,6 +24,8 @@
 #include <enjector/core/xmemory.h>
 #include <enjector/core/text.h>
 
+#include <stdlib.h>
+
 void json_serialise_string(string_buffer* stream, const char* name, char* value);
 void json_serialise_char_array_fixed(string_buffer* stream, const char* name, char* value, int size);
 void json_serialise_integer(string_buffer* stream, char* name, int value);
@@ -37,7 +39,7 @@ void json_serialise_comma(string_buffer* json);;
 void json_serialise_int(string_buffer* json, const char* name, int value);
 void json_serialise_short(string_buffer* json, const char* name, short value);
 void json_serialise_long(string_buffer* json, const char* name, long value);
-void json_serialise_unsigned_long(string_buffer* json, const char* name, unsigned long value);
+void json_serialise_unsigned_long(string_buffer* json, const char* name, size_t value);
 void json_serialise_char(string_buffer* json, const char* name, char value);
 void json_serialise_unsigned_char(string_buffer* json, const char* name, char value);
 void json_serialise_object_start(string_buffer* json, char* name);
@@ -70,7 +72,7 @@ string_buffer* cls ## _serialise(cls* instance) {\
 	SERIALISABLE_begin(cls);\
 	map* attrs = NULL;\
 	JSONMode mode_serialise = JSON_SERIALISE;\
-	unsigned int _p = 0;\
+	size_t _p = 0;\
 	f; SERIALISABLE_end();\
 	return stream;\
 }
@@ -88,7 +90,7 @@ cls* cls ## _deserialise(char* json) {\
 		f;\
 	}\
 	map_item** attr_items = map_enumerable(attrs);\
-	for (unsigned int i = 0; i < map_count(attrs); i++) xmemory_free(attr_items[i]->value);\
+	for (size_t i = 0; i < map_count(attrs); i++) xmemory_free(attr_items[i]->value);\
 	map_free(attrs);\
 	return instance;\
 }
@@ -138,7 +140,7 @@ if (instance->prop == NULL) {\
 	string_buffer_append(stream, "\":null");\
 } else {\
 	string_buffer_append(stream, "\":[");\
-	for (unsigned int i = 0; i < list_count(instance->prop); i++) {\
+	for (size_t i = 0; i < list_count(instance->prop); i++) {\
 		if (i > 0) { string_buffer_append(stream, ","); }\
 		list_item* item = list_get_item(instance->prop, i);\
 		string_buffer* json = type ## _serialise(item->value);\
@@ -156,7 +158,7 @@ if (instance->prop == NULL) {\
 	} else {\
 		string_buffer_append(stream, "\":{");\
 		map_item** items = map_enumerable(instance->prop);\
-		for (unsigned int i = 0; i < map_count(instance->prop); i++) {\
+		for (size_t i = 0; i < map_count(instance->prop); i++) {\
 			if (i > 0) { string_buffer_append(stream, ","); }\
 			map_item* item = items[i];\
 			string_buffer_append(stream, "\"");\
@@ -176,7 +178,7 @@ if (instance->prop == NULL) {\
 	string_buffer_append(stream, "\":null");\
 } else {\
 	string_buffer_append(stream, "\":[");\
-	for (unsigned int i = 0; i < list_count(instance->prop); i++) {\
+	for (size_t i = 0; i < list_count(instance->prop); i++) {\
 		if (i > 0) { string_buffer_append(stream, ","); }\
 		list_item* item = list_get_item(instance->prop, i);\
 		string_buffer_append(stream, "\"");\
@@ -193,7 +195,7 @@ if (instance->prop == NULL) {\
 	string_buffer_append(stream, "\":null");\
 } else {\
 	string_buffer_append(stream, "\":[");\
-	for (unsigned int i = 0; i < list_count(instance->prop); i++) {\
+	for (size_t i = 0; i < list_count(instance->prop); i++) {\
 		if (i > 0) { string_buffer_append(stream, ","); }\
 		list_item* item = list_get_item(instance->prop, i);\
 		string_buffer_append_format(stream, "%d", *((int*) item->value));\
@@ -233,8 +235,8 @@ string_buffer_free(json);
 		list* array_items = list_create();\
 		if (json_deserialise_array(json, array_items)) {\
 			instance->prop = array_items;\
-			unsigned int count = list_count(array_items);\
-			unsigned int i = 0;\
+			size_t count = list_count(array_items);\
+			size_t i = 0;\
 			while(i < count) {\
 				list_item* array_item = list_get_item(array_items, i);\
 				char* array_item_json = array_item->value;\
@@ -254,8 +256,8 @@ string_buffer_free(json);
 		map* map_items = map_create();\
 		if (json_deserialise_map(json, map_items)) {\
 			instance->prop = map_items;\
-			unsigned int count = map_count(map_items);\
-			unsigned int i = 0;\
+			size_t count = map_count(map_items);\
+			size_t i = 0;\
 			while(i < count) {\
 				map_item* map_item = map_get_item_at(map_items, i);\
 				char* map_item_name = map_item->name;\
@@ -276,8 +278,8 @@ string_buffer_free(json);
 		list* array_items = list_create();\
 		if (json_deserialise_array(json, array_items)) {\
 			instance->prop = list_create();\
-			unsigned int array_count = list_count(array_items);\
-			unsigned int i = 0;\
+			size_t array_count = list_count(array_items);\
+			size_t i = 0;\
 			while(i < array_count) {\
 				list_item* array_item = list_get_item(array_items, i);\
 				char* item_instance = array_item->value;\
@@ -296,8 +298,8 @@ string_buffer_free(json);
 		list* array_items = list_create();\
 		if (json_deserialise_array(json, array_items)) {\
 			instance->prop = list_create();\
-			unsigned int array_count = list_count(array_items);\
-			unsigned int i = 0;\
+			size_t array_count = list_count(array_items);\
+			size_t i = 0;\
 			while(i < array_count) {\
 				list_item* array_item = list_get_item(array_items, i);\
 				char* item_instance = array_item->value;\
@@ -343,8 +345,8 @@ string_buffer_free(json);
 #define as_strings_dispose(instance, prop) {\
 	if (instance->prop) {\
 		list* array_items = instance->prop;\
-		unsigned int array_count = list_count(array_items);\
-		unsigned int i = 0;\
+		size_t array_count = list_count(array_items);\
+		size_t i = 0;\
 		while(i < array_count) {\
 			list_item* array_item = list_get_item(array_items, i);\
 			xmemory_free(array_item->value);\
@@ -358,8 +360,8 @@ string_buffer_free(json);
 #define as_integers_dispose(instance, prop) {\
 	if (instance->prop) {\
 		list* array_items = instance->prop;\
-		unsigned int array_count = list_count(array_items);\
-		unsigned int i = 0;\
+		size_t array_count = list_count(array_items);\
+		size_t i = 0;\
 		while(i < array_count) {\
 			list_item* array_item = list_get_item(array_items, i);\
 			xmemory_free(array_item->value);\
