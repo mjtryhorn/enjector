@@ -27,6 +27,27 @@
 #include <ctype.h>
 #include <string.h>
 
+#ifndef _MSC_VER
+
+size_t strncpy_s(char *d, char const *s, size_t n)
+{
+  return snprintf(d, n, "%s", s);
+}
+
+size_t strncat_s(char *d, char const *s, size_t n)
+{
+  return snprintf(d, n, "%s%s", d, s);
+}
+
+size_t strcat_s(char *d, size_t dn, char const *s)
+{
+  return snprintf(d, dn, "%s%s", d, s);
+}
+
+
+
+#endif
+
 void text_free(char* s) {
     assert(s);
     xmemory_free(s);

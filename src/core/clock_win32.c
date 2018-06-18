@@ -16,16 +16,14 @@
 * limitations under the License.
 */
 
-#ifdef _MSC_VER
 
 #include <enjector/core/clock.h>
 
 #include <stdio.h>
 #include <assert.h>
 
+#ifdef _MSC_VER
 #include <windows.h>
-#include <time.h>
-#include <sys/timeb.h>
 
 int gettimeofday(struct timeval* t, void* timezone) {
     assert(t);
@@ -36,6 +34,14 @@ int gettimeofday(struct timeval* t, void* timezone) {
     t->tv_usec = 1000 * timebuffer.millitm;
     return 0;
 }
+
+#else
+#include <sys/time.h>
+#endif
+
+#include <time.h>
+#include <sys/timeb.h>
+
 
 /**
  * Returns the current time in milliseconds since 1900.
@@ -74,8 +80,12 @@ const char* clock_now_utc() {
     time_t t = tv.tv_sec;
     char buffer[60];
     struct tm timestamp;
+#ifdef _MSC_VER
     localtime_s(&timestamp, &t);
-
+#else
+    localtime_r(&timestamp, &t);    
+#endif
+    
     size_t len = strftime(buffer, 60, "%Y-%m-%d %H:%M:%S", &timestamp);
 
     // Append the milliseconds
@@ -84,5 +94,3 @@ const char* clock_now_utc() {
 
     return bufferWithMilliseconds;
 }
-
-#endif

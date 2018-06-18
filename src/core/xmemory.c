@@ -74,7 +74,7 @@ void _xmemory_report_track(void* ptr, size_t size, const char* filename, size_t 
     allocation->size = size;
     allocation->line = line;
     allocation->is_resident = true;
-    allocation->filename = _strdup(filename);
+    allocation->filename = strdup(filename);
 
 #ifdef TRACK_MEMORY_STACK_TRACE
     allocation->stack_trace = system_stack_trace();
@@ -116,7 +116,7 @@ char* _xmemory_strdup(const char* str, const char* filename, size_t line) {
     assert(str);
     assert(filename);
 
-    char* ptr = _strdup(str);
+    char* ptr = strdup(str);
 
 #ifdef TRACK_MEMORY
     _xmemory_report_track(ptr, strlen(str), filename, line);

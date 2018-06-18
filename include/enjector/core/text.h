@@ -70,3 +70,9 @@ list*       _text_split(const char* str, char split_char, const char* filename, 
 #define     text_split(str, split_char) _text_split(str, split_char, __FILE__, __LINE__)
 
 #define     text_concat(a, b) a ## b
+
+#ifndef _MSC_VER
+
+#define sprintf_s(buffer, buffer_size, stringbuffer, ...) (sprintf(buffer, stringbuffer, __VA_ARGS__))
+
+#endif
