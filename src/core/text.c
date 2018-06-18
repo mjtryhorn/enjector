@@ -29,9 +29,10 @@
 
 #ifndef _MSC_VER
 
-size_t strncpy_s(char *d, char const *s, size_t n)
+size_t strncpy_s(char *d, size_t n, char const *s, size_t l)
 {
-  return snprintf(d, n, "%s", s);
+  //strncpy(d, s, n);
+    return snprintf(d, n, "%s", s);
 }
 
 size_t strncat_s(char *d, char const *s, size_t n)
