@@ -55,7 +55,7 @@ void list_add_with_type(list* l, const char* type, void* value) {
         // Resize
         l->stream_capacity += 1 + LIST_DEFAULT_STREAM_CAPACITY;
         list_item** resized_buffer = (list_item**)_xmemory_malloc(sizeof(list_item*) * l->stream_capacity, l->alloc_filename, l->alloc_line);
-        memmove(resized_buffer, l->data, sizeof(list_item*) * l->length);
+        memcpy(resized_buffer, l->data, sizeof(list_item*) * l->length);
         xmemory_free(l->data);
         l->data = resized_buffer;
     }

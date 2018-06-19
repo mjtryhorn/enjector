@@ -111,6 +111,7 @@ void clock_stopwatch_elapsed_print(clock_stopwatch* stopwatch) {
  *
  * @param stopwatch		Pointer to a previous started and ended stopwatch object
  *						that is holding the timing details.
+ * @param count
  */
 size_t clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count) {
     assert(stopwatch);
@@ -119,8 +120,6 @@ size_t clock_stopwatch_rate_calculate(clock_stopwatch* stopwatch, size_t count) 
     if (!count || !stopwatch->elapsed) {
         return 0;
     }
-
-    double latency = stopwatch->elapsed / count;
 
     const size_t tps = count * 1000 / stopwatch->elapsed;
 

@@ -190,8 +190,7 @@ void map_remove(map* m, const char* name) {
                 // Move block
                 void* from = &items[i + 1];
                 void* to = &items[i];
-                size_t blocks = items_count - 1 - i;
-
+	            const size_t blocks = items_count - 1 - i;
 
                 // Move array pointers along
                 memmove(to, from, sizeof(map_item*) * blocks);
