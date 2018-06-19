@@ -41,8 +41,13 @@ Building Enjector on Windows environment requires Visual Studio 2017 with the fo
 
 ### Default Build on UNIX/MacOSX
 
-	$ cmake .       -- Creates Makefiles
+	$ cmake .       -- Creates release version of Makefiles.
 	$ make          -- Perform the default build of the main server, core unit tests and core benchmark tests.
+
+Or Debug versions
+
+	$ cmake -DCMAKE_BUILD_TYPE=Debug .     -- Create debug versions of Makefiles.
+	$ make          		       -- Perform the default build of the main server, core unit tests and core benchmark tests.
 
 ### To run Enjector
 
