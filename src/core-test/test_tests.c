@@ -51,25 +51,25 @@ void should_successfully_test_inequality_int() {
 }
 
 void should_successfully_test_equality_long() {
-    long actual = 32637267832687L;
-    TEST_ASSERT_EQUAL_LONG(32637267832687L, actual);
-    TEST_ASSERT_EQUAL_LONG_FATAL(32637267832687L, actual);
+    long actual = 326372678L;
+    TEST_ASSERT_EQUAL_LONG(326372678L, actual);
+    TEST_ASSERT_EQUAL_LONG_FATAL(326372678L, actual);
 }
 
 void should_successfully_test_inequality_long() {
-    long actual = 12637267832687L;
-    TEST_ASSERT_NOT_EQUAL_LONG(32637267832687L, actual);
-    TEST_ASSERT_NOT_EQUAL_LONG_FATAL(32637267832687L, actual);
+    long actual = 126376787L;
+    TEST_ASSERT_NOT_EQUAL_LONG(926372687L, actual);
+    TEST_ASSERT_NOT_EQUAL_LONG_FATAL(923726787L, actual);
 }
 
 void should_successfully_test_equality_float() {
-    float actual = 1.23222111;
-    TEST_ASSERT_EQUAL_FLOAT(1.23222111, actual);
-    TEST_ASSERT_EQUAL_FLOAT_FATAL(1.23222111, actual);
+    float actual = 1.23222111f;
+    TEST_ASSERT_EQUAL_FLOAT(1.23222111f, actual);
+    TEST_ASSERT_EQUAL_FLOAT_FATAL(1.23222111f, actual);
 }
 
 void should_successfully_test_inequality_float() {
-    float actual = -221212.2222;
+    float actual = -221212.2222f;
     TEST_ASSERT_NOT_EQUAL_FLOAT(1.2f, actual);
     TEST_ASSERT_NOT_EQUAL_FLOAT_FATAL(1.2f, actual);
 }

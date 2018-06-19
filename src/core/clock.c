@@ -23,10 +23,10 @@
 #include <assert.h>
 
 #include <time.h>
-#include <sys/timeb.h>
 
 #ifdef _MSC_VER
 #include <windows.h>
+#include <sys/timeb.h>
 
 int gettimeofday(struct timeval* t, void* timezone) {
     assert(t);
@@ -89,7 +89,7 @@ const char* clock_now_utc() {
 
     // Append the milliseconds
     static char bufferWithMilliseconds[80];
-    snprintf(bufferWithMilliseconds, 80, "%s.%-2d", buffer, tv.tv_usec / 1000);
+    snprintf(bufferWithMilliseconds, 80, "%s.%-2ld", buffer, tv.tv_usec / 1000);
 
     return bufferWithMilliseconds;
 }
