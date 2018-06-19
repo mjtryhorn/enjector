@@ -152,7 +152,8 @@ void xmemory_free(void* ptr) {
 
     //	assert(was_tracked);
     memory_allocation_count--;
-
+#else
+    free(ptr);
 #endif
 }
 
