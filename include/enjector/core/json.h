@@ -51,7 +51,7 @@ bool json_deserialise_object(char* s, map* deserialised_attrs);
 bool json_deserialise_array(char* s, list* deserialised_list);
 bool json_deserialise_map(char* s, map* deserialised_map);
 bool json_deserialise_string(map* attrs, const char* name, char** value);
-bool json_deserialise_char_array(map* attrs, const char* name, char* value, int size);
+bool json_deserialise_char_array(map* attrs, const char* name, char* value, size_t size);
 bool json_deserialise_integer(map* attrs, const char* name, int* value);
 bool json_deserialise_long(map* attrs, const char* name, long* value);
 bool json_deserialise_float(map* attrs, const char* name, float* value);

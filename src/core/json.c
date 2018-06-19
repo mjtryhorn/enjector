@@ -181,7 +181,7 @@ bool json_deserialise_string(map* attrs, const char* name, char** value) {
     return true;
 }
 
-bool json_deserialise_char_array(map* attrs, const char* name, char* value, int size) {
+bool json_deserialise_char_array(map* attrs, const char* name, char* value, size_t size) {
     map_item* item = map_get_item(attrs, name);
 
     if (item != NULL) {

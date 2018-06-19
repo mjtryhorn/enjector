@@ -78,7 +78,7 @@ const char* clock_now_utc() {
     // Convert and get date-time down to the seconds
     time_t t = tv.tv_sec;
     char buffer[60];
-    struct tm timestamp;
+    struct tm timestamp = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 #ifdef _MSC_VER
     localtime_s(&timestamp, &t);
 #else
