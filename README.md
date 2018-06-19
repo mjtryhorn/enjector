@@ -56,5 +56,3 @@ Open a browser to the location http://localhost:8888
 ### To run benchmark tests
 
 	$ ./enjector-benchmark-tests
-
-## Configuring Enjector
