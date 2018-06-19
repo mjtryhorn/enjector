@@ -1,11 +1,11 @@
 # Enjector
 
-Welcome to the Enjector source code tree.
+Welcome to the Enjector source code tree!
 
-Enjector is a high performance, scalable machine learning and complex event processing engine. 
+Enjector is a high performance, scalable machine learning and complex event processing platform. 
 With this engine you can build intelligent applications both in the cloud and on edge devices. 
 
-- To create a high-performance, embeddable engine for low powered IoT devices.
+- To create a high-performance, embeddable engine for low powered IoT (Internet of Things) devices.
 - Process a high volume of IoT events meet the needs of today's web-scale applications.
 - To provide the robustness and reliability through clustering.
 - To provide operational efficiency (minimal manual involvement).
