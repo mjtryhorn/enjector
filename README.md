@@ -4,6 +4,7 @@ Welcome to the Enjector source code tree!
 
 Enjector is a high performance, scalable machine learning and complex event processing platform. 
 With this engine you can build intelligent applications both in the cloud and on edge devices. 
+It is architected with three key objectives:
 
 - To create a high-performance, embeddable engine for low powered IoT (Internet of Things) devices.
 - Process a high volume of IoT events meet the needs of today's web-scale applications.
@@ -14,7 +15,7 @@ For more information on Enjector, please visit: [`http://enjector.com`](http://e
 
 ## Build Prerequisites
 
-The Enjector can be built and deployed on various current ARM, 32/64-bit Linux platforms, 32/64-bit Windows 10/2016 and MacOSX.
+The Enjector can be built and deployed on various current ARM, 32/64-bit Linux, 32/64-bit Windows 10/2016 and MacOSX platforms.
 
 ### Dependencies
 
