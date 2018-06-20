@@ -1,4 +1,12 @@
 project(enjector-core)
+
+IF (WIN32)
+  # set stuff for windows
+	set(CMAKE_C_FLAGS "-D_WIN32")
+ELSE()
+  # set stuff for other systems
+ENDIF()
+
 set(CMAKE_C_FLAGS_DEBUG "-D_DEBUG")
 
 set(INCLUDE_PATH_CORE ../../include/enjector/core )

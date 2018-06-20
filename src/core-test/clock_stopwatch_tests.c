@@ -65,7 +65,7 @@ static void should_successfully_test_rate_count() {
 
     clock_stopwatch_elapsed(&stopwatch);
 
-    const double rate = clock_stopwatch_rate_calculate(&stopwatch, 1);
+    const size_t rate = clock_stopwatch_rate_calculate(&stopwatch, 5000);
     TEST_ASSERT_TRUE(rate >= 1);
 
     xmemory_report_exit_on_leaks();

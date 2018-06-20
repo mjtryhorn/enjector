@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-#undef _MSC_VER
+#undef _WIN32
 
 #include <enjector/core/benchmark.h>
 
@@ -33,14 +33,14 @@ benchmark_suite benchmarks[] = {
     BENCHMARK_SUITE_END
 };
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #include <windows.h>
 #include <tchar.h>
 #endif
 
 int main(int argc, const char* argv[]) {
 
-#ifdef _MSC_VER
+#ifdef _WIN32
     HANDLE process = GetCurrentProcess();
     DWORD_PTR processAffinityMask = 1;
 
@@ -55,7 +55,7 @@ int main(int argc, const char* argv[]) {
 
     bool result = benchmark_run(benchmarks);
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
     if (!SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL)) {
         _tprintf(TEXT("Failed to enter THREAD_PRIORITY_BELOW_NORMAL mode\n"));
@@ -63,10 +63,10 @@ int main(int argc, const char* argv[]) {
 
 #endif
 
-//#if _DEBUG
+#if _DEBUG
     printf("End, press key to close\n");
     getchar();
-//#endif
+#endif
 
     // Return 0 for success and 1 fo failure
     return result ? 0 : 1;

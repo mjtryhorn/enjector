@@ -579,7 +579,7 @@ test byte_array_tests[] = {
     {"should_successfully_create_byte_array_from_hex", should_successfully_create_byte_array_from_hex},
     {"should_successfully_create_hex_from_byte_array", should_successfully_create_hex_from_byte_array},
 
-#ifdef _MSC_VER
+#ifdef _WIN32
     {"should_successfully_dump_data", should_successfully_dump_data},
 #endif
 

@@ -19,7 +19,6 @@
 #include "base64_tests.h"
 #include <enjector/core/test.h>
 #include <enjector/core/xmemory.h>
-#include <enjector/core/hex.h>
 #include <enjector/core/byte_array.h>
 #include <enjector/core/base64.h>
 
@@ -27,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <stdbool.h>
 
 #define BASE64_DECODED1 "ffec79128efa6edd"
 #define BASE64_ENCODED1 "/+x5Eo76bt0="
@@ -176,7 +176,7 @@ static void should_successfully_base64_decode1() {
 
 static void should_successfully_base64_decode2() {
     char input_base64[] =
-        "U28/PHA+VGhpcyA0LCA1LCA2LCA3LCA4LCA5LCB6LCB7LCB8LCB9IHRlc3RzIEJhc2U2NCBlbmNvZGVyLiBTaG93IG1lOiBALCBBLCBCLCBDLCBELCBFLCBGLCBHLCBILCBJLCBKLCBLLCBMLCBNLCBOLCBPLCBQLCBRLCBSLCBTLCBULCBVLCBWLCBXLCBYLCBZLCBaLCBbLCBcXCwgXSwgXiwgXywgYCwgYSwgYiwgYywgZCwgZSwgZiwgZywgaCwgaSwgaiwgaywgbCwgbSwgbiwgbywgcCwgcSwgciwgcy4=";
+        "U28/PHA+VGhpcyA0LCA1LCA2LCA3LCA4LCA5LCB6LCB7LCB8LCB9IHRlc3RzIEJhc2U2NCBlbmNvZGVyLiBTaG93IG1lOiBALCBBLCBCLCBDLCBELCBFLCBGLCBHLCBILCBJLCBKLCBLLCBMLCBNLCBOLCBPLCBQLCBRLCBSLCBTLCBULCBVLCBWLCBXLCBYLCBZLCBaLCBbLCBcLCBdLCBeLCBfLCBgLCBhLCBiLCBjLCBkLCBlLCBmLCBnLCBoLCBpLCBqLCBrLCBsLCBtLCBuLCBvLCBwLCBxLCByLCBzLg==";
 
     const char* expected_value = "So?<p>This 4, 5, 6, 7, 8, 9, z, {, |, } tests Base64 encoder. Show me: @, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, [, \\, ], ^, _, `, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s.";
 
@@ -189,7 +189,7 @@ static void should_successfully_base64_decode2() {
     printf("\nb %s|\n", (const char*) actual_value->data);
     printf("b %s|", expected_value);
 
-    TEST_ASSERT_TRUE_FATAL(!strcmp(actual_value->data, expected_value));
+    TEST_ASSERT_TRUE_FATAL(!strcmp((const char*) actual_value->data, expected_value));
 
     byte_array_free(input_value);
     byte_array_free(actual_value);

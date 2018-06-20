@@ -21,7 +21,7 @@
 #include <memory.h>
 #include <stdbool.h>
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #define bzero(a, b) memset(a, 0x0, b)
 #endif
 

@@ -27,7 +27,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#ifndef _MSC_VER
+#ifndef _WIN32
 
 size_t strncpy_s(char *d, size_t n, char const *s, size_t l) {
     //strncpy(d, s, n);

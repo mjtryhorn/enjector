@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifndef _MSC_VER
+#ifndef _WIN32
 #include <signal.h>
 #include <sys/time.h>
 #include <unistd.h>

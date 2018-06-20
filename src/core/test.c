@@ -21,43 +21,43 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <stdbool.h>
 
-#undef _MSC_VER
-
-#ifdef _MSC_VER
+#ifdef _WIN32
+#include <Windows.h>
 #include <consoleapi.h>
 #endif
 
 void _test_console_set_foreground_yellow() {
-#ifdef _MSC_VER
+#ifdef _WIN32
     HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hstdout, 0x0E);
 #endif
 }
 
 void _test_console_set_foreground_green() {
-#ifdef _MSC_VER
+#ifdef _WIN32
     HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hstdout, 0x0A);
 #endif
 }
 
 void _test_console_set_foreground_red() {
-#ifdef _MSC_VER
+#ifdef _WIN32
     HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hstdout, 0x0C);
 #endif
 }
 
 void _test_console_set_foreground_purple() {
-#ifdef _MSC_VER
+#ifdef _WIN32
     HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hstdout, 0x0D);
 #endif
 }
 
 void _test_console_set_foreground_white() {
-#ifdef _MSC_VER
+#ifdef _WIN32
     HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hstdout, 0x0F);
 #endif
@@ -65,6 +65,11 @@ void _test_console_set_foreground_white() {
 
 void _test_exit_on_fatal(bool fatal) {
     if (fatal) {
+
+#if _DEBUG
+    printf("\nFatal exit, press key to close\n");
+    getchar();
+#endif
         exit(1);
     }
 }

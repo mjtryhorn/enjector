@@ -23,7 +23,7 @@
 
 #include <limits.h>
 
-#ifndef _MSC_VER
+#ifndef _WIN32
 // Examples would be different on UNIX
 #define LONG_MAX 2147483647
 #define LONG_MIN -2147483648

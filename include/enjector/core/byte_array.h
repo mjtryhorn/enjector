@@ -18,7 +18,7 @@
 
 #pragma once
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #include <inttypes.h>
 #else
 #include <stdlib.h>

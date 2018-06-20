@@ -114,7 +114,7 @@ void		async_task_free(async_task* task);
 #define async_with_arg(fn_name, ct, c) void fn_name(async_task* task, ct c, async_future* future, void* context)
 #define async_with_noarg(fn_name) void fn_name(async_task* task, void* _ctx, async_future* future, void* context)
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
 #pragma warning(disable:4002)
 #pragma warning(disable:4003)
@@ -165,7 +165,7 @@ promise(async_task_to_complete, async_task*, t);
     async_task* _t ## f = go(f, c); \
     await_promise(async_task_to_complete, _t ## f);
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
 #pragma warning(disable:4002)
 #pragma warning(disable:4003)
@@ -240,7 +240,7 @@ const char*	async_task_state_state_to_string(task_state state);
 #define		go_with_nofuture(task, ctx) async_task_scheduler_go(async_task_scheduler_current_get(), #task, (async_task_cb_run) task, ctx, NULL, NULL)
 #define		go_no_context(task) async_task_scheduler_go(async_task_scheduler_current_get(), #task, (async_task_cb_run) task, NULL, NULL, NULL)
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
 #pragma warning(disable:4002)
 #pragma warning(disable:4003)

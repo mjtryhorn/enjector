@@ -36,6 +36,7 @@
 #include "base64_tests.h"
 
 #include <stdio.h>
+#include <stdbool.h>
 
 test_suite tests[] = {
     { "test_tests", test_tests },
@@ -66,10 +67,10 @@ int main(int argc, const char* argv[]) {
 
     bool result = test_run(tests);
 
-//#if _DEBUG
-    printf("Finished, press key to close\n");
+#if _DEBUG
+    printf("End, press key to close\n");
     getchar();
-//#endif
+#endif
 
     // Return 0 for success and 1 fo failure
     return result ? 0 : 1;

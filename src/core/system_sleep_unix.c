@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-#ifndef _MSC_VER
+#ifndef _WIN32
 
 #include <unistd.h>
 

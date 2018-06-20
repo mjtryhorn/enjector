@@ -24,7 +24,7 @@
 
 #include <time.h>
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #include <windows.h>
 #include <sys/timeb.h>
 
@@ -79,7 +79,7 @@ const char* clock_now_utc() {
     time_t t = tv.tv_sec;
     char buffer[60];
     struct tm timestamp = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-#ifdef _MSC_VER
+#ifdef _WIN32
     localtime_s(&timestamp, &t);
 #else
     localtime_r(&timestamp, &t);

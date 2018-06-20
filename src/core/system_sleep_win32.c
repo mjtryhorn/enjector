@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
 #include <enjector/core/system_sleep.h>
 

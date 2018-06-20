@@ -78,7 +78,7 @@ void _promise_complete(promise* p, void* value);
 #define promise_arg(fn_name, ct, c) void fn_name(promise* _promise, ct c)
 #define promise_noarg(fn_name) void fn_name(promise* _promise, void* _ctx)
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
 #pragma warning(disable:4002)
 #pragma warning(disable:4003)

@@ -71,7 +71,7 @@ list*       _text_split(const char* str, char split_char, const char* filename, 
 
 #define     text_concat(a, b) a ## b
 
-#ifndef _MSC_VER
+#ifndef _WIN32
 
 #define sprintf_s(buffer, buffer_size, stringbuffer, ...) (sprintf(buffer, stringbuffer, __VA_ARGS__))
 
