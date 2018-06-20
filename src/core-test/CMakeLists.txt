@@ -1,10 +1,18 @@
 project(enjector-core-test)
 
+set(CMAKE_C_FLAGS_DEBUG "-D_DEBUG")
+
 set(SOURCE_FILES
 	main.c
 
 	async_tests.h
 	async_tests.c
+
+	base64_tests.h
+	base64_tests.c
+
+	byte_array_tests.h
+	byte_array_tests.c
 
 	clock_stopwatch_tests.h
 	clock_stopwatch_tests.c
@@ -17,6 +25,9 @@ set(SOURCE_FILES
 
 	graph_tests.h
 	graph_tests.c
+
+	hex_tests.h
+	hex_tests.c
 
 	json_tests.h
 	json_tests.c

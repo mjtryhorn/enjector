@@ -31,6 +31,9 @@
 #include "text_tests.h"
 #include "json_tests.h"
 #include "async_tests.h"
+#include "hex_tests.h"
+#include "byte_array_tests.h"
+#include "base64_tests.h"
 
 #include <stdio.h>
 
@@ -52,6 +55,9 @@ test_suite tests[] = {
     { "promise_tests", promise_tests },
     { "json_tests", json_tests },
     { "async_tests", async_tests },
+    { "hex_tests", hex_tests },
+    { "byte_array_tests", byte_array_tests },
+    { "base64_tests", base64_tests },
 
     TEST_SUITE_END
 };
@@ -60,10 +66,10 @@ int main(int argc, const char* argv[]) {
 
     bool result = test_run(tests);
 
-#if _DEBUG
-    printf("End, press key to close\n");
+//#if _DEBUG
+    printf("Finished, press key to close\n");
     getchar();
-#endif
+//#endif
 
     // Return 0 for success and 1 fo failure
     return result ? 0 : 1;

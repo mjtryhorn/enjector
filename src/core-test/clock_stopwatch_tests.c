@@ -21,6 +21,9 @@
 #include <enjector/core/clock_stopwatch.h>
 #include <enjector/core/xmemory.h>
 #include <enjector/core/system_sleep.h>
+#include <enjector/core/clock.h>
+
+#include <stdbool.h>
 
 static void should_successfully_test_stop_watch_start_end() {
     clock_stopwatch stopwatch;
@@ -62,7 +65,7 @@ static void should_successfully_test_rate_count() {
 
     clock_stopwatch_elapsed(&stopwatch);
 
-    double rate = clock_stopwatch_rate_calculate(&stopwatch, 1);
+	const double rate = clock_stopwatch_rate_calculate(&stopwatch, 1);
     TEST_ASSERT_TRUE(rate >= 1);
 
     xmemory_report_exit_on_leaks();

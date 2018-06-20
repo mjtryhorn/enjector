@@ -18,9 +18,10 @@
 
 #include "test_tests.h"
 
+#include <enjector/core/test.h>
+
 #include <stdbool.h>
 #include <stddef.h>
-#include "enjector/core/test.h"
 
 void should_successfully_test_equality_bool() {
     bool actual = true;

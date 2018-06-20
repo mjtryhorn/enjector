@@ -19,6 +19,7 @@
 #pragma once
 
 #include <enjector/core/clock.h>
+#include <stddef.h>
 
 typedef struct clock_stopwatch_t {
     clock_time_index start;

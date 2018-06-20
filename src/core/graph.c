@@ -18,11 +18,11 @@
 
 // ref: http://en.wikipedia.org/wiki/Graph_theory
 
-#include "enjector/core/xmemory.h"
-#include "enjector/core/graph.h"
+#include <enjector/core/xmemory.h>
+#include <enjector/core/graph.h>
+#include <enjector/core/text.h>
 
 #include <assert.h>
-#include "enjector/core/text.h"
 
 graph* graph_create() {
     graph* g = xmemory_new(graph);

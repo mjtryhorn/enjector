@@ -229,8 +229,8 @@ static int json_deserialise_complex(int argc, const char * argv[]) {
 
         TEST_ASSERT_TRUE(text_equals(p->firstname, "Fred"));
         TEST_ASSERT_TRUE(text_equals(p->lastname, "Smith"));
-        TEST_ASSERT_EQUAL(p->age, 42);
-        TEST_ASSERT_EQUAL(p->created_on, LONG_MAX);
+        TEST_ASSERT_EQUAL_SIZE(p->age, 42);
+        TEST_ASSERT_EQUAL_SIZE(p->created_on, LONG_MAX);
 
         TEST_ASSERT_TRUE(p->home->is_billing);
         TEST_ASSERT_TRUE(text_equals(p->home->street1, "street 1"));
@@ -239,7 +239,7 @@ static int json_deserialise_complex(int argc, const char * argv[]) {
         TEST_ASSERT_TRUE(text_equals(p->home->security->name, "Vanguard"));
 
         TEST_ASSERT_PTR_NOT_NULL(p->addresses);
-        TEST_ASSERT_EQUAL(list_count(p->addresses), 2);
+        TEST_ASSERT_EQUAL_SIZE(list_count(p->addresses), 2);
 #endif
 
         //    address* add1 = list_get_item(p->addresses, 0)->value;

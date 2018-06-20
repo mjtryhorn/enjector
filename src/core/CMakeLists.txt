@@ -1,4 +1,5 @@
 project(enjector-core)
+set(CMAKE_C_FLAGS_DEBUG "-D_DEBUG")
 
 set(INCLUDE_PATH_CORE ../../include/enjector/core )
 
@@ -6,8 +7,14 @@ set(SOURCE_FILES
 	${INCLUDE_PATH_CORE}/async.h
 	async.c
 
+	${INCLUDE_PATH_CORE}/base64.h
+	base64.c
+
 	${INCLUDE_PATH_CORE}/benchmark.h
 	benchmark.c
+
+	${INCLUDE_PATH_CORE}/byte_array.h
+	byte_array.c
 
 	${INCLUDE_PATH_CORE}/clock_stopwatch.h
 	clock_stopwatch.c
@@ -20,6 +27,9 @@ set(SOURCE_FILES
 
 	${INCLUDE_PATH_CORE}/graph.h
 	graph.c
+
+	${INCLUDE_PATH_CORE}/hex.h
+	hex.c
 
 	${INCLUDE_PATH_CORE}/json.h
 	json.c

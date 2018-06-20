@@ -19,8 +19,8 @@
 #include "graph_tests.h"
 
 #include <enjector/core/graph.h>
-#include "enjector/core/xmemory.h"
-#include "enjector/core/text.h"
+#include <enjector/core/xmemory.h>
+#include <enjector/core/text.h>
 
 static void should_successfully_create_simple_graph() {
     graph* g = graph_create();

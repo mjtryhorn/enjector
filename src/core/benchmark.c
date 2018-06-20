@@ -17,11 +17,11 @@
 */
 
 #include <enjector/core/benchmark.h>
+#include <enjector/core/clock_stopwatch.h>
 
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
-#include "enjector/core/clock_stopwatch.h"
 
 void _benchmark_exit_on_fatal(bool fatal) {
     if (fatal) {
@@ -55,8 +55,8 @@ bool benchmark_run(benchmark_suite fixtures[]) {
 
             if (count != BENCHMARK_FAILED) {
                 clock_stopwatch_end(&s);
-                double rate = clock_stopwatch_rate_calculate(&s, count);
-                printf("\tSUCCESS: %s: %f per second (count:=%d)\n", benchmark->name, rate, count);
+	            const size_t rate = clock_stopwatch_rate_calculate(&s, count);
+                printf("\tSUCCESS: %s: %zd per second (count:=%d)\n", benchmark->name, rate, count);
             } else {
                 printf("\tFAILED : %s\n", benchmark->name);
                 all_passed = false;
