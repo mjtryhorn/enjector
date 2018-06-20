@@ -48,7 +48,7 @@ Building Enjector on Windows environment requires Visual Studio 2017 with the fo
 Or Debug versions
 
 	$ cmake -DCMAKE_BUILD_TYPE=Debug .     -- Create debug versions of Makefiles.
-	$ make          		       -- Perform the default build of the main server, core unit tests and core benchmark tests.
+	$ make          -- Perform the default build of the main server, core unit tests and core benchmark tests.
 
 ### To run Enjector
 
@@ -65,5 +65,5 @@ Open a browser to the location http://localhost:8888
 	$ ./enjector-benchmark-tests
 
 ### To run memory leak check
-       	$ valgrind --show-leak-kinds=all --leak-check=full ./enjector-core-test
+	$ valgrind --show-leak-kinds=all --leak-check=full ./enjector-core-test
 
