@@ -4,8 +4,13 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_C_FLAGS_DEBUG "-g")
-set(CMAKE_C_FLAGS_RELEASE "-O3 -Wall")
+if(WIN32)
+  # set stuff for windows
+  set(CMAKE_C_FLAGS_WIN32 -D_WIN32)
+endif()
+
+set(CMAKE_C_FLAGS_DEBUG -D_DEBUG ${CMAKE_C_FLAGS_WIN32} -g)
+set(CMAKE_C_FLAGS_RELEASE -O3 -Wall ${CMAKE_C_FLAGS_WIN32})
 
 set(EXECUTABLE_OUTPUT_PATH ../../)
 

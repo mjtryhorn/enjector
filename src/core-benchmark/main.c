@@ -63,10 +63,8 @@ int main(int argc, const char* argv[]) {
 
 #endif
 
-#if _DEBUG
     printf("End, press key to close\n");
     getchar();
-#endif
 
     // Return 0 for success and 1 fo failure
     return result ? 0 : 1;

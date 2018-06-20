@@ -1,7 +1,5 @@
 project(enjector-core-benchmark)
 
-set(CMAKE_C_FLAGS_DEBUG "-D_DEBUG")
-
 set(SOURCE_FILES
 	main.c
 	async_benchmarks.h

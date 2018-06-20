@@ -1,7 +1,5 @@
 project(enjector-core-test)
 
-set(CMAKE_C_FLAGS_DEBUG "-D_DEBUG")
-
 set(SOURCE_FILES
 	main.c
 

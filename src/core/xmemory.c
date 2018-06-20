@@ -19,7 +19,7 @@
 #include <enjector/core/limits.h>
 #include <enjector/core/xmemory.h>
 
-#ifdef _DEBUG
+#ifdef _DEBUG_MEMORY
 #define TRACK_MEMORY
 //#define TRACK_MEMORY_STACK_TRACE
 #endif
