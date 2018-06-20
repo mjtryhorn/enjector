@@ -26,16 +26,16 @@ byte_array* base64_encode(byte_array* input) {
     assert(input);
 
     void* data_buf = input->data;
-	const size_t dataLength = input->length;
+    const size_t dataLength = input->length;
 
     byte_array* result = byte_array_create_stream();
 
     const char base64chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     const uint8_t* data = (const uint8_t* )data_buf;
-	uint32_t n = 0;
+    uint32_t n = 0;
     int pad_count = dataLength % 3;
 
-	// Increment over the length of the string, three characters at a time
+    // Increment over the length of the string, three characters at a time
     for (size_t x = 0; x < dataLength; x += 3) {
         // These three 8-bit (ASCII) characters become one 24-bit number
         n = ((uint32_t)data[x]) << 16; //parenthesis needed, compiler depending on flags can do the shifting before conversion to uint32_t, resulting to 0
@@ -47,7 +47,7 @@ byte_array* base64_encode(byte_array* input) {
             n += data[x + 2];
 
         // This 24-bit number gets separated into four 6-bit numbers
-	    const uint8_t n0 = (uint8_t)(n >> 18) & 63;
+        const uint8_t n0 = (uint8_t)(n >> 18) & 63;
         const uint8_t n1 = (uint8_t)(n >> 12) & 63;
         const uint8_t n2 = (uint8_t)(n >> 6) & 63;
         const uint8_t n3 = (uint8_t)n & 63;
@@ -103,7 +103,7 @@ byte_array* base64_decode(byte_array* input) {
     byte_array* result = byte_array_create_stream();
 
     unsigned char* in = input->data;
-	const size_t inLen = input->length;
+    const size_t inLen = input->length;
 
     //unsigned char* out, size_t* outLen) {
     unsigned char* end = in + inLen;

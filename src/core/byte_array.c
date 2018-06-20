@@ -30,7 +30,7 @@
 #define DEFAULT_STREAM_CAPACITY 32
 
 byte_array* _byte_array_create(const unsigned char* data, size_t length, const char* filename, unsigned int line) {
-	byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
+    byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
     ba->length = length;
     ba->stream_capacity = 0;
 
@@ -45,7 +45,7 @@ byte_array* _byte_array_create(const unsigned char* data, size_t length, const c
 }
 
 byte_array* _byte_array_create_empty(size_t length, const char* filename, unsigned int line) {
-	byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
+    byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
     ba->length = length;
     ba->stream_capacity = 0;
 
@@ -59,7 +59,7 @@ byte_array* _byte_array_create_empty(size_t length, const char* filename, unsign
 byte_array*	_byte_array_create_from_hex(const char* hex, const char* filename, unsigned int line) {
     assert(hex);
 
-	const size_t hex_len = strlen(hex);
+    const size_t hex_len = strlen(hex);
 
     const unsigned char* data = hex_to_bin(hex, hex_len);
 
@@ -67,7 +67,7 @@ byte_array*	_byte_array_create_from_hex(const char* hex, const char* filename, u
         return NULL;
     }
 
-	byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
+    byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
     ba->length = hex_len / 2;
     ba->stream_capacity = 0;
     ba->data = (unsigned char*) data;
@@ -109,7 +109,7 @@ void byte_array_free(byte_array* ba) {
 }
 
 byte_array* _byte_array_create_stream(const char* filename, unsigned int line) {
-	byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
+    byte_array* ba = (byte_array*) _xmemory_malloc(sizeof(byte_array), filename, line);
     ba->data = (unsigned char*) _xmemory_malloc(DEFAULT_STREAM_CAPACITY, filename, line);
 
     ba->length = 0;
@@ -119,7 +119,7 @@ byte_array* _byte_array_create_stream(const char* filename, unsigned int line) {
 }
 
 void byte_array_append(byte_array* dst, byte_array* src, size_t offset, size_t length) {
-	assert(dst);
+    assert(dst);
     assert(dst->data);
     assert(src);
     assert(src->data);
@@ -154,7 +154,7 @@ void byte_array_append(byte_array* dst, byte_array* src, size_t offset, size_t l
 }
 
 void byte_array_append_raw(byte_array* dst, const unsigned char* data, size_t offset, size_t length) {
-	assert(dst);
+    assert(dst);
     assert(dst->data);
     assert(data);
     assert(length > 0);
@@ -216,7 +216,7 @@ void byte_array_append_byte(byte_array* dst, unsigned char b) {
 }
 
 int byte_array_is_equal(byte_array* a, byte_array* b) {
-	assert(a);
+    assert(a);
     assert(a->data);
     assert(b);
     assert(b->data);
@@ -235,7 +235,7 @@ int byte_array_is_equal(byte_array* a, byte_array* b) {
 }
 
 int byte_array_is_equal_raw(byte_array* a, unsigned char* b_data, size_t b_length) {
-	assert(a);
+    assert(a);
     assert(a->data);
     assert(b_data);
 
@@ -259,7 +259,7 @@ void byte_array_print(const char* prefix, byte_array* ba) {
 
 // TODO: remove
 void byte_array_file_write_hex(const char* filename, byte_array* ba) {
-	assert(filename);
+    assert(filename);
     assert(ba);
 
     char* data = hex_from_bin(ba->data, ba->length);
@@ -277,7 +277,7 @@ char* byte_array_to_hex(byte_array* ba) {
 }
 
 byte_array* byte_array_clone(byte_array* src) {
-	assert(src);
+    assert(src);
 
     byte_array* dst = byte_array_create(src->data, src->length);
 
@@ -285,7 +285,7 @@ byte_array* byte_array_clone(byte_array* src) {
 }
 
 void byte_array_reverse(byte_array* src) {
-	assert(src);
+    assert(src);
 
     byte_array* dst = byte_array_create_empty(src->length);
     int i = 0;
@@ -300,14 +300,14 @@ void byte_array_reverse(byte_array* src) {
 }
 
 byte_array* byte_array_rotate_left_with_overflow(byte_array* source) {
-	assert(source);
+    assert(source);
 
     byte_array* dest = byte_array_clone(source);
     unsigned char* byte = dest->data;
     size_t size = dest->length;
 
     // Do we have a leading bit?
-	const unsigned int has_leading_bit = *byte & 0x80;
+    const unsigned int has_leading_bit = *byte & 0x80;
 
     for (byte = dest->data; size--; ++byte) {
         unsigned char bit = 0;
@@ -330,11 +330,11 @@ byte_array* byte_array_rotate_left_with_overflow(byte_array* source) {
 }
 
 byte_array*	byte_array_xor(byte_array* source1, byte_array* source2) {
-	assert(source1);
+    assert(source1);
     assert(source2);
 
     byte_array* dest = byte_array_clone(source1);
-	const size_t size = dest->length;
+    const size_t size = dest->length;
 
     for(unsigned int index = 0; index < size; index++) {
         dest->data[index] = source1->data[index] ^ source2->data[index];

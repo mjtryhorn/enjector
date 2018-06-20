@@ -29,7 +29,7 @@
 char* hex_from_bin(unsigned char* bin, size_t bin_len) {
     char hex_lookup[] = "0123456789abcdef";
 
-	if (bin == 0 || bin_len == 0) {
+    if (bin == 0 || bin_len == 0) {
         return NULL;
     }
 
@@ -65,7 +65,7 @@ static int hex_char_to_int(char c) {
 unsigned char* hex_to_bin(const char* hex, size_t hex_len) {
     size_t j = 0;
 
-	if (hex == 0 || hex_len == 0) {
+    if (hex == 0 || hex_len == 0) {
         return 0;
     }
 
@@ -79,8 +79,8 @@ unsigned char* hex_to_bin(const char* hex, size_t hex_len) {
     memset(hex_to_bin_buffer, 0, hex_len / 2 + 1);
 
     for (size_t i = 0; i < hex_len; i += 2) {
-	    const int x = hex_char_to_int(hex[i]);
-	    const int y = hex_char_to_int(hex[i + 1]);
+        const int x = hex_char_to_int(hex[i]);
+        const int y = hex_char_to_int(hex[i + 1]);
 
         hex_to_bin_buffer[j++] = x * 16 + y;
     }
@@ -115,7 +115,7 @@ unsigned long long hex_to_unsigned_long_long(const char* hex) {
 }
 
 void hex_print(const char* prefix, unsigned char* bin, size_t bin_len) {
-	assert(bin);
+    assert(bin);
     assert(bin_len > 0);
 
     if (prefix != NULL) {

@@ -55,7 +55,7 @@ bool benchmark_run(benchmark_suite fixtures[]) {
 
             if (count != BENCHMARK_FAILED) {
                 clock_stopwatch_end(&s);
-	            const size_t rate = clock_stopwatch_rate_calculate(&s, count);
+                const size_t rate = clock_stopwatch_rate_calculate(&s, count);
                 printf("\tSUCCESS: %s: %zd per second (count:=%d)\n", benchmark->name, rate, count);
             } else {
                 printf("\tFAILED : %s\n", benchmark->name);

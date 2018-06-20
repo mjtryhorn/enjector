@@ -102,8 +102,8 @@ void string_buffer_append_length(string_buffer* sb, const char* data, size_t len
 
     if ((sb->length + data_len + 1)> sb->stream_capacity) {
 
-    	// Resize
-        sb->stream_capacity += data_len + STRING_BUFFER_DEFAULT_STREAM_CAPACITY;    
+        // Resize
+        sb->stream_capacity += data_len + STRING_BUFFER_DEFAULT_STREAM_CAPACITY;
         char* resized_buffer = (char*)_xmemory_malloc(sb->stream_capacity, sb->_allocated_filename, sb->_allocated_line);
         memcpy(resized_buffer, sb->data, sb->length);
         xmemory_free(sb->data);

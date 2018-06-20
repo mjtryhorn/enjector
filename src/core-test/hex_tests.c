@@ -37,7 +37,7 @@ static void should_fail_to_convert_bin_to_hex_on_empty_bin1() {
 }
 
 static void should_fail_to_convert_bin_to_hex_on_empty_bin2() {
-	unsigned char* bin = 0;
+    unsigned char* bin = 0;
 
     char* response = hex_from_bin(bin, 0);
     TEST_ASSERT_PTR_NULL(response);
@@ -46,7 +46,7 @@ static void should_fail_to_convert_bin_to_hex_on_empty_bin2() {
 }
 
 static void should_successfully_convert_bin_to_hex1() {
-	unsigned char bin[] = { 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c, 0x4d, 0x4e, 0x4f };
+    unsigned char bin[] = { 0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c, 0x4d, 0x4e, 0x4f };
 
     char* response = hex_from_bin(bin, 16);
 
@@ -59,7 +59,7 @@ static void should_successfully_convert_bin_to_hex1() {
 }
 
 static void should_successfully_convert_bin_to_hex2() {
-	unsigned char bin[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    unsigned char bin[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
     char* response = hex_from_bin(bin, 8);
 
@@ -72,8 +72,8 @@ static void should_successfully_convert_bin_to_hex2() {
 }
 
 static void should_successfully_convert_hex_to_bin1() {
-	const char* hex = "404142";
-	const size_t hex_len = strlen(hex);
+    const char* hex = "404142";
+    const size_t hex_len = strlen(hex);
 
     unsigned char* bin = hex_to_bin(hex, hex_len);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(bin);
@@ -88,8 +88,8 @@ static void should_successfully_convert_hex_to_bin1() {
 }
 
 static void should_successfully_convert_hex_to_bin2() {
-	const char* hex = "48656c6c6f20576f726c642031323334";
-	const size_t hex_len = strlen(hex);
+    const char* hex = "48656c6c6f20576f726c642031323334";
+    const size_t hex_len = strlen(hex);
 
     unsigned char* bin = hex_to_bin(hex, hex_len);
     TEST_ASSERT_PTR_NOT_NULL_FATAL(bin);
@@ -104,30 +104,30 @@ static void should_successfully_convert_hex_to_bin2() {
 }
 
 static void should_successfully_convert_hex_to_unsigned_integer1() {
-	const int expected = 25;
+    const int expected = 25;
     const char* hex = "19";
 
-	const size_t actual = hex_to_unsigned_integer(hex);
+    const size_t actual = hex_to_unsigned_integer(hex);
     TEST_ASSERT_EQUAL_SIZE(expected, actual);
 
     xmemory_report_exit_on_leaks();
 }
 
 static void should_successfully_convert_hex_to_unsigned_integer2() {
-	const int expected = 680;
+    const int expected = 680;
     const char* hex = "2a8";
 
-	const size_t actual = hex_to_unsigned_integer(hex);
+    const size_t actual = hex_to_unsigned_integer(hex);
     TEST_ASSERT_EQUAL_SIZE(expected, actual);
 
     xmemory_report_exit_on_leaks();
 }
 
 static void should_successfully_convert_hex_to_unsigned_integer3() {
-	const int expected = 2658295;
+    const int expected = 2658295;
     const char* hex = "288FF7";
 
-	const size_t actual = hex_to_unsigned_integer(hex);
+    const size_t actual = hex_to_unsigned_integer(hex);
     TEST_ASSERT_EQUAL_SIZE(expected, actual);
 
     xmemory_report_exit_on_leaks();
