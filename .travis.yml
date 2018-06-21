@@ -29,3 +29,6 @@ script:
      - make
      - ./enjector-core-test
      - gcovr -r ./src/core/
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
