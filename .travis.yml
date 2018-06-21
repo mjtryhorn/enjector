@@ -11,4 +11,13 @@ addons:
       - cppcheck
       - valgrind
 
-
+script:
+    ############################################################################
+    # Build main and tests
+    ############################################################################
+     - cmake .
+     - make
+     - make coverage
+     - make static_check
+     - make memory_check
+     - ctest

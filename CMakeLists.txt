@@ -33,12 +33,12 @@ add_custom_target(
 )
 
 add_custom_target(
-    staticcheck
+    static_check
     cppcheck --enable=all --inconclusive --xml-version=2 --force ./src/ 2> analysis/static/result.xml && cppcheck-htmlreport --source-encoding="iso8859-1" --title="Enjector" --source-dir=./ --report-dir=analysis/static/ --file=analysis/static/result.xml
 )
 
 add_custom_target(
-    memcheck
+    memory_check
     DEPENDS enjector-core-test
     COMMAND valgrind --show-leak-kinds=all --leak-check=full ./enjector-core-test
 )
