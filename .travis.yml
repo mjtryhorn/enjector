@@ -1,15 +1,23 @@
 language: c
 compiler:
   - gcc
+
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.6
     packages:
-      - gcc-5
-      - cmake
-      - cppcheck
-      - valgrind
+    - gcc-5
+    - g++-5
+
+matrix:
+  include:
+  - python: '3.6'
+    env: CXX=g++-5 CC=gcc-5 GCOV=gcov-5
+
+install:
+- pip install gcovr
 
 script:
     ############################################################################
@@ -17,7 +25,5 @@ script:
     ############################################################################
      - cmake .
      - make
-     - make coverage
-     - make static_check
-     - make memory_check
-     - ctest
+     - ./enjector-core-test
+     - gcovr -r ./src/core/
