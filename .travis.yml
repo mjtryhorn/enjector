@@ -11,13 +11,11 @@ addons:
     - gcc-5
     - g++-5
 
-matrix:
-  include:
-  - python: '3.6'
-    env: CXX=g++-5 CC=gcc-5 GCOV=gcov-5
+python:
+  - '3.6'
 
-install:
-- pip install --user gcovr
+before_install:
+  - pip install --user gcovr
 
 script:
     ############################################################################
