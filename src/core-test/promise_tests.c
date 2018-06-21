@@ -24,7 +24,7 @@
 static promise(promise_test_empty) {
 }
 
-static void should_sucessfully_set_state_to_READY_when_a_promise_has_been_selected_to_be_executed() {
+static void should_successfully_set_state_to_READY_when_a_promise_has_been_selected_to_be_executed() {
     promise p;
     promise_init(&p, promise_test_empty, NULL);
 
@@ -37,7 +37,7 @@ static promise(promise_test_defer) {
     promise_defer();
 }
 
-static void should_sucessfully_set_state_to_DEFER_when_the_promise_calls_defer() {
+static void should_successfully_set_state_to_DEFER_when_the_promise_calls_defer() {
     promise p;
     promise_init(&p, promise_test_defer, NULL);
 
@@ -55,7 +55,7 @@ static promise(promise_test_deferred_counter) {
     }
 }
 
-static void should_successfuly_set_state_to_RUNNING_when_the_promise_is_running_and_hasnt_fulfilled_or_errored() {
+static void should_successfully_set_state_to_RUNNING_when_the_promise_is_running_and_hasnt_fulfilled_or_errored() {
     promise p;
 
     promise_init(&p, promise_test_empty, NULL);
@@ -66,7 +66,7 @@ static void should_successfuly_set_state_to_RUNNING_when_the_promise_is_running_
     xmemory_report_exit_on_leaks();
 }
 
-static void should_successfuly_set_state_to_RUNNING_when_a_deferred_promise_is_reexecuted() {
+static void should_successfully_set_state_to_RUNNING_when_a_deferred_promise_is_reexecuted() {
     promise p;
     promise_init(&p, promise_test_deferred_counter, NULL);
 
@@ -92,7 +92,7 @@ static promise(promise_test_fulfil) {
     }
 }
 
-static void should_successfuly_set_state_to_RESULT_when_a_deferred_promise_is_reexecuted_with_fulfill() {
+static void should_successfully_set_state_to_RESULT_when_a_deferred_promise_is_reexecuted_with_fulfill() {
     promise p;
     promise_init(&p, promise_test_fulfil, NULL);
 
@@ -119,7 +119,7 @@ static promise(promise_test_defer_then_error) {
     }
 }
 
-static void should_successfuly_set_state_to_ERROR_when_a_deferred_promise_is_reexecuted_with_reject() {
+static void should_successfully_set_state_to_ERROR_when_a_deferred_promise_is_reexecuted_with_reject() {
 
     promise p;
     promise_init(&p, promise_test_defer_then_error, NULL);
@@ -192,7 +192,7 @@ static promise(promise_test_return_arg, long, v) {
     promise_complete(v);
 }
 
-static void should_successfuly_set_state_to_RESULT_with_a_passed_in_parameter_when_the_promise_calls_fulfill() {
+static void should_successfully_set_state_to_RESULT_with_a_passed_in_parameter_when_the_promise_calls_fulfill() {
     void* ctx = { (void*) 1234};
     promise p;
     promise_init(&p, promise_test_return_arg, ctx);
@@ -208,7 +208,7 @@ static promise(promise_test_args, long*, values) {
     promise_complete((void*)(values[0] + values[1]));
 }
 
-static void should_successfuly_pass_args_into_promise() {
+static void should_successfully_pass_args_into_promise() {
     long ctx[] = {10, 20};
     promise p;
     promise_init(&p, promise_test_args, ctx);
@@ -220,16 +220,16 @@ static void should_successfuly_pass_args_into_promise() {
     xmemory_report_exit_on_leaks();
 }
 test promise_tests[] = {
-    { "should_sucessfully_set_state_to_READY_when_a_promise_has_been_selected_to_be_executed", should_sucessfully_set_state_to_READY_when_a_promise_has_been_selected_to_be_executed },
-    { "should_sucessfully_set_state_to_DEFER_when_the_promise_calls_defer", should_sucessfully_set_state_to_DEFER_when_the_promise_calls_defer },
-    { "should_successfuly_set_state_to_RUNNING_when_the_promise_is_running_and_hasnt_fulfilled_or_errored", should_successfuly_set_state_to_RUNNING_when_the_promise_is_running_and_hasnt_fulfilled_or_errored },
-    { "should_successfuly_set_state_to_RUNNING_when_a_deferred_promise_is_reexecuted", should_successfuly_set_state_to_RUNNING_when_a_deferred_promise_is_reexecuted },
-    { "should_successfuly_set_state_to_RESULT_when_a_deferred_promise_is_reexecuted_with_fulfill", should_successfuly_set_state_to_RESULT_when_a_deferred_promise_is_reexecuted_with_fulfill },
-    { "should_successfuly_set_state_to_ERROR_when_a_deferred_promise_is_reexecuted_with_reject", should_successfuly_set_state_to_ERROR_when_a_deferred_promise_is_reexecuted_with_reject },
+    { "should_successfully_set_state_to_READY_when_a_promise_has_been_selected_to_be_executed", should_successfully_set_state_to_READY_when_a_promise_has_been_selected_to_be_executed },
+    { "should_successfully_set_state_to_DEFER_when_the_promise_calls_defer", should_successfully_set_state_to_DEFER_when_the_promise_calls_defer },
+    { "should_successfully_set_state_to_RUNNING_when_the_promise_is_running_and_hasnt_fulfilled_or_errored", should_successfully_set_state_to_RUNNING_when_the_promise_is_running_and_hasnt_fulfilled_or_errored },
+    { "should_successfully_set_state_to_RUNNING_when_a_deferred_promise_is_reexecuted", should_successfully_set_state_to_RUNNING_when_a_deferred_promise_is_reexecuted },
+    { "should_successfully_set_state_to_RESULT_when_a_deferred_promise_is_reexecuted_with_fulfill", should_successfully_set_state_to_RESULT_when_a_deferred_promise_is_reexecuted_with_fulfill },
+    { "should_successfully_set_state_to_ERROR_when_a_deferred_promise_is_reexecuted_with_reject", should_successfully_set_state_to_ERROR_when_a_deferred_promise_is_reexecuted_with_reject },
     { "should_error_when_a_promise_is_reexecuted_when_it_is_in_state_RUNNING_and_not_in_state_READY_or_DEFER", should_error_when_a_promise_is_reexecuted_when_it_is_in_state_RUNNING_and_not_in_state_READY_or_DEFER },
     { "should_error_when_a_promise_is_reexecuted_when_it_is_in_state_ERROR_and_not_in_state_READY_or_DEFER", should_error_when_a_promise_is_reexecuted_when_it_is_in_state_ERROR_and_not_in_state_READY_or_DEFER },
     //{ "should_error_when_a_promise_is_reexecuted_when_it_is_in_state_RESULT_and_not_in_state_READY_or_DEFER", should_error_when_a_promise_is_reexecuted_when_it_is_in_state_RESULT_and_not_in_state_READY_or_DEFER },
-    { "should_successfuly_set_state_to_RESULT_with_a_passed_in_parameter_when_the_promise_calls_fulfill", should_successfuly_set_state_to_RESULT_with_a_passed_in_parameter_when_the_promise_calls_fulfill },
-    { "should_successfuly_pass_args_into_promise", should_successfuly_pass_args_into_promise },
+    { "should_successfully_set_state_to_RESULT_with_a_passed_in_parameter_when_the_promise_calls_fulfill", should_successfully_set_state_to_RESULT_with_a_passed_in_parameter_when_the_promise_calls_fulfill },
+    { "should_successfully_pass_args_into_promise", should_successfully_pass_args_into_promise },
     TEST_END
 };
