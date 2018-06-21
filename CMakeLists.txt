@@ -20,17 +20,19 @@ add_subdirectory (src/core-test)
 add_subdirectory (src/main)
 
 file(MAKE_DIRECTORY coverage/)
+set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES coverage/)
 
 add_custom_target(
     coverage
     DEPENDS enjector-core-test
     COMMAND ./enjector-core-test
-    COMMAND gcovr -r . --html --html-details -o coverage/enjector-coverage.html
+    COMMAND gcovr -r . --html --html-details -o coverage/index.html
     COMMAND echo "Report in coverage/"
- )
+)
 
 add_custom_target(
     memcheck
     DEPENDS enjector-core-test
     COMMAND valgrind --show-leak-kinds=all --leak-check=full ./enjector-core-test
- )
+)
+

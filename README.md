@@ -46,12 +46,12 @@ Building Enjector on Windows environment requires Visual Studio 2017 with the fo
 ### Default Build on UNIX/MacOSX
 
 	$ cmake .       -- Creates release version of Makefiles.
-	$ make          -- Perform the default build of the main server, core unit tests and core benchmark tests.
+	$ make          -- Perform the release build of the main server, core unit tests and core benchmark tests.
 
 Or Debug versions
 
 	$ cmake -DCMAKE_BUILD_TYPE=Debug .     -- Create debug versions of Makefiles.
-	$ make          -- Perform the default build of the main server, core unit tests and core benchmark tests.
+	$ make          -- Perform the debug build of the main server, core unit tests and core benchmark tests.
 
 ### To run Enjector
 
@@ -72,4 +72,5 @@ Open a browser to the location http://localhost:8888
 
 ### To run coverage check
 	$ make coverage
+A detailed HTML coverage report is available in the directory coverage/ 
 
