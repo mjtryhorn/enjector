@@ -17,6 +17,12 @@ python:
 before_install:
   - pip install --user gcovr
 
+sudo: required
+
+script:
+  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - gcc --version
+
 script:
     ############################################################################
     # Build main and tests
