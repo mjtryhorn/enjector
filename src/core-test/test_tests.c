@@ -108,6 +108,7 @@ test test_tests[] = {
     { "should_successfully_test_inequality_long", should_successfully_test_inequality_long },
     { "should_successfully_test_equality_float", should_successfully_test_inequality_bool },
     { "should_successfully_test_inequality_float", should_successfully_test_inequality_float },
+    { "should_successfully_test_equality_string", should_successfully_test_equality_string },
     { "should_successfully_test_equality_string", should_successfully_test_inequality_string },
     { "should_successfully_test_inequality_string", should_successfully_test_inequality_string },
     { "should_successfully_test_null_ptr", should_successfully_test_null_ptr },

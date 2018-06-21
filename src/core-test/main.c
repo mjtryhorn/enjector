@@ -66,8 +66,10 @@ test_suite tests[] = {
 int main(int argc, const char* argv[]) {
     bool result = test_run(tests);
 
-//    printf("End, press key to close\n");
-//    getchar();
+#ifdef _WIN32 // For running via Visual Studio
+    printf("End, press key to close\n");
+    getchar();
+#endif
 
     // Return 0 for success and 1 fo failure
     return result ? 0 : 1;

@@ -16,6 +16,8 @@
 * limitations under the License.
 */
 
+#ifdef _DEBUG_MEMORY
+
 #include "xmemory_tests.h"
 
 #include <enjector/core/xmemory.h>
@@ -198,3 +200,5 @@ test xmemory_tests[] = {
     { "should_successfully_duplicate_string", should_successfully_duplicate_string },
     TEST_END
 };
+
+#endif

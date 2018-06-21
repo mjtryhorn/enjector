@@ -16,8 +16,6 @@
 * limitations under the License.
 */
 
-#undef _WIN32
-
 #include <enjector/core/benchmark.h>
 
 #include "json_benchmarks.h"
@@ -63,8 +61,10 @@ int main(int argc, const char* argv[]) {
 
 #endif
 
-//    printf("End, press key to close\n");
-//    getchar();
+#ifdef _WIN32 // For running via Visual Studio
+    printf("End, press key to close\n");
+    getchar();
+#endif
 
     // Return 0 for success and 1 fo failure
     return result ? 0 : 1;

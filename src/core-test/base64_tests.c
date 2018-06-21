@@ -186,8 +186,8 @@ static void should_successfully_base64_decode2() {
     byte_array* actual_value = base64_decode(input_value);
     assert(actual_value);
 
-    printf("\nb %s|\n", (const char*) actual_value->data);
-    printf("b %s|", expected_value);
+    //printf("\nb %s|\n", (const char*) actual_value->data);
+    //printf("b %s|", expected_value);
 
     TEST_ASSERT_TRUE_FATAL(!strcmp((const char*) actual_value->data, expected_value));
 
