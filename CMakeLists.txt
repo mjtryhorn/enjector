@@ -23,7 +23,10 @@ file(MAKE_DIRECTORY coverage/)
 
 add_custom_target(
     coverage
+    DEPENDS enjector-core-test
+    COMMAND ./enjector-core-test
     COMMAND gcovr -r . --html --html-details -o coverage/enjector-coverage.html
+    COMMAND echo "Report in coverage/"
  )
 
 add_custom_target(
