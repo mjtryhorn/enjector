@@ -19,6 +19,8 @@ add_subdirectory (src/core-benchmark)
 add_subdirectory (src/core-test)
 add_subdirectory (src/main)
 
+file(MAKE_DIRECTORY coverage/)
+
 add_custom_target(
     coverage
     COMMAND gcovr -r . --html --html-details -o coverage/enjector-coverage.html
