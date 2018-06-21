@@ -1,5 +1,12 @@
 # Enjector
 
+[![Travis CI logo][travis-image]][travis-link]
+[![Codecov logo][codecov-image]][codecov-link]
+
+[![Build Status][travis-badge]][travis-link]
+[![codecov][codecov-badge]][codecov-link]
+[![MIT License][license-badge]](LICENSE.md)
+
 Welcome to the Enjector source code tree!
 
 Enjector is a high performance, scalable machine learning and complex event processing platform. 
