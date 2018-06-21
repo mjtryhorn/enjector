@@ -29,7 +29,10 @@ Building Enjector on UNIX/MacOSX environment requires GCC 5 or later C compiler 
 with the standard GNU/Linux development tools and libraries installed in the build environment, including:
 
 * `cmake`
-* `valgrind` (optional)
+* `valgrind` (optional for memory checks)
+* `gcov` (optional for coverage checks)
+* `gcovr` (optional for coverage checks)
+
 
 #### C Compiler Toolchain for Windows environments
 
@@ -65,5 +68,8 @@ Open a browser to the location http://localhost:8888
 	$ ./enjector-benchmark-tests
 
 ### To run memory leak check
-	$ valgrind --show-leak-kinds=all --leak-check=full ./enjector-core-test
+	$ make memcheck
+
+### To run coverage check
+	$ make coverage
 
