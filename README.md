@@ -1,9 +1,11 @@
-# [Enjector][1]
+# [Enjector][1] [![MIT License][license-badge]](LICENSE.md)
+
+[![Join the chat at https://gitter.im/ci_helloworld/Lobby][gitter-badge]][gitter-link]
 
 [![Build Status][travis-badge]][travis-link]
 [![codecov][codecov-badge]][codecov-link]
 [![coverity][coverity-badge]][coverity-link]
-[![MIT License][license-badge]](LICENSE.md)
+
 
 Welcome to the Enjector source code tree!
 
@@ -90,11 +92,14 @@ A detailed HTML static analysis report is available in the directory analysis/st
 [1]: https://enjector.com/
 [travis-badge]:    https://travis-ci.org/enjector/enjector.svg?branch=master
 [travis-link]:     https://travis-ci.org/enjector/enjector
-[travis-image]:    https://travis-ci.org/enjector/enjector/blob/master/img/TravisCI.png
+
 [license-badge]:   https://img.shields.io/badge/License-Apache%202.0-blue.svg
+
 [codecov-badge]:   https://codecov.io/gh/enjector/enjector/branch/master/graph/badge.svg
 [codecov-link]:    https://codecov.io/gh/enjector/enjector
-[codecov-image]:   https://github.com/codecov/example-cpp1-cmake/blob/master/img/Codecov.png
+
 [coverity-badge]:  https://img.shields.io/coverity/scan/16063.svg
 [coverity-link]:   https://scan.coverity.com/projects/enjector-enjector
-[coverity-image]:  https://img.shields.io/coverity/scan/16063.svg
+
+[gitter-badge]:  https://badges.gitter.im/enjector/Lobby.svg
+[gitter-link]:   https://gitter.im/enjector/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
