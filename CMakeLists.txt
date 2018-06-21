@@ -31,5 +31,6 @@ add_custom_target(
 
 add_custom_target(
     memcheck
+    DEPENDS enjector-core-test
     COMMAND valgrind --show-leak-kinds=all --leak-check=full ./enjector-core-test
  )
