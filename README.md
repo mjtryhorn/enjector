@@ -29,10 +29,10 @@ Building Enjector on UNIX/MacOSX environment requires GCC 5 or later C compiler 
 with the standard GNU/Linux development tools and libraries installed in the build environment, including:
 
 * `cmake`
-* `valgrind` (optional for memory checks using `$ make memcheck`)
+* `valgrind` (optional for memory checks using `$ make memory_check`)
 * `gcov` (optional for coverage checks using `$ make coverage`)
 * `gcovr` (optional for coverage checks using `$ make coverage`)
-* `cppcheck` (optional for static analysis using `$ make staticcheck`)
+* `cppcheck` (optional for static analysis using `$ make static_check`)
 
 
 #### C Compiler Toolchain for Windows environments
@@ -69,15 +69,15 @@ Open a browser to the location http://localhost:8888
 	$ ./enjector-benchmark-tests
 
 ### To run memory leak check
-	$ make memcheck
+	$ make memory_check
 
 ### To run coverage check
 	$ make coverage
 A detailed HTML coverage report is available in the directory analysis/coverage/ 
 
 ### To run static analysis
-	$ make staticcheck
+	$ make static_check
 A detailed HTML static analysis report is available in the directory analysis/static 
 
 ### Quick update, build and check
-    $ git pull && make clean && cmake . && make && make coverage && make staticcheck && make memcheck 
+    $ git pull && make clean && cmake . && make && make coverage && make static_check && make memory_check 
