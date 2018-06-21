@@ -19,15 +19,22 @@ add_subdirectory (src/core-benchmark)
 add_subdirectory (src/core-test)
 add_subdirectory (src/main)
 
-file(MAKE_DIRECTORY coverage/)
-set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES coverage/)
+file(MAKE_DIRECTORY analysis/coverage/)
+file(MAKE_DIRECTORY analysis/static/)
+set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES analysis/)
 
 add_custom_target(
     coverage
     DEPENDS enjector-core-test
     COMMAND ./enjector-core-test
-    COMMAND gcovr -r . --html --html-details -o coverage/index.html
-    COMMAND echo "Report in coverage/"
+    COMMAND gcovr -r . --html --html-details -o analysis/coverage/index.html
+    COMMAND echo "Report in analysis/coverage/"
+)
+
+add_custom_target(
+    staticcheck
+    cppcheck --enable=all --inconclusive --xml-version=2 --force --library=windows,posix,gnu ./src/ 2> analysis/static/result.xml && \
+    cppcheck-htmlreport --source-encoding="iso8859-1" --title="Enjector" --source-dir=analysis/static --report-dir=analysis/static --file=analysis/static/result.xml && rm analysis/static/result.xml
 )
 
 add_custom_target(

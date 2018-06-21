@@ -29,9 +29,10 @@ Building Enjector on UNIX/MacOSX environment requires GCC 5 or later C compiler 
 with the standard GNU/Linux development tools and libraries installed in the build environment, including:
 
 * `cmake`
-* `valgrind` (optional for memory checks)
-* `gcov` (optional for coverage checks)
-* `gcovr` (optional for coverage checks)
+* `valgrind` (optional for memory checks using `$ make memcheck`)
+* `gcov` (optional for coverage checks using `$ make coverage`)
+* `gcovr` (optional for coverage checks using `$ make coverage`)
+* `cppcheck` (optional for static analysis using `$ make staticcheck`)
 
 
 #### C Compiler Toolchain for Windows environments
@@ -74,3 +75,5 @@ Open a browser to the location http://localhost:8888
 	$ make coverage
 A detailed HTML coverage report is available in the directory coverage/ 
 
+### Quick update, build and check
+    $ git pull && make clean && cmake . && make && make coverage && make memcheck
