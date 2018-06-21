@@ -2,8 +2,6 @@ language: c
 compiler:
   - gcc
 
-sudo: required
-
 addons:
   apt:
     sources:
@@ -19,7 +17,7 @@ matrix:
     env: CXX=g++-5 CC=gcc-5 GCOV=gcov-5
 
 install:
-- pip install gcovr
+- pip install --user gcovr
 
 script:
     ############################################################################
