@@ -87,10 +87,10 @@ A detailed HTML static analysis report is available in the directory analysis/st
     $ git pull && make clean && cmake . && make && make coverage && make static_check && make memory_check 
 
 [1]: https://enjector.com/
-[travis-badge]:    https://travis-ci.org/codecov/example-cpp11-cmake.svg?branch=master
-[travis-link]:     https://travis-ci.org/codecov/example-cpp11-cmake
-[travis-image]:    https://github.com/codecov/example-cpp1-cmake/blob/master/img/TravisCI.png
+[travis-badge]:    https://travis-ci.org/enjector/enjector.svg?branch=master
+[travis-link]:     https://travis-ci.org/enjector/enjector
+[travis-image]:    https://travis-ci.org/enjector/enjector/blob/master/img/TravisCI.png
 [license-badge]:   https://img.shields.io/badge/License-Apache%202.0-blue.svg
-[codecov-badge]:   https://codecov.io/gh/codecov/example-cpp11-cmake/branch/master/graph/badge.svg
-[codecov-link]:    https://codecov.io/gh/codecov/example-cpp11-cmake
+[codecov-badge]:   https://codecov.io/gh/enjector/enjector/branch/master/graph/badge.svg
+[codecov-link]:    https://codecov.io/gh/enjector/enjector
 [codecov-image]:   https://github.com/codecov/example-cpp1-cmake/blob/master/img/Codecov.png
