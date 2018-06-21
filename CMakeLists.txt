@@ -21,7 +21,7 @@ add_subdirectory (src/main)
 
 add_custom_target(
     coverage
-    COMMAND gcovr -r . --html --html-details -o coverage\
+    COMMAND gcovr -r . --html --html-details -o coverage/enjector-coverage.html
  )
 
 add_custom_target(
