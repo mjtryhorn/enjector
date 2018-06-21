@@ -25,7 +25,7 @@ script:
     ############################################################################
     # Build main and tests
     ############################################################################
-     - cmake .
+     - cmake -DCMAKE_BUILD_TYPE=Debug .
      - make
      - ./enjector-core-test
      - gcovr -r ./src/core/
