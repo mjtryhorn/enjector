@@ -73,7 +73,11 @@ Open a browser to the location http://localhost:8888
 
 ### To run coverage check
 	$ make coverage
-A detailed HTML coverage report is available in the directory coverage/ 
+A detailed HTML coverage report is available in the directory analysis/coverage/ 
+
+### To run static analysis
+	$ make staticcheck
+A detailed HTML static analysis report is available in the directory analysis/static 
 
 ### Quick update, build and check
-    $ git pull && make clean && cmake . && make && make coverage && make memcheck
+    $ git pull && make clean && cmake . && make && make coverage && make staticcheck && make memcheck 
