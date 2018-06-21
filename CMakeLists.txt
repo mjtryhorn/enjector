@@ -33,8 +33,7 @@ add_custom_target(
 
 add_custom_target(
     staticcheck
-    cppcheck --enable=all --inconclusive --xml-version=2 --force --library=windows,posix,gnu ./src/ 2> analysis/static/result.xml && \
-    cppcheck-htmlreport --source-encoding="iso8859-1" --title="Enjector" --source-dir=analysis/static --report-dir=analysis/static --file=analysis/static/result.xml && rm analysis/static/result.xml
+    cppcheck --enable=all --inconclusive --xml-version=2 --force --library=windows,posix,gnu ./src/ 2> analysis/static/result.xml && cppcheck-htmlreport --source-encoding="iso8859-1" --title="Enjector" --source-dir=analysis/static --report-dir=analysis/static --file=analysis/static/result.xml && rm analysis/static/result.xml
 )
 
 add_custom_target(
