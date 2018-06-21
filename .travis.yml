@@ -1,12 +1,16 @@
 language: c
-compiler:
-  - gcc
+
+sudo: required
+script:
+  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+  - gcc --version
+  - g++ --version
 
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.6
     packages:
     - gcc-5
     - g++-5
@@ -16,12 +20,6 @@ python:
 
 before_install:
   - pip install --user gcovr
-
-sudo: required
-
-script:
-  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
-  - gcc --version
 
 script:
     ############################################################################
