@@ -53,7 +53,6 @@ with the standard GNU/Linux development tools and libraries installed in the bui
 * `gcovr` (optional for coverage checks using `$ make coverage`)
 * `cppcheck` (optional for static analysis using `$ make static_check`)
 
-
 #### C Compiler Toolchain for Windows environments
 
 Building Enjector on Windows environment requires Visual Studio 2017 with the following features enabled:
@@ -100,6 +99,12 @@ A detailed HTML static analysis report is available in the directory analysis/st
 
 ### Quick update, build and check
     $ git pull && make clean && cmake . && make && make coverage && make static_check && make memory_check 
+
+# Status/Roadmap
+
+- June 2018: Event - started clean room implementation of core in GitHb as open source.
+- June 2018: Plan - complete core Verbs Engine implemented.
+- July-August 2018: Plan - complete core Workflow Engine and Designer implemented.
 
 [1]: https://enjector.com/
 [travis-badge]:    https://travis-ci.org/enjector/enjector.svg?branch=master
