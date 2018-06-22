@@ -25,6 +25,10 @@ It is architected with three key objectives:
 - To provide the robustness and reliability through clustering.
 - To provide operational efficiency (minimal manual involvement).
 
+This is our target architecture:
+
+![async-await](doc/img/enjector-architecture.png "Enjector Architecture")
+
 For more information on Enjector, please visit: [`http://enjector.com`](http://enjector.com)
 
 ## Build Prerequisites
