@@ -24,6 +24,7 @@ It is architected with three key objectives:
 - Process a high volume of IoT events meet the needs of today's web-scale applications.
 - To provide the robustness and reliability through clustering.
 - To provide operational efficiency (minimal manual involvement).
+- Written in pure C99 with minimal/no-dependency - designed to be lightening fast and light weight. A lot of attention is paid to how the CPU, memory and I/O is used efficiently.
 
 This is our target architecture:
 
