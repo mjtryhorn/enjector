@@ -103,8 +103,8 @@ A detailed HTML static analysis report is available in the directory analysis/st
 # Status/Roadmap
 
 - June 2018: Event - started clean room implementation of core in GitHb as open source.
-- June 2018: Plan - complete core Verbs Engine implemented.
-- July-August 2018: Plan - complete core Workflow Engine and Designer implemented.
+- June 2018: Plan - complete core Verbs Engine implementation.
+- July-August 2018: Plan - complete core Workflow Engine and Designer implementation.
 
 [1]: https://enjector.com/
 [travis-badge]:    https://travis-ci.org/enjector/enjector.svg?branch=master
