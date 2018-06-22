@@ -10,7 +10,14 @@
 Welcome to the Enjector source code tree!
 
 Enjector is a high performance, scalable machine learning and complex event processing platform. 
-With this engine you can build intelligent applications both in the cloud and on edge devices. 
+With this engine you can build intelligent applications both in the cloud and on edge devices.
+
+The types of problems you can solve:
+- Statistically compress raw sensor signal data using pattern recognition from the edge (IoT devices), which means less data/bandwidth required sending meaningful domain events to your cloud.
+- Detect certain patterns or anomalies and create actionable insights from domain events. 
+
+![async-await](doc/img/enjector-overview.png "Enjector Overview")
+
 It is architected with three key objectives:
 
 - To create a high-performance, embeddable engine for low powered IoT (Internet of Things) devices.
